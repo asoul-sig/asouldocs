@@ -1,0 +1,22 @@
+.masthead.segment {
+  min-height: 500px;
+  padding: 1em 0em;
+}
+.masthead .text.container {
+  padding-bottom: 4em;
+}
+.masthead h1.ui.header {
+  margin-bottom: 0em;
+  font-size: 4em;
+  font-weight: normal;
+}
+.masthead h2 {
+  font-size: 1.7em;
+  font-weight: normal;
+}
+.ui.vertical.stripe {
+  padding: 8em 0em;
+}
+.footer.segment {
+  padding: 4em 0em;
+}

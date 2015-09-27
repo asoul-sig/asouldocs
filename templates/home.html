@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}{{Tr(Lang, "name")}} - {{Tr(Lang, "tag_line")}}{% endblock %}
+{% block body %}
+<div class="ui inverted vertical masthead center aligned segment">
+  <div class="ui container">
+    <div class="ui large secondary inverted menu">
+    	{% for item in Navbar.Items %}
+      <a class="{% if item.Link == Link %}active{% endif %} item" href="{{item.Link}}" {% if item.Blank %}target="_blank"{% endif %}>{% if item.Icon %}<i class="{{item.Icon}} icon"></i> {% endif %}{{Tr(Lang, item.Locale)}}</a>
+      {% endfor %}
+      <div class="right item">
+        <div class="item">
+          <div class="ui small input">
+            <input type="text" placeholder="{{Tr(Lang, "navbar.search")}}...">
+          </div>
+        </div>
+        <div class="ui language floating dropdown link item">
+          <i class="world icon"></i>
+          <div class="text">{{LangName}}</div>
+        	<div class="menu">
+        		{% for lang in AllLangs %}
+						<a class="item {% if Lang == lang.Lang %}active selected{% endif %}" href="{{Link}}?lang={{lang.Lang}}">{{lang.Name}}</a>
+						{% endfor %}
+					</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui text container">
+    <img src="/img/favicon.ico" >
+    <h1 class="ui inverted header">
+      {{Tr(Lang, "home.title")}}
+    </h1>
+    <h2>{{Tr(Lang, "home.tag_line")}}</h2>
+    <a class="ui huge primary button" href="{{Page.DocsBaseURL}}">{{Tr(Lang, "home.get_started")}} <i class="right arrow icon"></i></a>
+  </div>
+</div>
+
+<div class="ui vertical stripe segment">
+  <div class="ui aligned stackable three column grid container">
+    <div class="column">
+      <h3 class="ui header">
+      	<i class="world icon"></i> {{Tr(Lang, "home.multi_lang")}}
+      </h3>
+      <p>{{Tr(Lang, "home.multi_lang_desc")}}</p>
+    </div>
+    <div class="column">
+      <h3 class="ui header">
+      	<i class="lightning icon"></i> {{Tr(Lang, "home.real_time")}}
+      </h3>
+      <p>{{Tr(Lang, "home.real_time_desc")}}</p>
+    </div>
+    <div class="column">
+      <h3 class="ui header">
+      	<i class="search icon"></i> {{Tr(Lang, "home.searchable")}}
+      </h3>
+      <p>{{Tr(Lang, "home.searchable_desc")}}</p>
+    </div>
+  </div>
+</div>
+{% include Page.Footer %}
+{% endblock %}

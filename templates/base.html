@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="description" content="{{Site.Desc}}" />
+
+		<link rel="shortcut icon" href="/img/favicon.ico" />
+		<link href="/css/semantic.min.css?v={{AppVer}}" rel="stylesheet" />
+		<link href="/css/peach.css?v={{AppVer}}" rel="stylesheet" />
+
+		{% if Site.UseCDN %}
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		{% else %}
+		<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+		{% endif %}
+		<script type="text/javascript" src="/js/semantic.min.js?v={{AppVer}}"></script>
+		<script type="text/javascript" src="/js/peach.js?v={{AppVer}}"></script>
+
+		<title>{% block title %}{{Title}}{% endblock %}</title>
+	</head>
+	<body>
+		{% block body %}{% endblock %}
+	</body>
+</html>

@@ -22,3 +22,7 @@ _testmain.go
 *.exe
 *.test
 *.prof
+peach.sublime-workspace
+peach.sublime-project
+peach
+custom
