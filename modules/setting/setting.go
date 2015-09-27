@@ -40,7 +40,8 @@ var (
 	Page struct {
 		HasLandingPage bool
 		DocsBaseURL    string
-		Footer         string
+
+		NavbarTplPath string
 	}
 
 	Navbar struct {
@@ -82,12 +83,8 @@ func init() {
 		}
 		return in
 	})
-	Page.Footer = sec.Key("FOOTER").Validate(func(in string) string {
-		if len(in) == 0 {
-			return "footer.html"
-		}
-		return in
-	})
+
+	Page.NavbarTplPath = "navbar.html"
 
 	sec = Cfg.Section("navbar")
 	list := sec.KeyStrings()

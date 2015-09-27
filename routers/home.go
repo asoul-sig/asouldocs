@@ -22,6 +22,7 @@ import (
 func Home(ctx *middleware.Context) {
 	if !setting.Page.HasLandingPage {
 		ctx.Redirect(setting.Page.DocsBaseURL)
+		return
 	}
 
 	ctx.HTML(200, "home")
