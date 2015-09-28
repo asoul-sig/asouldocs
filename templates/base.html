@@ -9,11 +9,16 @@
 		<link href="/fonts/octicons.css?v={{AppVer}}" rel="stylesheet" />
 		<link href="/css/peach.css?v={{AppVer}}" rel="stylesheet" />
 
-		{% if Site.UseCDN %}
-		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-		{% else %}
-		<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+		{% if Asset.CustomCSS %}
+			<link href="{{Asset.CustomCSS}}" rel="stylesheet" />
 		{% endif %}
+
+		{% if Site.UseCDN %}
+			<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		{% else %}
+			<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+		{% endif %}
+		
 		<script type="text/javascript" src="/js/semantic.min.js?v={{AppVer}}"></script>
 		<script type="text/javascript" src="/js/emojify-1.1.0.min.js"></script>
 		<script type="text/javascript" src="/js/peach.js?v={{AppVer}}"></script>

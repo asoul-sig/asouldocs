@@ -27,3 +27,8 @@ func Home(ctx *middleware.Context) {
 
 	ctx.HTML(200, "home")
 }
+
+func NotFound(ctx *middleware.Context) {
+	ctx.Data["Title"] = "404"
+	ctx.HTML(404, "404")
+}

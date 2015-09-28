@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{Title}} - {{Tr(Lang, "name")}}{% endblock %}
+{% block body %}
+	<div class="ui inverted vertical center aligned segment">
+		{% include Page.NavbarTplPath %}
+	</div>
+	<div class="ui vertical stripe segment">
+	  <div class="ui text container">
+	    <h2>{{Tr(Lang, "home.404")}}</h2>
+	  </div>
+	</div>
+
+	{% include Page.FooterTplPath %}
+{% endblock %}

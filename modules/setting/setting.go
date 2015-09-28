@@ -32,9 +32,10 @@ var (
 	HTTPPort int
 
 	Site struct {
-		Name   string
-		Desc   string
-		UseCDN bool
+		Name         string
+		Desc         string
+		UseCDN       bool
+		EnableDisqus bool
 	}
 
 	Page struct {
@@ -49,6 +50,16 @@ var (
 
 	Navbar struct {
 		Items []*NavbarItem
+	}
+
+	Asset struct {
+		CustomCSS string
+	}
+
+	Docs struct {
+		Type   string
+		Target string
+		Langs  []string
 	}
 
 	Cfg *ini.File
@@ -75,6 +86,7 @@ func init() {
 	Site.Name = sec.Key("NAME").MustString("Peach Server")
 	Site.Desc = sec.Key("DESC").String()
 	Site.UseCDN = sec.Key("USE_CDN").MustBool()
+	Site.EnableDisqus = sec.Key("ENABLE_DISQUS").MustBool()
 
 	sec = Cfg.Section("page")
 	Page.HasLandingPage = sec.Key("HAS_LANDING_PAGE").MustBool()
@@ -104,4 +116,12 @@ func init() {
 			Blank:  Cfg.Section(secName).Key("BLANK").MustBool(),
 		}
 	}
+
+	sec = Cfg.Section("asset")
+	Asset.CustomCSS = sec.Key("CUSTOM_CSS").String()
+
+	sec = Cfg.Section("docs")
+	Docs.Type = sec.Key("TYPE").In("local", []string{"local", "remote"})
+	Docs.Target = sec.Key("TARGET").String()
+	Docs.Langs = Cfg.Section("i18n").Key("LANGS").Strings(",")
 }

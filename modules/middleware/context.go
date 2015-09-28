@@ -36,5 +36,6 @@ func Contexter() macaron.Handler {
 		ctx.Data["Site"] = setting.Site
 		ctx.Data["Page"] = setting.Page
 		ctx.Data["Navbar"] = setting.Navbar
+		ctx.Data["Asset"] = setting.Asset
 	}
 }

@@ -4,35 +4,20 @@
 <div class="ui grid documentation container">
 	<div class="four wide column">
 		<div class="ui vertical menu">
+			{% for node in Toc.Nodes %}
 		  <div class="item">
-		    <div class="header">Products</div>
+		  	{% if node.Plain %}
+		    <div class="header">{{node.Title}}</div>
+		    {% else %}
+		    <a class="header" href="{{Page.DocsBaseURL}}/{{node.Name}}">{{node.Title}}</a>
+		    {% endif %}
 		    <div class="menu">
-		      <a class="item">Enterprise</a>
-		      <a class="item">Consumer</a>
+		    	{% for file in node.Nodes %}
+		      <a class="item" href="{{Page.DocsBaseURL}}/{{node.Name}}/{{file.Name}}">{{file.Title}}</a>
+		      {% endfor %}
 		    </div>
 		  </div>
-		  <div class="item">
-		    <div class="header">CMS Solutions</div>
-		    <div class="menu">
-		      <a class="item">Rails</a>
-		      <a class="item">Python</a>
-		      <a class="item">PHP</a>
-		    </div>
-		  </div>
-		  <div class="item">
-		    <div class="header">Hosting</div>
-		    <div class="menu">
-		      <a class="item">Shared</a>
-		      <a class="item">Dedicated</a>
-		    </div>
-		  </div>
-		  <div class="item">
-		    <div class="header">Support</div>
-		    <div class="menu">
-		      <a class="item">E-mail Support</a>
-		      <a class="item">FAQs</a>
-		    </div>
-		  </div>
+		  {% endfor %}
 		</div>
 	</div>
 
@@ -41,7 +26,9 @@
 			{{Content|safe}}
 		</div>
 
-		{# {% include "disqus_default.html" %} #}
+		{% if Site.EnableDisqus %}
+			{% include "disqus_default.html" %}
+		{% endif %}
 	</div>
 </div>
 

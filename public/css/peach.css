@@ -564,6 +564,9 @@ samp {
   width: auto;
   margin-right: 1em;
 }
+.documentation.container .ui.vertical.menu .item {
+  font-size: 1em!important;
+}
 .documentation.container .markdown {
   padding-left: 30px;
 }
