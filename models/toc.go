@@ -82,18 +82,16 @@ var (
 	LocalRoot string
 )
 
-func initToc() {
+func initToc() error {
 	tocPath := path.Join(LocalRoot, "TOC.ini")
 	if !com.IsFile(tocPath) {
-		log.Error("TOC not found: %s", tocPath)
-		return
+		return fmt.Errorf("TOC not found: %s", tocPath)
 	}
 
 	// Generate Toc.
 	toc, err := ini.Load(tocPath)
 	if err != nil {
-		log.Error("Fail to load TOC.ini: %v", err)
-		return
+		return fmt.Errorf("Fail to load TOC.ini: %v", err)
 	}
 
 	Toc = make(map[string]*Node)
@@ -131,13 +129,17 @@ func initToc() {
 
 		Toc[lang] = rootNode
 	}
+	return nil
 }
 
 func ReloadDocs() {
 	tocLocker.Lock()
 	defer tocLocker.Unlock()
 
-	initToc()
+	if err := initToc(); err != nil {
+		log.Error("init.Toc: %v", err)
+		return
+	}
 	initDocs()
 }
 

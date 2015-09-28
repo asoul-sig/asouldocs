@@ -16,11 +16,11 @@ package models
 
 import (
 	"bytes"
-	// "fmt"
 	"io/ioutil"
 	"path"
 	"strings"
 
+	"github.com/Unknwon/com"
 	"github.com/Unknwon/log"
 
 	"github.com/Unknwon/peach/modules/setting"
@@ -74,10 +74,15 @@ func initLangDocs(lang string) {
 
 		for _, file := range dir.Nodes {
 			docPath := path.Join(LocalRoot, lang, dir.Name, file.Name+".md")
-			data, err := ioutil.ReadFile(docPath)
-			if err != nil {
-				log.Error("Fail to read doc file: %v", err)
-				continue
+
+			if com.IsFile(docPath) {
+				data, err = ioutil.ReadFile(docPath)
+				if err != nil {
+					log.Error("Fail to read doc file: %v", err)
+					continue
+				}
+			} else {
+				data = []byte("")
 			}
 
 			file.Title, data = parseNodeName(file.Name, data)
