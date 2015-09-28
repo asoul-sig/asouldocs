@@ -1,3 +1,18 @@
+@import "_markdown";
+
+body {
+	min-width: 767px;
+	overflow-x: auto;
+	font-family: "Microsoft YaHei",Lato,"Helvetica Neue",Arial,Helvetica,sans-serif;
+}
+
+.emoji {
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-block;
+  background-size: contain;
+}
+
 .masthead {
 	&.segment {
 		min-height: 500px;
@@ -20,9 +35,32 @@
 .ui.vertical.stripe {
   padding: 8em 0em;
 }
-
 .ui.icon.header {
 	margin-bottom: 2em;
+}
+code, kbd, pre, samp {
+  font-family: "Microsoft YaHei",monospace;
+  font-size: 1em;
+}
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+	.ui.container {
+		width: 95%!important;
+	}
+	.ui.grid.container {
+		width: 100%!important;
+	}
+}
+
+.documentation.container {
+	margin: 1.5em 0;
+	.ui.vertical.menu {
+		width: auto;
+		margin-right: 1em;
+	}
+	.markdown {
+		padding-left: 30px;
+	}
 }
 
 .footer.segment {

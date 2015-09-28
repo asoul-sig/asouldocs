@@ -42,6 +42,9 @@ var (
 		DocsBaseURL    string
 
 		NavbarTplPath string
+		HomeTplPath   string
+		DocsTplPath   string
+		FooterTplPath string
 	}
 
 	Navbar struct {
@@ -85,6 +88,9 @@ func init() {
 	})
 
 	Page.NavbarTplPath = "navbar.html"
+	Page.HomeTplPath = "home_default.html"
+	Page.DocsTplPath = "docs_default.html"
+	Page.FooterTplPath = "footer_default.html"
 
 	sec = Cfg.Section("navbar")
 	list := sec.KeyStrings()

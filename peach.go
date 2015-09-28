@@ -49,6 +49,8 @@ func main() {
 	m.Use(middleware.Contexter())
 
 	m.Get("/", routers.Home)
+	m.Get("/docs", routers.Docs)
+	m.Get("/docs/*", routers.Docs)
 
 	listenAddr := fmt.Sprintf("0.0.0.0:%d", setting.HTTPPort)
 	log.Info("%s Listen on %s", setting.Site.Name, listenAddr)
