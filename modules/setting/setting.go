@@ -33,10 +33,9 @@ var (
 	HTTPPort int
 
 	Site struct {
-		Name         string
-		Desc         string
-		UseCDN       bool
-		EnableDisqus bool
+		Name   string
+		Desc   string
+		UseCDN bool
 	}
 
 	Page struct {
@@ -63,6 +62,11 @@ var (
 		Type   string
 		Target string
 		Langs  []string
+	}
+
+	Extension struct {
+		EnableDisqus         bool
+		HighlightJSCustomCSS string
 	}
 
 	Cfg *ini.File
@@ -95,7 +99,6 @@ func init() {
 	Site.Name = sec.Key("NAME").MustString("Peach Server")
 	Site.Desc = sec.Key("DESC").String()
 	Site.UseCDN = sec.Key("USE_CDN").MustBool()
-	Site.EnableDisqus = sec.Key("ENABLE_DISQUS").MustBool()
 
 	sec = Cfg.Section("page")
 	Page.HasLandingPage = sec.Key("HAS_LANDING_PAGE").MustBool()
@@ -144,4 +147,8 @@ func init() {
 	Docs.Type = sec.Key("TYPE").In("local", []string{"local", "remote"})
 	Docs.Target = sec.Key("TARGET").String()
 	Docs.Langs = Cfg.Section("i18n").Key("LANGS").Strings(",")
+
+	sec = Cfg.Section("extension")
+	Extension.EnableDisqus = sec.Key("ENABLE_DISQUS").MustBool()
+	Extension.HighlightJSCustomCSS = sec.Key("HIGHLIGHTJS_CUSTOM_CSS").String()
 }

@@ -210,7 +210,7 @@ func ReloadDocs(localRoot string) {
 func init() {
 	if setting.Docs.Type == "local" {
 		if !com.IsDir(setting.Docs.Target) {
-			log.Error("Local documentation not found: %s", setting.Docs.Target)
+			log.Fatal("Local documentation not found: %s", setting.Docs.Target)
 			return
 		}
 		ReloadDocs(setting.Docs.Target)

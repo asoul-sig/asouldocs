@@ -22,7 +22,11 @@
 		<script type="text/javascript" src="/js/emojify-1.1.0.min.js"></script>
 		<script type="text/javascript" src="/js/peach.js?v={{AppVer}}"></script>
 
-		<link rel="stylesheet" href="/css/highlight-8.7/default.css">
+		{% if Extension.HighlightJSCustomCSS %}
+			<link rel="stylesheet" href="{{Extension.HighlightJSCustomCSS}}">
+		{% else %}
+			<link rel="stylesheet" href="/css/highlight-8.7/default.css">
+		{% endif %}
 		<script src="/js/highlight-8.7.pack.js"></script>
 
 		<title>{% block title %}{{Title}}{% endblock %}</title>

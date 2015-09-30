@@ -352,12 +352,14 @@
     text-align:right;
   }
 
+  :not(pre)>code {
+    background-color:rgba(0,0,0,0.04);
+  }
   code,
   tt {
     padding: 0.2em 0.1em;
     margin:0;
     font-size:85%;
-    background-color:rgba(0,0,0,0.04);
     border-radius:3px;
   }
 
@@ -384,7 +386,7 @@
     font-size:100%;
     word-break:normal;
     white-space:pre;
-    background:transparent;
+    // background:transparent;
     border:0;
   }
 
@@ -394,11 +396,11 @@
 
   .highlight pre,
   pre {
-    padding:16px;
+    // padding:16px;
     overflow:auto;
     font-size:85%;
     line-height:1.45;
-    background-color:#f7f7f7;
+    // background-color:#f7f7f7;
     border-radius:3px;
   }
 
@@ -413,14 +415,14 @@
 
   pre code,
   pre tt {
-    display:inline;
+    // display:inline;
     max-width:initial;
-    padding:0;
+    padding: 0.5em;
     margin:0;
     overflow:initial;
     line-height:inherit;
     word-wrap:normal;
-    background-color:transparent;
+    // background-color:transparent;
     border:0;
   }
 
@@ -469,124 +471,4 @@
     font-weight:bold;
     background:#f8f8f8;border-top:0;
   }
-
-}
-
-/* Author: jmblog */
-
-/* Project: https://github.com/jmblog/color-themes-for-google-code-prettify */
-
-/* GitHub Theme */
-
-/* Pretty printing styles. Used with prettify.js. */
-
-/* SPAN elements with the classes below are added by prettyprint. */
-
-/* plain text */
-
-.pln {
-    color: #333333;
-}
-@media screen {
-    /* string content */
-    .str {
-        color: #dd1144;
-    }
-    /* a keyword */
-    .kwd {
-        color: #333333;
-    }
-    /* a comment */
-    .com {
-        color: #999988;
-        font-style: italic;
-    }
-    /* a type name */
-    .typ {
-        color: #445588;
-    }
-    /* a literal value */
-    .lit {
-        color: #445588;
-    }
-    /* punctuation */
-    .pun {
-        color: #333333;
-    }
-    /* lisp open bracket */
-    .opn {
-        color: #333333;
-    }
-    /* lisp close bracket */
-    .clo {
-        color: #333333;
-    }
-    /* a markup tag name */
-    .tag {
-        color: navy;
-    }
-    /* a markup attribute name */
-    .atn {
-        color: teal;
-    }
-    /* a markup attribute value */
-    .atv {
-        color: #dd1144;
-    }
-    /* a declaration */
-    .dec {
-        color: #333333;
-    }
-    /* a variable name */
-    .var {
-        color: teal;
-    }
-    /* a function name */
-    .fun {
-        color: #990000;
-    }
-}
-/* Use higher contrast and text-weight for printable form. */
-
-@media print,
-projection {
-    .str {
-        color: #006600;
-    }
-    .kwd {
-        color: #006;
-        font-weight: bold;
-    }
-    .com {
-        color: #600;
-        font-style: italic;
-    }
-    .typ {
-        color: #404;
-        font-weight: bold;
-    }
-    .lit {
-        color: #004444;
-    }
-    .pun,
-    .opn,
-    .clo {
-        color: #444400;
-    }
-    .tag {
-        color: #006;
-        font-weight: bold;
-    }
-    .atn {
-        color: #440044;
-    }
-    .atv {
-        color: #006600;
-    }
-}
-/* Specify class=linenums on a pre to get line numbering */
-
-ol.linenums {
-    margin-top: 0;
-    margin-bottom: 0;
 }
