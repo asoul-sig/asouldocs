@@ -15,7 +15,9 @@
 package models
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"path"
 	"strings"
 	"sync"
@@ -30,44 +32,75 @@ import (
 type Node struct {
 	Name    string // Name in TOC
 	Title   string // Name in given language
-	Content []byte
+	content []byte
 
 	Plain    bool   // Root node without content
-	FileName string // For root node only
+	FileName string // Full path with .md extension
+	Nodes    []*Node
+}
+
+func (n *Node) ReloadContent() error {
+	data, err := ioutil.ReadFile(n.FileName)
+	if err != nil {
+		return err
+	}
+
+	n.Title, data = parseNodeName(n.Name, data)
+	n.Plain = len(bytes.TrimSpace(data)) == 0
+
+	if !n.Plain {
+		n.content = markdown(data)
+	}
+	return nil
+}
+
+func (n *Node) Content() []byte {
+	if !setting.ProdMode {
+		if err := n.ReloadContent(); err != nil {
+			log.Error("Fail to reload content: %v", err)
+		}
+	}
+
+	return n.content
+}
+
+// Toc represents table of content in a specific language.
+type Toc struct {
+	RootPath string
 	Nodes    []*Node
 }
 
 // GetDoc should only be called by top level toc.
-func (n *Node) GetDoc(name string) (string, []byte) {
+func (t *Toc) GetDoc(name string) (string, []byte) {
 	name = strings.TrimPrefix(name, "/")
 
 	// Returns first node whatever avaiable as default.
 	if len(name) == 0 {
-		if len(n.Nodes) == 0 ||
-			n.Nodes[0].Plain {
+		if len(t.Nodes) == 0 ||
+			t.Nodes[0].Plain {
 			return "", nil
 		}
-		return n.Nodes[0].Title, n.Nodes[0].Content
+		return t.Nodes[0].Title, t.Nodes[0].Content()
 	}
 
 	infos := strings.Split(name, "/")
 
 	// Dir node.
 	if len(infos) == 1 {
-		for i := range n.Nodes {
-			if n.Nodes[i].Name == infos[0] {
-				return n.Nodes[i].Title, n.Nodes[i].Content
+		for i := range t.Nodes {
+			if t.Nodes[i].Name == infos[0] {
+				return t.Nodes[i].Title, t.Nodes[i].Content()
 			}
 		}
 		return "", nil
 	}
 
 	// File node.
-	for i := range n.Nodes {
-		if n.Nodes[i].Name == infos[0] {
-			for j := range n.Nodes[i].Nodes {
-				if n.Nodes[i].Nodes[j].Name == infos[1] {
-					return n.Nodes[i].Nodes[j].Title, n.Nodes[i].Nodes[j].Content
+	for i := range t.Nodes {
+		if t.Nodes[i].Name == infos[0] {
+			for j := range t.Nodes[i].Nodes {
+				if t.Nodes[i].Nodes[j].Name == infos[1] {
+					return t.Nodes[i].Nodes[j].Title, t.Nodes[i].Nodes[j].Content()
 				}
 			}
 		}
@@ -78,31 +111,32 @@ func (n *Node) GetDoc(name string) (string, []byte) {
 
 var (
 	tocLocker = sync.RWMutex{}
-	Toc       map[string]*Node
-	LocalRoot string
+	Tocs      map[string]*Toc
 )
 
-func initToc() error {
-	tocPath := path.Join(LocalRoot, "TOC.ini")
+func initToc(localRoot string) error {
+	tocPath := path.Join(localRoot, "TOC.ini")
 	if !com.IsFile(tocPath) {
 		return fmt.Errorf("TOC not found: %s", tocPath)
 	}
 
 	// Generate Toc.
-	toc, err := ini.Load(tocPath)
+	tocCfg, err := ini.Load(tocPath)
 	if err != nil {
 		return fmt.Errorf("Fail to load TOC.ini: %v", err)
 	}
 
-	Toc = make(map[string]*Node)
+	Tocs = make(map[string]*Toc)
 	for _, lang := range setting.Docs.Langs {
-		rootNode := &Node{}
-		dirs := toc.Section("").KeyStrings()
-		rootNode.Nodes = make([]*Node, 0, len(dirs))
+		toc := &Toc{
+			RootPath: localRoot,
+		}
+		dirs := tocCfg.Section("").KeyStrings()
+		toc.Nodes = make([]*Node, 0, len(dirs))
 		for _, dir := range dirs {
-			dirName := toc.Section("").Key(dir).String()
+			dirName := tocCfg.Section("").Key(dir).String()
 			fmt.Println(dirName + "/")
-			files := toc.Section(dirName).KeyStrings()
+			files := tocCfg.Section(dirName).KeyStrings()
 
 			// Skip empty directory.
 			if len(files) == 0 {
@@ -111,36 +145,37 @@ func initToc() error {
 
 			dirNode := &Node{
 				Name:     dirName,
-				FileName: toc.Section(dirName).Key(files[0]).String(),
+				FileName: path.Join(localRoot, lang, dirName, tocCfg.Section(dirName).Key(files[0]).String()) + ".md",
 				Nodes:    make([]*Node, 0, len(files)-1),
 			}
-			rootNode.Nodes = append(rootNode.Nodes, dirNode)
+			toc.Nodes = append(toc.Nodes, dirNode)
 
 			for _, file := range files[1:] {
-				fileName := toc.Section(dirName).Key(file).String()
+				fileName := tocCfg.Section(dirName).Key(file).String()
 				fmt.Println(strings.Repeat(" ", len(dirName))+"|__", fileName)
 
 				node := &Node{
-					Name: fileName,
+					Name:     fileName,
+					FileName: path.Join(localRoot, lang, dirName, fileName) + ".md",
 				}
 				dirNode.Nodes = append(dirNode.Nodes, node)
 			}
 		}
 
-		Toc[lang] = rootNode
+		Tocs[lang] = toc
 	}
 	return nil
 }
 
-func ReloadDocs() {
+func ReloadDocs(localRoot string) {
 	tocLocker.Lock()
 	defer tocLocker.Unlock()
 
-	if err := initToc(); err != nil {
+	if err := initToc(localRoot); err != nil {
 		log.Error("init.Toc: %v", err)
 		return
 	}
-	initDocs()
+	initDocs(localRoot)
 }
 
 func init() {
@@ -149,7 +184,6 @@ func init() {
 			log.Error("Local documentation not found: %s", setting.Docs.Target)
 			return
 		}
-		LocalRoot = setting.Docs.Target
-		ReloadDocs()
+		ReloadDocs(setting.Docs.Target)
 	}
 }

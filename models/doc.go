@@ -17,7 +17,6 @@ package models
 import (
 	"bytes"
 	"io/ioutil"
-	"path"
 	"strings"
 
 	"github.com/Unknwon/com"
@@ -55,11 +54,10 @@ func parseNodeName(name string, data []byte) (string, []byte) {
 	return title, data[endIdx+4:]
 }
 
-func initLangDocs(lang string) {
-	toc := Toc[lang]
+func initLangDocs(localRoot, lang string) {
+	toc := Tocs[lang]
 	for _, dir := range toc.Nodes {
-		docPath := path.Join(LocalRoot, lang, dir.Name, dir.FileName+".md")
-		data, err := ioutil.ReadFile(docPath)
+		data, err := ioutil.ReadFile(dir.FileName)
 		if err != nil {
 			log.Error("Fail to read doc file: %v", err)
 			continue
@@ -69,14 +67,12 @@ func initLangDocs(lang string) {
 		dir.Plain = len(bytes.TrimSpace(data)) == 0
 
 		if !dir.Plain {
-			dir.Content = markdown(data)
+			dir.content = markdown(data)
 		}
 
 		for _, file := range dir.Nodes {
-			docPath := path.Join(LocalRoot, lang, dir.Name, file.Name+".md")
-
-			if com.IsFile(docPath) {
-				data, err = ioutil.ReadFile(docPath)
+			if com.IsFile(file.FileName) {
+				data, err = ioutil.ReadFile(file.FileName)
 				if err != nil {
 					log.Error("Fail to read doc file: %v", err)
 					continue
@@ -86,13 +82,13 @@ func initLangDocs(lang string) {
 			}
 
 			file.Title, data = parseNodeName(file.Name, data)
-			file.Content = markdown(data)
+			file.content = markdown(data)
 		}
 	}
 }
 
-func initDocs() {
+func initDocs(localRoot string) {
 	for _, lang := range setting.Docs.Langs {
-		initLangDocs(lang)
+		initLangDocs(localRoot, lang)
 	}
 }

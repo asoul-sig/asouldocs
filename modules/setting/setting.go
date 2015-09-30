@@ -29,6 +29,7 @@ type NavbarItem struct {
 
 var (
 	AppVer   string
+	ProdMode bool
 	HTTPPort int
 
 	Site struct {
@@ -80,6 +81,12 @@ func init() {
 	}
 
 	sec := Cfg.Section("")
+	if sec.Key("RUN_MODE").String() == "prod" {
+		ProdMode = true
+		macaron.Env = macaron.PROD
+		macaron.ColorLog = false
+	}
+
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(5555)
 
 	sec = Cfg.Section("site")

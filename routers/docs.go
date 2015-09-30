@@ -26,9 +26,9 @@ import (
 )
 
 func Docs(ctx *middleware.Context) {
-	toc := models.Toc[ctx.Locale.Language()]
+	toc := models.Tocs[ctx.Locale.Language()]
 	if toc == nil {
-		toc = models.Toc[setting.Docs.Langs[0]]
+		toc = models.Tocs[setting.Docs.Langs[0]]
 	}
 	ctx.Data["Toc"] = toc
 
@@ -46,7 +46,7 @@ func Docs(ctx *middleware.Context) {
 
 func DocsStatic(ctx *middleware.Context) {
 	if len(ctx.Params("*")) > 0 {
-		f, err := os.Open(path.Join(models.LocalRoot, "images", ctx.Params("*")))
+		f, err := os.Open(path.Join(models.Tocs[setting.Docs.Langs[0]].RootPath, "images", ctx.Params("*")))
 		if err != nil {
 			ctx.JSON(500, map[string]interface{}{
 				"error": err.Error(),
