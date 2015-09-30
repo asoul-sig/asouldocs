@@ -36,6 +36,7 @@ var (
 		Name   string
 		Desc   string
 		UseCDN bool
+		URL    string
 	}
 
 	Page struct {
@@ -66,6 +67,7 @@ var (
 
 	Extension struct {
 		EnableDisqus         bool
+		DisqusShortName      string
 		HighlightJSCustomCSS string
 	}
 
@@ -99,6 +101,7 @@ func init() {
 	Site.Name = sec.Key("NAME").MustString("Peach Server")
 	Site.Desc = sec.Key("DESC").String()
 	Site.UseCDN = sec.Key("USE_CDN").MustBool()
+	Site.URL = sec.Key("URL").String()
 
 	sec = Cfg.Section("page")
 	Page.HasLandingPage = sec.Key("HAS_LANDING_PAGE").MustBool()
@@ -150,5 +153,6 @@ func init() {
 
 	sec = Cfg.Section("extension")
 	Extension.EnableDisqus = sec.Key("ENABLE_DISQUS").MustBool()
+	Extension.DisqusShortName = sec.Key("DISQUS_SHORT_NAME").String()
 	Extension.HighlightJSCustomCSS = sec.Key("HIGHLIGHTJS_CUSTOM_CSS").String()
 }
