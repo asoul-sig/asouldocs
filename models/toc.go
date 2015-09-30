@@ -97,6 +97,7 @@ func (n *Node) Content() []byte {
 type Toc struct {
 	RootPath string
 	Nodes    []*Node
+	Pages    []*Node
 }
 
 // GetDoc should only be called by top level toc.
@@ -189,6 +190,19 @@ func initToc(localRoot string) error {
 				}
 				dirNode.Nodes = append(dirNode.Nodes, node)
 			}
+		}
+
+		// Single pages.
+		pages := tocCfg.Section("pages").KeyStrings()
+		toc.Pages = make([]*Node, 0, len(pages))
+		for _, page := range pages {
+			pageName := tocCfg.Section("pages").Key(page).String()
+			fmt.Println(pageName)
+
+			toc.Pages = append(toc.Pages, &Node{
+				Name:     pageName,
+				FileName: path.Join(localRoot, lang, pageName) + ".md",
+			})
 		}
 
 		Tocs[lang] = toc

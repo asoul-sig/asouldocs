@@ -15,6 +15,9 @@
 package routers
 
 import (
+	"strings"
+
+	"github.com/Unknwon/peach/models"
 	"github.com/Unknwon/peach/modules/middleware"
 	"github.com/Unknwon/peach/modules/setting"
 )
@@ -26,6 +29,26 @@ func Home(ctx *middleware.Context) {
 	}
 
 	ctx.HTML(200, "home")
+}
+
+func Pages(ctx *middleware.Context) {
+	toc := models.Tocs[ctx.Locale.Language()]
+	if toc == nil {
+		toc = models.Tocs[setting.Docs.Langs[0]]
+	}
+
+	pageName := strings.ToLower(ctx.Req.URL.Path[1:])
+	for i := range toc.Pages {
+		if toc.Pages[i].Name == pageName {
+			ctx.Data["Title"] = toc.Pages[i].Title
+			ctx.Data["Content"] = string(toc.Pages[i].Content())
+			ctx.Data["Pages"] = toc.Pages
+			ctx.HTML(200, "docs")
+			return
+		}
+	}
+
+	NotFound(ctx)
 }
 
 func NotFound(ctx *middleware.Context) {
