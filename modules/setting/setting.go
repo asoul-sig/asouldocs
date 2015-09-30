@@ -43,10 +43,12 @@ var (
 		HasLandingPage bool
 		DocsBaseURL    string
 
+		UseCustomTpl  bool
 		NavbarTplPath string
 		HomeTplPath   string
 		DocsTplPath   string
 		FooterTplPath string
+		DisqusTplPath string
 	}
 
 	Navbar struct {
@@ -106,10 +108,21 @@ func init() {
 		return in
 	})
 
-	Page.NavbarTplPath = "navbar.html"
-	Page.HomeTplPath = "home_default.html"
-	Page.DocsTplPath = "docs_default.html"
-	Page.FooterTplPath = "footer_default.html"
+	Page.UseCustomTpl = sec.Key("USE_CUSTOM_TPL").MustBool()
+	if Page.UseCustomTpl {
+		prefix := "../custom/templates/"
+		Page.NavbarTplPath = "navbar.html"
+		Page.HomeTplPath = prefix + "home.html"
+		Page.DocsTplPath = prefix + "docs.html"
+		Page.FooterTplPath = "footer.html"
+		Page.DisqusTplPath = "disqus.html"
+	} else {
+		Page.NavbarTplPath = "navbar_default.html"
+		Page.HomeTplPath = "home_default.html"
+		Page.DocsTplPath = "docs_default.html"
+		Page.FooterTplPath = "footer_default.html"
+		Page.DisqusTplPath = "disqus_default.html"
+	}
 
 	sec = Cfg.Section("navbar")
 	list := sec.KeyStrings()
