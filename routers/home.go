@@ -39,7 +39,7 @@ func Pages(ctx *middleware.Context) {
 		toc = models.Tocs[setting.Docs.Langs[0]]
 	}
 
-	pageName := strings.ToLower(ctx.Req.URL.Path[1:])
+	pageName := strings.ToLower(strings.TrimSuffix(ctx.Req.URL.Path[1:], ".html"))
 	for i := range toc.Pages {
 		if toc.Pages[i].Name == pageName {
 			page := toc.Pages[i]

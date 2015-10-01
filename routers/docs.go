@@ -34,7 +34,7 @@ func Docs(ctx *middleware.Context) {
 	}
 	ctx.Data["Toc"] = toc
 
-	nodeName := strings.TrimPrefix(strings.ToLower(ctx.Req.URL.Path), setting.Page.DocsBaseURL)
+	nodeName := strings.TrimPrefix(strings.ToLower(strings.TrimSuffix(ctx.Req.URL.Path, ".html")), setting.Page.DocsBaseURL)
 	title, content, isDefault := toc.GetDoc(nodeName)
 	if content == nil {
 		NotFound(ctx)

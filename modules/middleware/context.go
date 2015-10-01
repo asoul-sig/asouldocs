@@ -15,6 +15,8 @@
 package middleware
 
 import (
+	"strings"
+
 	"github.com/Unknwon/macaron"
 
 	"github.com/Unknwon/peach/modules/setting"
@@ -31,7 +33,7 @@ func Contexter() macaron.Handler {
 		}
 		c.Map(ctx)
 
-		ctx.Data["Link"] = ctx.Req.URL.Path
+		ctx.Data["Link"] = strings.TrimSuffix(ctx.Req.URL.Path, ".html")
 		ctx.Data["AppVer"] = setting.AppVer
 		ctx.Data["Site"] = setting.Site
 		ctx.Data["Page"] = setting.Page
