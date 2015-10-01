@@ -64,6 +64,9 @@ var (
 		Target string
 		Secret string
 		Langs  []string
+
+		// Only used for languages are not en-US or zh-CN to bypass error panic.
+		Locales map[string][]byte
 	}
 
 	Extension struct {
@@ -144,6 +147,12 @@ func init() {
 	Docs.Target = sec.Key("TARGET").String()
 	Docs.Secret = sec.Key("SECRET").String()
 	Docs.Langs = Cfg.Section("i18n").Key("LANGS").Strings(",")
+	Docs.Locales = make(map[string][]byte)
+	for _, lang := range Docs.Langs {
+		if lang != "en-US" || lang != "zh-CN" {
+			Docs.Locales["locale_"+lang+".ini"] = []byte("")
+		}
+	}
 
 	sec = Cfg.Section("extension")
 	Extension.EnableDisqus = sec.Key("ENABLE_DISQUS").MustBool()

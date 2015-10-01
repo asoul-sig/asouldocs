@@ -46,7 +46,9 @@ func main() {
 	m.Use(macaron.Statics(macaron.StaticOptions{
 		SkipLogging: setting.ProdMode,
 	}, "custom/public", "public"))
-	m.Use(i18n.I18n())
+	m.Use(i18n.I18n(i18n.Options{
+		Files: setting.Docs.Locales,
+	}))
 	tplDir := "templates"
 	if setting.Page.UseCustomTpl {
 		tplDir = "custom/templates"
