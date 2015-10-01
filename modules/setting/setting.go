@@ -149,7 +149,7 @@ func init() {
 	Docs.Langs = Cfg.Section("i18n").Key("LANGS").Strings(",")
 	Docs.Locales = make(map[string][]byte)
 	for _, lang := range Docs.Langs {
-		if lang != "en-US" || lang != "zh-CN" {
+		if lang != "en-US" && lang != "zh-CN" {
 			Docs.Locales["locale_"+lang+".ini"] = []byte("")
 		}
 	}

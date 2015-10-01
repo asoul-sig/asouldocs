@@ -15,7 +15,6 @@
 package routers
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/Unknwon/peach/models"
@@ -40,7 +39,6 @@ func Pages(ctx *middleware.Context) {
 
 	pageName := strings.ToLower(ctx.Req.URL.Path[1:])
 	for i := range toc.Pages {
-		fmt.Println(toc.Pages[i].Name)
 		if toc.Pages[i].Name == pageName {
 			ctx.Data["Title"] = toc.Pages[i].Title
 			ctx.Data["Content"] = string(toc.Pages[i].Content())
