@@ -1124,6 +1124,9 @@ body {
   font-size: 1.7em;
   font-weight: normal;
 }
+.ui.vertical.menu .item.current {
+  color: green;
+}
 .ui.vertical.stripe {
   padding: 6em 0em;
 }

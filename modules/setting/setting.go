@@ -74,6 +74,7 @@ var (
 		DisqusShortName      string
 		HighlightJSCustomCSS string
 		EnableSearch         bool
+		GABlock              string
 	}
 
 	Cfg *ini.File
@@ -159,4 +160,5 @@ func init() {
 	Extension.DisqusShortName = sec.Key("DISQUS_SHORT_NAME").String()
 	Extension.HighlightJSCustomCSS = sec.Key("HIGHLIGHTJS_CUSTOM_CSS").String()
 	Extension.EnableSearch = sec.Key("ENABLE_SEARCH").MustBool()
+	Extension.GABlock = sec.Key("GA_BLOCK").String()
 }

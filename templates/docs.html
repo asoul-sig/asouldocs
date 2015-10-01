@@ -11,13 +11,15 @@
 					{% for node in Toc.Nodes %}
 				  <div class="item">
 				  	{% if node.Plain %}
-				    <div class="header">{{node.Title}}</div>
+				    	<div class="header">{{node.Title}}</div>
 				    {% else %}
-				    <a class="header" href="{{Page.DocsBaseURL}}/{{node.Name}}">{{node.Title}}</a>
+				    	<a class="header" href="{{Page.DocsBaseURL}}/{{node.Name}}">{{node.Title}}</a>
 				    {% endif %}
 				    <div class="menu">
 				    	{% for file in node.Nodes %}
-				      <a class="item" href="{{Page.DocsBaseURL}}/{{node.Name}}/{{file.Name}}">{{file.Title}}</a>
+				    		{% if file.Title %}
+				      	<a class="item {% if Page.DocsBaseURL|add:"/"|add:node.Name|add:"/"|add:file.Name == Link %}current{% endif %}" href="{{Page.DocsBaseURL}}/{{node.Name}}/{{file.Name}}">{{file.Title}}</a>
+				      	{% endif %}
 				      {% endfor %}
 				    </div>
 				  </div>
