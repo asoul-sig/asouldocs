@@ -38,6 +38,13 @@ func initLangDocs(tocs map[string]*Toc, localRoot, lang string) {
 			}
 		}
 	}
+
+	for _, page := range toc.Pages {
+		if err := page.ReloadContent(); err != nil {
+			log.Error("Fail to load doc file: %v", err)
+			continue
+		}
+	}
 }
 
 func initDocs(tocs map[string]*Toc, localRoot string) {
