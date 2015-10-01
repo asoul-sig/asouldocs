@@ -45,7 +45,13 @@ func main() {
 	m.Use(macaron.Recovery())
 	m.Use(macaron.Statics(macaron.StaticOptions{}, "custom/public", "public"))
 	m.Use(i18n.I18n())
-	m.Use(pongo2.Pongoer())
+	tplDir := "templates"
+	if setting.Page.UseCustomTpl {
+		tplDir = "custom/templates"
+	}
+	m.Use(pongo2.Pongoer(pongo2.Options{
+		Directory: tplDir,
+	}))
 	m.Use(middleware.Contexter())
 
 	m.Get("/", routers.Home)

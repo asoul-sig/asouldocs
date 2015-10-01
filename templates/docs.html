@@ -1,5 +1,50 @@
 {% extends "base.html" %}
 {% block title %}{{Title}} - {{Tr(Lang, "name")}}{% endblock %}
 {% block body %}
-	{% include Page.DocsTplPath %}
+	<div class="ui inverted vertical center aligned segment">
+		{% include Page.NavbarTplPath %}
+	</div>
+	<div class="ui grid documentation container">
+		<div class="four wide column">
+			<div class="ui vertical menu">
+				{% if Toc %}
+					{% for node in Toc.Nodes %}
+				  <div class="item">
+				  	{% if node.Plain %}
+				    <div class="header">{{node.Title}}</div>
+				    {% else %}
+				    <a class="header" href="{{Page.DocsBaseURL}}/{{node.Name}}">{{node.Title}}</a>
+				    {% endif %}
+				    <div class="menu">
+				    	{% for file in node.Nodes %}
+				      <a class="item" href="{{Page.DocsBaseURL}}/{{node.Name}}/{{file.Name}}">{{file.Title}}</a>
+				      {% endfor %}
+				    </div>
+				  </div>
+				  {% endfor %}
+				{% else %}
+					<div class="item">
+						<div class="header">{{Tr(Lang, "docs.pages")}}</div>
+						<div class="menu">
+							{% for page in Pages %}
+							<a class="item" href="/{{page.Name}}">{{page.Title}}</a>
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="twelve wide column">
+			<div class="ui markdown segment">
+				{{Content|safe}}
+			</div>
+
+			{% if Extension.EnableDisqus %}
+				{% include Page.DisqusTplPath %}
+			{% endif %}
+		</div>
+	</div>
+
+	{% include Page.FooterTplPath %}
 {% endblock %}

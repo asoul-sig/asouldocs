@@ -4,11 +4,13 @@
     <a class="{% if item.Link == Link %}active{% endif %} item" href="{{item.Link}}" {% if item.Blank %}target="_blank"{% endif %}>{% if item.Icon %}<i class="{{item.Icon}} icon"></i> {% endif %}{{Tr(Lang, item.Locale)}}</a>
     {% endfor %}
     <div class="right item">
+      {% if Extension.EnableSearch %}
       <div class="item">
         <div class="ui small input">
           <input type="text" placeholder="{{Tr(Lang, "navbar.search")}}...">
         </div>
       </div>
+      {% endif %}
       <div class="ui language floating dropdown link item">
         <i class="world icon"></i>
         <div class="text">{{LangName}}</div>

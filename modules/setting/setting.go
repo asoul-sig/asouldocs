@@ -69,6 +69,7 @@ var (
 		EnableDisqus         bool
 		DisqusShortName      string
 		HighlightJSCustomCSS string
+		EnableSearch         bool
 	}
 
 	Cfg *ini.File
@@ -115,20 +116,11 @@ func init() {
 	})
 
 	Page.UseCustomTpl = sec.Key("USE_CUSTOM_TPL").MustBool()
-	if Page.UseCustomTpl {
-		prefix := "../custom/templates/"
-		Page.NavbarTplPath = "navbar.html"
-		Page.HomeTplPath = prefix + "home.html"
-		Page.DocsTplPath = prefix + "docs.html"
-		Page.FooterTplPath = "footer.html"
-		Page.DisqusTplPath = "disqus.html"
-	} else {
-		Page.NavbarTplPath = "navbar_default.html"
-		Page.HomeTplPath = "home_default.html"
-		Page.DocsTplPath = "docs_default.html"
-		Page.FooterTplPath = "footer_default.html"
-		Page.DisqusTplPath = "disqus_default.html"
-	}
+	Page.NavbarTplPath = "navbar.html"
+	Page.HomeTplPath = "home.html"
+	Page.DocsTplPath = "docs.html"
+	Page.FooterTplPath = "footer.html"
+	Page.DisqusTplPath = "disqus.html"
 
 	sec = Cfg.Section("navbar")
 	list := sec.KeyStrings()
@@ -155,4 +147,5 @@ func init() {
 	Extension.EnableDisqus = sec.Key("ENABLE_DISQUS").MustBool()
 	Extension.DisqusShortName = sec.Key("DISQUS_SHORT_NAME").String()
 	Extension.HighlightJSCustomCSS = sec.Key("HIGHLIGHTJS_CUSTOM_CSS").String()
+	Extension.EnableSearch = sec.Key("ENABLE_SEARCH").MustBool()
 }

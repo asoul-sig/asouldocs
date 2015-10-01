@@ -41,16 +41,15 @@ type Node struct {
 
 func parseNodeName(name string, data []byte) (string, []byte) {
 	data = bytes.TrimSpace(data)
-	startIdx := bytes.Index(data, []byte("---"))
-	if startIdx == -1 {
+	if len(data) < 3 || string(data[:3]) != "---" {
 		return name, []byte("")
 	}
-	endIdx := bytes.Index(data[startIdx+1:], []byte("---")) + startIdx
+	endIdx := bytes.Index(data[3:], []byte("---")) + 3
 	if endIdx == -1 {
 		return name, []byte("")
 	}
 
-	opts := strings.Split(strings.TrimSpace(string(string(data[startIdx+3:endIdx]))), "\n")
+	opts := strings.Split(strings.TrimSpace(string(string(data[3:endIdx]))), "\n")
 
 	title := name
 	for _, opt := range opts {
@@ -65,7 +64,7 @@ func parseNodeName(name string, data []byte) (string, []byte) {
 		}
 	}
 
-	return title, data[endIdx+4:]
+	return title, data[endIdx+3:]
 }
 
 func (n *Node) ReloadContent() error {
