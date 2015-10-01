@@ -21,8 +21,14 @@ import (
 	"github.com/Unknwon/peach/modules/setting"
 )
 
+type SearchIndex struct {
+	Name    string
+	Content string
+}
+
 func initLangDocs(tocs map[string]*Toc, localRoot, lang string) {
 	toc := tocs[lang]
+
 	for _, dir := range toc.Nodes {
 		if err := dir.ReloadContent(); err != nil {
 			log.Error("Fail to load doc file: %v", err)

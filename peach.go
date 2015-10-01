@@ -30,7 +30,7 @@ import (
 	"github.com/Unknwon/peach/routers"
 )
 
-const APP_VER = "0.4.6.1001"
+const APP_VER = "0.5.0.1001"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -63,6 +63,7 @@ func main() {
 	m.Get("/docs/images/*", routers.DocsStatic)
 	m.Get("/docs/*", routers.Docs)
 	m.Post("/hook", routers.Hook)
+	m.Get("/search", routers.Search)
 	m.Get("/*", routers.Pages)
 
 	m.NotFound(routers.NotFound)

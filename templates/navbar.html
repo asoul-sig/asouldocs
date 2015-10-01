@@ -5,11 +5,13 @@
     {% endfor %}
     <div class="right item">
       {% if Extension.EnableSearch %}
-      <div class="item">
-        <div class="ui small input">
-          <input type="text" placeholder="{{Tr(Lang, "navbar.search")}}...">
-        </div>
-      </div>
+        <form action="/search">
+          <div class="item">
+            <div class="ui small input">
+              <input name="q" value="{{Keyword}}" placeholder="{{Tr(Lang, "navbar.search")}}...">
+            </div>
+          </div>
+        </form>
       {% endif %}
       <div class="ui language floating dropdown link item">
         <i class="world icon"></i>

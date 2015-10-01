@@ -25,6 +25,8 @@ import (
 
 	"github.com/Unknwon/com"
 	"github.com/Unknwon/log"
+	"github.com/mschoch/blackfriday-text"
+	"github.com/russross/blackfriday"
 	"gopkg.in/ini.v1"
 
 	"github.com/Unknwon/peach/modules/setting"
@@ -34,11 +36,14 @@ type Node struct {
 	Name    string // Name in TOC
 	Title   string // Name in given language
 	content []byte
+	Text    string // Clean text without formatting
 
 	Plain    bool   // Root node without content
 	FileName string // Full path with .md extension
 	Nodes    []*Node
 }
+
+var textRender = blackfridaytext.TextRenderer()
 
 func parseNodeName(name string, data []byte) (string, []byte) {
 	data = bytes.TrimSpace(data)
@@ -79,6 +84,7 @@ func (n *Node) ReloadContent() error {
 
 	if !n.Plain {
 		n.content = markdown(data)
+		n.Text = string(bytes.ToLower(blackfriday.Markdown(data, textRender, 0)))
 	}
 	return nil
 }
@@ -144,6 +150,61 @@ func (t *Toc) GetDoc(name string) (string, []byte, bool) {
 	}
 
 	return "", nil, false
+}
+
+type SearchResult struct {
+	Title string
+	Path  string
+	Match string
+}
+
+func adjustRange(start, end, length int) (int, int) {
+	start -= 20
+	if start < 0 {
+		start = 0
+	}
+	end += 230
+	if end > length {
+		end = length
+	}
+	return start, end
+}
+
+func (t *Toc) Search(q string) []*SearchResult {
+	if len(q) == 0 {
+		return nil
+	}
+	q = strings.ToLower(q)
+
+	results := make([]*SearchResult, 0, 5)
+
+	// Dir node.
+	for i := range t.Nodes {
+		if idx := strings.Index(t.Nodes[i].Text, q); idx > -1 {
+			start, end := adjustRange(idx, idx+len(q), len(t.Nodes[i].Text))
+			results = append(results, &SearchResult{
+				Title: t.Nodes[i].Title,
+				Path:  t.Nodes[i].Name,
+				Match: t.Nodes[i].Text[start:end],
+			})
+		}
+	}
+
+	// File node.
+	for i := range t.Nodes {
+		for j := range t.Nodes[i].Nodes {
+			if idx := strings.Index(t.Nodes[i].Nodes[j].Text, q); idx > -1 {
+				start, end := adjustRange(idx, idx+len(q), len(t.Nodes[i].Nodes[j].Text))
+				results = append(results, &SearchResult{
+					Title: t.Nodes[i].Nodes[j].Title,
+					Path:  path.Join(t.Nodes[i].Name, t.Nodes[i].Nodes[j].Name),
+					Match: t.Nodes[i].Nodes[j].Text[start:end],
+				})
+			}
+		}
+	}
+
+	return results
 }
 
 var (

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{Title}} - {{Tr(Lang, "name")}}{% endblock %}
+{% block body %}
+	<div class="ui inverted vertical center aligned segment">
+		{% include Page.NavbarTplPath %}
+	</div>
+	<div class="ui grid documentation container">
+		<div class="sixteen wide column">
+			{% if Results %}
+				{% for result in Results %}
+					<div class="ui segment">
+						<div class="ui header">
+							<a href="{{Page.DocsBaseURL}}/{{result.Path}}">{{result.Title}}</a>
+						</div>
+						<p>...{{result.Match}}...</p>
+					</div>
+				{% endfor %}
+			{% else %}
+				<h3>{{Tr(Lang, "search_no_results")}}</h3>
+			{% endif %}
+		</div>
+	</div>
+
+	{% include Page.FooterTplPath %}
+{% endblock %}

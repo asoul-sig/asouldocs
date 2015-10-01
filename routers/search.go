@@ -15,50 +15,27 @@
 package routers
 
 import (
-	"strings"
-
-	"github.com/Unknwon/com"
-
 	"github.com/Unknwon/peach/models"
 	"github.com/Unknwon/peach/modules/middleware"
 	"github.com/Unknwon/peach/modules/setting"
 )
 
-func Home(ctx *middleware.Context) {
-	if !setting.Page.HasLandingPage {
-		ctx.Redirect(setting.Page.DocsBaseURL)
-		return
-	}
+func Search(ctx *middleware.Context) {
+	ctx.Data["Title"] = ctx.Tr("search")
 
-	ctx.HTML(200, "home")
-}
-
-func Pages(ctx *middleware.Context) {
 	toc := models.Tocs[ctx.Locale.Language()]
 	if toc == nil {
 		toc = models.Tocs[setting.Docs.Langs[0]]
 	}
 
-	pageName := strings.ToLower(ctx.Req.URL.Path[1:])
-	for i := range toc.Pages {
-		if toc.Pages[i].Name == pageName {
-			page := toc.Pages[i]
-			if !com.IsFile(page.FileName) {
-				ctx.Data["IsShowingDefault"] = true
-				page = models.Tocs[setting.Docs.Langs[0]].Pages[i]
-			}
-			ctx.Data["Title"] = page.Title
-			ctx.Data["Content"] = string(page.Content())
-			ctx.Data["Pages"] = toc.Pages
-			ctx.HTML(200, "docs")
-			return
-		}
+	q := ctx.Query("q")
+	if len(q) == 0 {
+		ctx.Redirect(setting.Page.DocsBaseURL)
+		return
 	}
 
-	NotFound(ctx)
-}
+	ctx.Data["Keyword"] = q
+	ctx.Data["Results"] = toc.Search(q)
 
-func NotFound(ctx *middleware.Context) {
-	ctx.Data["Title"] = "404"
-	ctx.HTML(404, "404")
+	ctx.HTML(200, "search")
 }
