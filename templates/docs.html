@@ -39,6 +39,9 @@
 
 		<div class="twelve wide column">
 			<div class="ui markdown segment">
+				{% if IsShowingDefault %}
+					<div class="ui blue message">{{Tr(Lang, "docs.showing_default")}}</div>
+				{% endif %}
 				{{Content|safe}}
 			</div>
 

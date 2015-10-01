@@ -96,21 +96,22 @@ func (n *Node) Content() []byte {
 // Toc represents table of content in a specific language.
 type Toc struct {
 	RootPath string
+	Lang     string
 	Nodes    []*Node
 	Pages    []*Node
 }
 
 // GetDoc should only be called by top level toc.
-func (t *Toc) GetDoc(name string) (string, []byte) {
+func (t *Toc) GetDoc(name string) (string, []byte, bool) {
 	name = strings.TrimPrefix(name, "/")
 
 	// Returns first node whatever avaiable as default.
 	if len(name) == 0 {
 		if len(t.Nodes) == 0 ||
 			t.Nodes[0].Plain {
-			return "", nil
+			return "", nil, false
 		}
-		return t.Nodes[0].Title, t.Nodes[0].Content()
+		return t.Nodes[0].Title, t.Nodes[0].Content(), false
 	}
 
 	infos := strings.Split(name, "/")
@@ -119,10 +120,10 @@ func (t *Toc) GetDoc(name string) (string, []byte) {
 	if len(infos) == 1 {
 		for i := range t.Nodes {
 			if t.Nodes[i].Name == infos[0] {
-				return t.Nodes[i].Title, t.Nodes[i].Content()
+				return t.Nodes[i].Title, t.Nodes[i].Content(), false
 			}
 		}
-		return "", nil
+		return "", nil, false
 	}
 
 	// File node.
@@ -130,13 +131,19 @@ func (t *Toc) GetDoc(name string) (string, []byte) {
 		if t.Nodes[i].Name == infos[0] {
 			for j := range t.Nodes[i].Nodes {
 				if t.Nodes[i].Nodes[j].Name == infos[1] {
-					return t.Nodes[i].Nodes[j].Title, t.Nodes[i].Nodes[j].Content()
+					if com.IsFile(t.Nodes[i].Nodes[j].FileName) {
+						return t.Nodes[i].Nodes[j].Title, t.Nodes[i].Nodes[j].Content(), false
+					}
+
+					// If not default language, try again.
+					title, content, _ := Tocs[setting.Docs.Langs[0]].GetDoc(name)
+					return title, content, true
 				}
 			}
 		}
 	}
 
-	return "", nil
+	return "", nil, false
 }
 
 var (
@@ -160,6 +167,7 @@ func initToc(localRoot string) (map[string]*Toc, error) {
 	for _, lang := range setting.Docs.Langs {
 		toc := &Toc{
 			RootPath: localRoot,
+			Lang:     lang,
 		}
 		dirs := tocCfg.Section("").KeyStrings()
 		toc.Nodes = make([]*Node, 0, len(dirs))

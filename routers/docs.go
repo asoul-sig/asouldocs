@@ -35,13 +35,14 @@ func Docs(ctx *middleware.Context) {
 	ctx.Data["Toc"] = toc
 
 	nodeName := strings.TrimPrefix(strings.ToLower(ctx.Req.URL.Path), setting.Page.DocsBaseURL)
-	title, content := toc.GetDoc(nodeName)
+	title, content, isDefault := toc.GetDoc(nodeName)
 	if content == nil {
 		NotFound(ctx)
 		return
 	}
 	ctx.Data["Title"] = title
 	ctx.Data["Content"] = string(content)
+	ctx.Data["IsShowingDefault"] = isDefault
 	ctx.HTML(200, "docs")
 }
 
