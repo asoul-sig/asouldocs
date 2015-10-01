@@ -20,6 +20,8 @@ import (
 	"path"
 	"strings"
 
+	"github.com/Unknwon/log"
+
 	"github.com/Unknwon/peach/models"
 	"github.com/Unknwon/peach/modules/middleware"
 	"github.com/Unknwon/peach/modules/setting"
@@ -64,4 +66,18 @@ func DocsStatic(ctx *middleware.Context) {
 		return
 	}
 	ctx.Error(404)
+}
+
+func Hook(ctx *middleware.Context) {
+	if ctx.Query("secret") != setting.Docs.Secret {
+		ctx.Error(403)
+		return
+	}
+
+	log.Info("Incoming hook update request")
+	if err := models.ReloadDocs(); err != nil {
+		ctx.Error(500)
+		return
+	}
+	ctx.Status(200)
 }

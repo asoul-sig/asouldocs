@@ -62,6 +62,7 @@ var (
 	Docs struct {
 		Type   string
 		Target string
+		Secret string
 		Langs  []string
 	}
 
@@ -141,6 +142,7 @@ func init() {
 	sec = Cfg.Section("docs")
 	Docs.Type = sec.Key("TYPE").In("local", []string{"local", "remote"})
 	Docs.Target = sec.Key("TARGET").String()
+	Docs.Secret = sec.Key("SECRET").String()
 	Docs.Langs = Cfg.Section("i18n").Key("LANGS").Strings(",")
 
 	sec = Cfg.Section("extension")

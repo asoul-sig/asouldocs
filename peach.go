@@ -30,7 +30,7 @@ import (
 	"github.com/Unknwon/peach/routers"
 )
 
-const APP_VER = "0.3.0.0930"
+const APP_VER = "0.4.0.1001"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -43,7 +43,9 @@ func main() {
 	m := macaron.New()
 	m.Use(macaron.Logger())
 	m.Use(macaron.Recovery())
-	m.Use(macaron.Statics(macaron.StaticOptions{}, "custom/public", "public"))
+	m.Use(macaron.Statics(macaron.StaticOptions{
+		SkipLogging: setting.ProdMode,
+	}, "custom/public", "public"))
 	m.Use(i18n.I18n())
 	tplDir := "templates"
 	if setting.Page.UseCustomTpl {
@@ -58,6 +60,7 @@ func main() {
 	m.Get("/docs", routers.Docs)
 	m.Get("/docs/images/*", routers.DocsStatic)
 	m.Get("/docs/*", routers.Docs)
+	m.Post("/hook", routers.Hook)
 	m.Get("/*", routers.Pages)
 
 	m.NotFound(routers.NotFound)

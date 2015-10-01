@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"path"
+	"path/filepath"
 	"strings"
 	"sync"
 
@@ -143,19 +144,19 @@ var (
 	Tocs      map[string]*Toc
 )
 
-func initToc(localRoot string) error {
+func initToc(localRoot string) (map[string]*Toc, error) {
 	tocPath := path.Join(localRoot, "TOC.ini")
 	if !com.IsFile(tocPath) {
-		return fmt.Errorf("TOC not found: %s", tocPath)
+		return nil, fmt.Errorf("TOC not found: %s", tocPath)
 	}
 
 	// Generate Toc.
 	tocCfg, err := ini.Load(tocPath)
 	if err != nil {
-		return fmt.Errorf("Fail to load TOC.ini: %v", err)
+		return nil, fmt.Errorf("Fail to load TOC.ini: %v", err)
 	}
 
-	Tocs = make(map[string]*Toc)
+	tocs := make(map[string]*Toc)
 	for _, lang := range setting.Docs.Langs {
 		toc := &Toc{
 			RootPath: localRoot,
@@ -204,28 +205,57 @@ func initToc(localRoot string) error {
 			})
 		}
 
-		Tocs[lang] = toc
+		tocs[lang] = toc
 	}
-	return nil
+	return tocs, nil
 }
 
-func ReloadDocs(localRoot string) {
+func ReloadDocs() error {
 	tocLocker.Lock()
 	defer tocLocker.Unlock()
 
-	if err := initToc(localRoot); err != nil {
-		log.Error("init.Toc: %v", err)
-		return
+	localRoot := setting.Docs.Target
+
+	// Fetch docs from remote.
+	if setting.Docs.Type == "remote" {
+		localRoot = "data/docs"
+
+		absRoot, err := filepath.Abs(localRoot)
+		if err != nil {
+			return fmt.Errorf("filepath.Abs: %v", err)
+		}
+
+		// Clone new or pull to update.
+		if com.IsDir(absRoot) {
+			stdout, stderr, err := com.ExecCmdDir(absRoot, "git", "pull")
+			if err != nil {
+				return fmt.Errorf("Fail to update docs from remote source(%s): %v - %s", setting.Docs.Target, err, stderr)
+			}
+			fmt.Println(stdout)
+		} else {
+			stdout, stderr, err := com.ExecCmd("git", "clone", setting.Docs.Target, absRoot)
+			if err != nil {
+				return fmt.Errorf("Fail to clone docs from remote source(%s): %v - %s", setting.Docs.Target, err, stderr)
+			}
+			fmt.Println(stdout)
+		}
 	}
-	initDocs(localRoot)
+
+	if !com.IsDir(localRoot) {
+		return fmt.Errorf("Documentation not found: %s - %s", setting.Docs.Type, localRoot)
+	}
+
+	tocs, err := initToc(localRoot)
+	if err != nil {
+		return fmt.Errorf("initToc: %v", err)
+	}
+	initDocs(tocs, localRoot)
+	Tocs = tocs
+	return nil
 }
 
 func init() {
-	if setting.Docs.Type == "local" {
-		if !com.IsDir(setting.Docs.Target) {
-			log.Fatal("Local documentation not found: %s", setting.Docs.Target)
-			return
-		}
-		ReloadDocs(setting.Docs.Target)
+	if err := ReloadDocs(); err != nil {
+		log.Fatal("Fail to init docs: %v", err)
 	}
 }

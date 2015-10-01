@@ -21,8 +21,8 @@ import (
 	"github.com/Unknwon/peach/modules/setting"
 )
 
-func initLangDocs(localRoot, lang string) {
-	toc := Tocs[lang]
+func initLangDocs(tocs map[string]*Toc, localRoot, lang string) {
+	toc := tocs[lang]
 	for _, dir := range toc.Nodes {
 		if err := dir.ReloadContent(); err != nil {
 			log.Error("Fail to load doc file: %v", err)
@@ -40,8 +40,8 @@ func initLangDocs(localRoot, lang string) {
 	}
 }
 
-func initDocs(localRoot string) {
+func initDocs(tocs map[string]*Toc, localRoot string) {
 	for _, lang := range setting.Docs.Langs {
-		initLangDocs(localRoot, lang)
+		initLangDocs(tocs, localRoot, lang)
 	}
 }
