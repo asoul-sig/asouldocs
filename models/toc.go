@@ -29,7 +29,7 @@ import (
 	"github.com/russross/blackfriday"
 	"gopkg.in/ini.v1"
 
-	"github.com/Unknwon/peach/modules/setting"
+	"github.com/peachdocs/peach/modules/setting"
 )
 
 type Node struct {

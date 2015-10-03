@@ -18,7 +18,7 @@ import (
 	"github.com/Unknwon/com"
 	"github.com/Unknwon/log"
 
-	"github.com/Unknwon/peach/modules/setting"
+	"github.com/peachdocs/peach/modules/setting"
 )
 
 type SearchIndex struct {

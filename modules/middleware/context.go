@@ -19,7 +19,7 @@ import (
 
 	"github.com/Unknwon/macaron"
 
-	"github.com/Unknwon/peach/modules/setting"
+	"github.com/peachdocs/peach/modules/setting"
 )
 
 type Context struct {

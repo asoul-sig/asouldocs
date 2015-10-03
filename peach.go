@@ -25,12 +25,12 @@ import (
 	"github.com/macaron-contrib/i18n"
 	"github.com/macaron-contrib/pongo2"
 
-	"github.com/Unknwon/peach/modules/middleware"
-	"github.com/Unknwon/peach/modules/setting"
-	"github.com/Unknwon/peach/routers"
+	"github.com/peachdocs/peach/modules/middleware"
+	"github.com/peachdocs/peach/modules/setting"
+	"github.com/peachdocs/peach/routers"
 )
 
-const APP_VER = "0.5.1.1001"
+const APP_VER = "0.5.1.1002"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())

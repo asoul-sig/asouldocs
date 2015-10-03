@@ -19,9 +19,9 @@ import (
 
 	"github.com/Unknwon/com"
 
-	"github.com/Unknwon/peach/models"
-	"github.com/Unknwon/peach/modules/middleware"
-	"github.com/Unknwon/peach/modules/setting"
+	"github.com/peachdocs/peach/models"
+	"github.com/peachdocs/peach/modules/middleware"
+	"github.com/peachdocs/peach/modules/setting"
 )
 
 func Home(ctx *middleware.Context) {
