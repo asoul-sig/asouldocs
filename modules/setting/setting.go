@@ -28,6 +28,8 @@ type NavbarItem struct {
 }
 
 var (
+	CustomConf = "custom/app.ini"
+
 	AppVer   string
 	ProdMode bool
 	HTTPPort int
@@ -80,12 +82,12 @@ var (
 	Cfg *ini.File
 )
 
-func init() {
+func NewContext() {
 	log.Prefix = "[Peach]"
 
 	sources := []interface{}{"conf/app.ini"}
-	if com.IsFile("custom/app.ini") {
-		sources = append(sources, "custom/app.ini")
+	if com.IsFile(CustomConf) {
+		sources = append(sources, CustomConf)
 	}
 
 	var err error

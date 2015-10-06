@@ -16,6 +16,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"runtime"
@@ -25,16 +26,25 @@ import (
 	"github.com/macaron-contrib/i18n"
 	"github.com/macaron-contrib/pongo2"
 
+	"github.com/peachdocs/peach/models"
 	"github.com/peachdocs/peach/modules/middleware"
 	"github.com/peachdocs/peach/modules/setting"
 	"github.com/peachdocs/peach/routers"
 )
 
-const APP_VER = "0.5.1.1002"
+const APP_VER = "0.5.2.1005"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	setting.AppVer = APP_VER
+
+	config := flag.String("config", "custom/app.ini", "custom config path")
+	flag.Parse()
+
+	setting.CustomConf = *config
+
+	setting.NewContext()
+	models.NewContext()
 }
 
 func main() {

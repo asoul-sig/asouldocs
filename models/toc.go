@@ -323,7 +323,7 @@ func ReloadDocs() error {
 	return nil
 }
 
-func init() {
+func NewContext() {
 	if err := ReloadDocs(); err != nil {
 		log.Fatal("Fail to init docs: %v", err)
 	}
