@@ -1049,7 +1049,7 @@
   max-width: initial;
   padding: 0.5em;
   margin: 0;
-  overflow: initial;
+  overflow: auto;
   line-height: inherit;
   word-wrap: normal;
   border: 0;
@@ -1101,6 +1101,13 @@ body {
   overflow-x: auto;
   font-family: "Microsoft YaHei", Lato, "Helvetica Neue", Arial, Helvetica, sans-serif !important;
   font-size: 15px;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Microsoft YaHei", Lato, "Helvetica Neue", Arial, Helvetica, sans-serif !important;
 }
 .emoji {
   width: 1.5em;
