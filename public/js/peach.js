@@ -7,9 +7,7 @@ $(document).ready(function () {
     emojify.setConfig({
         img_dir: '/img/emoji'
     });
-    $('.markdown').each(function () {
-        emojify.run($(this)[0]);
-    });
+    emojify.run();
 
     // Highlight JS
     if (typeof hljs != 'undefined') {
