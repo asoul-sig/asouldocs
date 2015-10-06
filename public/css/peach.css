@@ -1099,7 +1099,7 @@
 body {
   min-width: 767px;
   overflow-x: auto;
-  font-family: "Microsoft YaHei", Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "Microsoft YaHei", Lato, "Helvetica Neue", Arial, Helvetica, sans-serif !important;
   font-size: 15px;
 }
 .emoji {
