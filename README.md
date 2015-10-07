@@ -1,16 +1,16 @@
-# Peach
+# Peach [![Build Status](https://travis-ci.org/peachdocs/peach.svg?branch=master)](https://travis-ci.org/peachdocs/peach)
 
 ![](public/img/favicon.ico)
 
 Peach is a web server for multi-language, real-time synchronization and searchable documentation.
 
-#### Current version: 0.5.1
+#### Current version: 0.5.2
 
 ## Notices 
 
 - This project is usable but not good enougth yet, cool things break fast.
 - ... So things are subject to change,
-- ... but if you don't upgrade, it will just keep working before the end of the world. :100:
+- ... but if you don't upgrade, it will keep working before the end of the world. :100:
 - If you do want to upgrade, just read the documentation. :joy:
 
 ## License

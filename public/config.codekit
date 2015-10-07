@@ -9764,17 +9764,6 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 0
 		},
-	"\/js\/peach.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 1,
-		"inputAbbreviatedPath": "\/js\/peach.js",
-		"outputAbbreviatedPath": "\/js\/min\/peach-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 0
-		},
 	"\/js\/semantic.min.js": {
 		"fileType": 64,
 		"ignore": 1,

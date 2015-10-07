@@ -85,10 +85,10 @@ var (
 func NewContext() {
 	log.Prefix = "[Peach]"
 
-	sources := []interface{}{"conf/app.ini"}
-	if com.IsFile(CustomConf) {
-		sources = append(sources, CustomConf)
+	if !com.IsFile(CustomConf) {
+		log.Fatal("No custom configuration found: 'custom/app.ini'")
 	}
+	sources := []interface{}{"conf/app.ini", CustomConf}
 
 	var err error
 	Cfg, err = macaron.SetConfig(sources[0], sources[1:]...)

@@ -699,7 +699,7 @@
 /* ⚡ */
 .markdown {
   overflow: hidden;
-  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif !important;
   font-size: 16px;
   line-height: 1.6;
   word-wrap: break-word;
@@ -1049,7 +1049,7 @@
   max-width: initial;
   padding: 0.5em;
   margin: 0;
-  overflow: initial;
+  overflow: auto;
   line-height: inherit;
   word-wrap: normal;
   border: 0;
@@ -1099,12 +1099,19 @@
 body {
   min-width: 767px;
   overflow-x: auto;
-  font-family: "Microsoft YaHei", Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "Microsoft YaHei", Lato, "Helvetica Neue", Arial, Helvetica, sans-serif !important;
   font-size: 15px;
 }
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Microsoft YaHei", Lato, "Helvetica Neue", Arial, Helvetica, sans-serif !important;
+}
 .emoji {
-  width: 1.5em;
-  height: 1.5em;
+  width: 20px;
+  height: 20px;
   display: inline-block;
   background-size: contain;
 }
