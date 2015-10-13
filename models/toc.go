@@ -45,6 +45,7 @@ type Node struct {
 }
 
 var textRender = blackfridaytext.TextRenderer()
+var htmlRoot = "data/html"
 
 func parseNodeName(name string, data []byte) (string, []byte) {
 	data = bytes.TrimSpace(data)
@@ -95,8 +96,8 @@ func (n *Node) ReloadContent() error {
 // Generate local HTML
 func (n *Node) GenLocalHTML(htmlRoot string) error {
 
-	r := strings.NewReplacer("data/docs", htmlRoot, ".md", ".html")
-	htmlFile := r.Replace(n.FileName)
+	changePath := strings.Replace(n.FileName, "data/docs", htmlRoot, 1)
+	htmlFile := strings.Replace(changePath, ".md", ".html", 1)
 
 	return com.WriteFile(htmlFile, n.content)
 }
@@ -298,11 +299,10 @@ func ReloadDocs() error {
 	localRoot := setting.Docs.Target
 
 	// Del htmlRoot path
-	htmlRoot := "data/html"
 	if com.IsExist(htmlRoot) {
 		err := os.RemoveAll(htmlRoot)
 		if err != nil {
-			return fmt.Errorf("htmlRoot not found:: %v", err)
+			return fmt.Errorf("htmlRoot not found: %v", err)
 		}
 	}
 
