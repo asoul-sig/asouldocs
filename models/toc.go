@@ -18,6 +18,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path"
 	"path/filepath"
 	"strings"
@@ -86,7 +87,18 @@ func (n *Node) ReloadContent() error {
 		n.content = markdown(data)
 		n.Text = string(bytes.ToLower(blackfriday.Markdown(data, textRender, 0)))
 	}
-	return nil
+
+	htmlRoot := "data/html"
+	return n.GenLocalHTML(htmlRoot)
+}
+
+// Generate local HTML
+func (n *Node) GenLocalHTML(htmlRoot string) error {
+
+	r := strings.NewReplacer("data/docs", htmlRoot, ".md", ".html")
+	htmlFile := r.Replace(n.FileName)
+
+	return com.WriteFile(htmlFile, n.content)
 }
 
 func (n *Node) Content() []byte {
@@ -284,6 +296,15 @@ func ReloadDocs() error {
 	defer tocLocker.Unlock()
 
 	localRoot := setting.Docs.Target
+
+	// Del htmlRoot path
+	htmlRoot := "data/html"
+	if com.IsExist(htmlRoot) {
+		err := os.RemoveAll(htmlRoot)
+		if err != nil {
+			return fmt.Errorf("htmlRoot not found:: %v", err)
+		}
+	}
 
 	// Fetch docs from remote.
 	if setting.Docs.Type == "remote" {
