@@ -89,7 +89,6 @@ func (n *Node) ReloadContent() error {
 		n.Text = string(bytes.ToLower(blackfriday.Markdown(data, textRender, 0)))
 	}
 
-	htmlRoot := "data/html"
 	return n.GenLocalHTML(htmlRoot)
 }
 
