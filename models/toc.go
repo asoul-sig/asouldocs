@@ -18,6 +18,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path"
 	"path/filepath"
 	"strings"
@@ -44,6 +45,7 @@ type Node struct {
 }
 
 var textRender = blackfridaytext.TextRenderer()
+var htmlRoot = "data/html"
 
 func parseNodeName(name string, data []byte) (string, []byte) {
 	data = bytes.TrimSpace(data)
@@ -86,7 +88,17 @@ func (n *Node) ReloadContent() error {
 		n.content = markdown(data)
 		n.Text = string(bytes.ToLower(blackfriday.Markdown(data, textRender, 0)))
 	}
-	return nil
+
+	return n.GenLocalHTML(htmlRoot)
+}
+
+// Generate local HTML
+func (n *Node) GenLocalHTML(htmlRoot string) error {
+
+	changePath := strings.Replace(n.FileName, "data/docs", htmlRoot, 1)
+	htmlFile := strings.Replace(changePath, ".md", ".html", 1)
+
+	return com.WriteFile(htmlFile, n.content)
 }
 
 func (n *Node) Content() []byte {
@@ -284,6 +296,14 @@ func ReloadDocs() error {
 	defer tocLocker.Unlock()
 
 	localRoot := setting.Docs.Target
+
+	// Del htmlRoot path
+	if com.IsExist(htmlRoot) {
+		err := os.RemoveAll(htmlRoot)
+		if err != nil {
+			return fmt.Errorf("htmlRoot not found: %v", err)
+		}
+	}
 
 	// Fetch docs from remote.
 	if setting.Docs.Type == "remote" {
