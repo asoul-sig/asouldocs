@@ -122,7 +122,11 @@ func (n *Node) GenHTML(data []byte) error {
 	buf.WriteString("\")")
 
 	n.LastBuildTime = time.Now().Unix()
-	return com.WriteFile(htmlPath, buf.Bytes())
+	if err := com.WriteFile(htmlPath+".tmp", buf.Bytes()); err != nil {
+		return err
+	}
+	os.Remove(htmlPath)
+	return os.Rename(htmlPath+".tmp", htmlPath)
 }
 
 // Toc represents table of content in a specific language.
@@ -316,13 +320,6 @@ func ReloadDocs() error {
 
 	localRoot := setting.Docs.Target
 
-	if com.IsExist(HTMLRoot) {
-		err := os.RemoveAll(HTMLRoot)
-		if err != nil {
-			return fmt.Errorf("HTMLRoot not found: %v", err)
-		}
-	}
-
 	// Fetch docs from remote.
 	if setting.Docs.Type.IsRemote() {
 		localRoot = docsRoot
@@ -362,6 +359,12 @@ func ReloadDocs() error {
 }
 
 func NewContext() {
+	if com.IsExist(HTMLRoot) {
+		if err := os.RemoveAll(HTMLRoot); err != nil {
+			log.Fatal("Fail to clean up HTMLRoot: %v", err)
+		}
+	}
+
 	if err := ReloadDocs(); err != nil {
 		log.Fatal("Fail to init docs: %v", err)
 	}
