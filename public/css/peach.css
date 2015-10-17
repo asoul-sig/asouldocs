@@ -1168,6 +1168,10 @@ samp {
 .documentation.container .markdown {
   padding-left: 30px;
 }
+.documentation.container .markdown > h1,
+.documentation.container .markdown h2:first-of-type {
+  margin-top: 0 !important;
+}
 .footer.segment {
   padding: 4em 0em;
 }

@@ -23,6 +23,7 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/Unknwon/com"
 	"github.com/Unknwon/log"
@@ -34,20 +35,21 @@ import (
 )
 
 type Node struct {
-	Name    string // Name in TOC
-	Title   string // Name in given language
-	content []byte
-	Text    string // Clean text without formatting
+	Name  string // Name in TOC
+	Title string // Name in given language
+	Text  string // Clean text without formatting
 
-	Plain    bool   // Root node without content
-	FileName string // Full path with .md extension
-	Nodes    []*Node
+	Plain         bool // Root node without content
+	DocumentPath  string
+	FileName      string // Full path with .md extension
+	Nodes         []*Node
+	LastBuildTime int64
 }
 
 var textRender = blackfridaytext.TextRenderer()
 var (
 	docsRoot = "data/docs"
-	htmlRoot = "data/html"
+	HTMLRoot = "data/html"
 )
 
 func parseNodeName(name string, data []byte) (string, []byte) {
@@ -88,33 +90,39 @@ func (n *Node) ReloadContent() error {
 	n.Plain = len(bytes.TrimSpace(data)) == 0
 
 	if !n.Plain {
-		n.content = markdown(data)
 		n.Text = string(bytes.ToLower(blackfriday.Markdown(data, textRender, 0)))
+		data = markdown(data)
 	}
 
-	return n.GenLocalHTML(htmlRoot)
+	return n.GenHTML(data)
 }
 
-// Generate local HTML
-func (n *Node) GenLocalHTML(htmlRoot string) error {
+// HTML2JS converts []byte type of HTML content into JS format.
+func HTML2JS(data []byte) []byte {
+	s := string(data)
+	s = strings.Replace(s, `\`, `\\`, -1)
+	s = strings.Replace(s, "\n", `\n`, -1)
+	s = strings.Replace(s, "\r", "", -1)
+	s = strings.Replace(s, "\"", `\"`, -1)
+	return []byte(s)
+}
+
+func (n *Node) GenHTML(data []byte) error {
 	var htmlPath string
 	if setting.Docs.Type.IsLocal() {
-		htmlPath = path.Join(htmlRoot, strings.TrimPrefix(n.FileName, setting.Docs.Target))
+		htmlPath = path.Join(HTMLRoot, strings.TrimPrefix(n.FileName, setting.Docs.Target))
 	} else {
-		htmlPath = path.Join(htmlRoot, strings.TrimPrefix(n.FileName, docsRoot))
+		htmlPath = path.Join(HTMLRoot, strings.TrimPrefix(n.FileName, docsRoot))
 	}
-	htmlPath = strings.Replace(htmlPath, ".md", ".html", 1)
-	return com.WriteFile(htmlPath, n.content)
-}
+	htmlPath = strings.Replace(htmlPath, ".md", ".js", 1)
 
-func (n *Node) Content() []byte {
-	if !setting.ProdMode {
-		if err := n.ReloadContent(); err != nil {
-			log.Error("Fail to reload content: %v", err)
-		}
-	}
+	buf := new(bytes.Buffer)
+	buf.WriteString("document.write(\"")
+	buf.Write(HTML2JS(data))
+	buf.WriteString("\")")
 
-	return n.content
+	n.LastBuildTime = time.Now().Unix()
+	return com.WriteFile(htmlPath, buf.Bytes())
 }
 
 // Toc represents table of content in a specific language.
@@ -126,16 +134,16 @@ type Toc struct {
 }
 
 // GetDoc should only be called by top level toc.
-func (t *Toc) GetDoc(name string) (string, []byte, bool) {
+func (t *Toc) GetDoc(name string) (*Node, bool) {
 	name = strings.TrimPrefix(name, "/")
 
 	// Returns first node whatever avaiable as default.
 	if len(name) == 0 {
 		if len(t.Nodes) == 0 ||
 			t.Nodes[0].Plain {
-			return "", nil, false
+			return nil, false
 		}
-		return t.Nodes[0].Title, t.Nodes[0].Content(), false
+		return t.Nodes[0], false
 	}
 
 	infos := strings.Split(name, "/")
@@ -144,10 +152,10 @@ func (t *Toc) GetDoc(name string) (string, []byte, bool) {
 	if len(infos) == 1 {
 		for i := range t.Nodes {
 			if t.Nodes[i].Name == infos[0] {
-				return t.Nodes[i].Title, t.Nodes[i].Content(), false
+				return t.Nodes[i], false
 			}
 		}
-		return "", nil, false
+		return nil, false
 	}
 
 	// File node.
@@ -156,18 +164,18 @@ func (t *Toc) GetDoc(name string) (string, []byte, bool) {
 			for j := range t.Nodes[i].Nodes {
 				if t.Nodes[i].Nodes[j].Name == infos[1] {
 					if com.IsFile(t.Nodes[i].Nodes[j].FileName) {
-						return t.Nodes[i].Nodes[j].Title, t.Nodes[i].Nodes[j].Content(), false
+						return t.Nodes[i].Nodes[j], false
 					}
 
 					// If not default language, try again.
-					title, content, _ := Tocs[setting.Docs.Langs[0]].GetDoc(name)
-					return title, content, true
+					n, _ := Tocs[setting.Docs.Langs[0]].GetDoc(name)
+					return n, true
 				}
 			}
 		}
 	}
 
-	return "", nil, false
+	return nil, false
 }
 
 type SearchResult struct {
@@ -260,10 +268,12 @@ func initToc(localRoot string) (map[string]*Toc, error) {
 				continue
 			}
 
+			documentPath := path.Join(dirName, tocCfg.Section(dirName).Key(files[0]).String())
 			dirNode := &Node{
-				Name:     dirName,
-				FileName: path.Join(localRoot, lang, dirName, tocCfg.Section(dirName).Key(files[0]).String()) + ".md",
-				Nodes:    make([]*Node, 0, len(files)-1),
+				Name:         dirName,
+				DocumentPath: documentPath,
+				FileName:     path.Join(localRoot, lang, documentPath) + ".md",
+				Nodes:        make([]*Node, 0, len(files)-1),
 			}
 			toc.Nodes = append(toc.Nodes, dirNode)
 
@@ -271,9 +281,11 @@ func initToc(localRoot string) (map[string]*Toc, error) {
 				fileName := tocCfg.Section(dirName).Key(file).String()
 				fmt.Println(strings.Repeat(" ", len(dirName))+"|__", fileName)
 
+				documentPath = path.Join(dirName, fileName)
 				node := &Node{
-					Name:     fileName,
-					FileName: path.Join(localRoot, lang, dirName, fileName) + ".md",
+					Name:         fileName,
+					DocumentPath: documentPath,
+					FileName:     path.Join(localRoot, lang, documentPath) + ".md",
 				}
 				dirNode.Nodes = append(dirNode.Nodes, node)
 			}
@@ -287,8 +299,9 @@ func initToc(localRoot string) (map[string]*Toc, error) {
 			fmt.Println(pageName)
 
 			toc.Pages = append(toc.Pages, &Node{
-				Name:     pageName,
-				FileName: path.Join(localRoot, lang, pageName) + ".md",
+				Name:         pageName,
+				DocumentPath: pageName,
+				FileName:     path.Join(localRoot, lang, pageName) + ".md",
 			})
 		}
 
@@ -303,11 +316,10 @@ func ReloadDocs() error {
 
 	localRoot := setting.Docs.Target
 
-	// Del htmlRoot path
-	if com.IsExist(htmlRoot) {
-		err := os.RemoveAll(htmlRoot)
+	if com.IsExist(HTMLRoot) {
+		err := os.RemoveAll(HTMLRoot)
 		if err != nil {
-			return fmt.Errorf("htmlRoot not found: %v", err)
+			return fmt.Errorf("HTMLRoot not found: %v", err)
 		}
 	}
 

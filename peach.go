@@ -32,7 +32,7 @@ import (
 	"github.com/peachdocs/peach/routers"
 )
 
-const APP_VER = "0.5.3.1016"
+const APP_VER = "0.6.0.1017"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -55,7 +55,7 @@ func main() {
 	m.Use(macaron.Recovery())
 	m.Use(macaron.Statics(macaron.StaticOptions{
 		SkipLogging: setting.ProdMode,
-	}, "custom/public", "public"))
+	}, "custom/public", "public", models.HTMLRoot))
 	m.Use(i18n.I18n(i18n.Options{
 		Files: setting.Docs.Locales,
 	}))

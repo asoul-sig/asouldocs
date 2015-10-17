@@ -15,6 +15,7 @@
 package routers
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"path"
@@ -35,13 +36,17 @@ func Docs(ctx *middleware.Context) {
 	ctx.Data["Toc"] = toc
 
 	nodeName := strings.TrimPrefix(strings.ToLower(strings.TrimSuffix(ctx.Req.URL.Path, ".html")), setting.Page.DocsBaseURL)
-	title, content, isDefault := toc.GetDoc(nodeName)
-	if content == nil {
+	node, isDefault := toc.GetDoc(nodeName)
+	if node == nil {
 		NotFound(ctx)
 		return
 	}
-	ctx.Data["Title"] = title
-	ctx.Data["Content"] = string(content)
+	if !setting.ProdMode {
+		node.ReloadContent()
+	}
+
+	ctx.Data["Title"] = node.Title
+	ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="/%s/%s?=%d"></script>`, toc.Lang, node.DocumentPath+".js", node.LastBuildTime)
 	ctx.Data["IsShowingDefault"] = isDefault
 	ctx.HTML(200, "docs")
 }

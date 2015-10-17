@@ -15,6 +15,7 @@
 package routers
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/Unknwon/com"
@@ -47,8 +48,12 @@ func Pages(ctx *middleware.Context) {
 				ctx.Data["IsShowingDefault"] = true
 				page = models.Tocs[setting.Docs.Langs[0]].Pages[i]
 			}
+			if !setting.ProdMode {
+				page.ReloadContent()
+			}
+
 			ctx.Data["Title"] = page.Title
-			ctx.Data["Content"] = string(page.Content())
+			ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="/%s/%s?=%d"></script>`, toc.Lang, page.DocumentPath+".js", page.LastBuildTime)
 			ctx.Data["Pages"] = toc.Pages
 			ctx.HTML(200, "docs")
 			return
