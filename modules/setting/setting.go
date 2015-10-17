@@ -17,14 +17,29 @@ package setting
 import (
 	"github.com/Unknwon/com"
 	"github.com/Unknwon/log"
-	"github.com/Unknwon/macaron"
 	"gopkg.in/ini.v1"
+	"gopkg.in/macaron.v1"
 )
 
 type NavbarItem struct {
 	Icon         string
 	Locale, Link string
 	Blank        bool
+}
+
+const (
+	LOCAL  = "local"
+	REMOTE = "remote"
+)
+
+type DocType string
+
+func (t DocType) IsLocal() bool {
+	return t == LOCAL
+}
+
+func (t DocType) IsRemote() bool {
+	return t == REMOTE
 }
 
 var (
@@ -62,7 +77,7 @@ var (
 	}
 
 	Docs struct {
-		Type   string
+		Type   DocType
 		Target string
 		Secret string
 		Langs  []string
@@ -146,7 +161,7 @@ func NewContext() {
 	Asset.CustomCSS = sec.Key("CUSTOM_CSS").String()
 
 	sec = Cfg.Section("docs")
-	Docs.Type = sec.Key("TYPE").In("local", []string{"local", "remote"})
+	Docs.Type = DocType(sec.Key("TYPE").In("local", []string{LOCAL, REMOTE}))
 	Docs.Target = sec.Key("TARGET").String()
 	Docs.Secret = sec.Key("SECRET").String()
 	Docs.Langs = Cfg.Section("i18n").Key("LANGS").Strings(",")

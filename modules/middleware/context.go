@@ -17,7 +17,7 @@ package middleware
 import (
 	"strings"
 
-	"github.com/Unknwon/macaron"
+	"gopkg.in/macaron.v1"
 
 	"github.com/peachdocs/peach/modules/setting"
 )

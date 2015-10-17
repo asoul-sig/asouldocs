@@ -45,7 +45,10 @@ type Node struct {
 }
 
 var textRender = blackfridaytext.TextRenderer()
-var htmlRoot = "data/html"
+var (
+	docsRoot = "data/docs"
+	htmlRoot = "data/html"
+)
 
 func parseNodeName(name string, data []byte) (string, []byte) {
 	data = bytes.TrimSpace(data)
@@ -94,11 +97,14 @@ func (n *Node) ReloadContent() error {
 
 // Generate local HTML
 func (n *Node) GenLocalHTML(htmlRoot string) error {
-
-	changePath := strings.Replace(n.FileName, "data/docs", htmlRoot, 1)
-	htmlFile := strings.Replace(changePath, ".md", ".html", 1)
-
-	return com.WriteFile(htmlFile, n.content)
+	var htmlPath string
+	if setting.Docs.Type.IsLocal() {
+		htmlPath = path.Join(htmlRoot, strings.TrimPrefix(n.FileName, setting.Docs.Target))
+	} else {
+		htmlPath = path.Join(htmlRoot, strings.TrimPrefix(n.FileName, docsRoot))
+	}
+	htmlPath = strings.Replace(htmlPath, ".md", ".html", 1)
+	return com.WriteFile(htmlPath, n.content)
 }
 
 func (n *Node) Content() []byte {
@@ -306,8 +312,8 @@ func ReloadDocs() error {
 	}
 
 	// Fetch docs from remote.
-	if setting.Docs.Type == "remote" {
-		localRoot = "data/docs"
+	if setting.Docs.Type.IsRemote() {
+		localRoot = docsRoot
 
 		absRoot, err := filepath.Abs(localRoot)
 		if err != nil {
