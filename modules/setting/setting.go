@@ -87,6 +87,8 @@ var (
 	}
 
 	Extension struct {
+		EnableEditPage       bool
+		EditPageLinkFormat   string
 		EnableDisqus         bool
 		DisqusShortName      string
 		HighlightJSCustomCSS string
@@ -173,6 +175,8 @@ func NewContext() {
 	}
 
 	sec = Cfg.Section("extension")
+	Extension.EnableEditPage = sec.Key("ENABLE_EDIT_PAGE").MustBool()
+	Extension.EditPageLinkFormat = sec.Key("EDIT_PAGE_LINK_FORMAT").String()
 	Extension.EnableDisqus = sec.Key("ENABLE_DISQUS").MustBool()
 	Extension.DisqusShortName = sec.Key("DISQUS_SHORT_NAME").String()
 	Extension.HighlightJSCustomCSS = sec.Key("HIGHLIGHTJS_CUSTOM_CSS").String()

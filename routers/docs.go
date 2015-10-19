@@ -21,12 +21,22 @@ import (
 	"path"
 	"strings"
 
+	"github.com/Unknwon/com"
 	"github.com/Unknwon/log"
 
 	"github.com/peachdocs/peach/models"
 	"github.com/peachdocs/peach/modules/middleware"
 	"github.com/peachdocs/peach/modules/setting"
 )
+
+func renderEditPage(ctx *middleware.Context, documentPath string) {
+	if setting.Extension.EnableEditPage {
+		ctx.Data["EditPageLink"] = com.Expand(setting.Extension.EditPageLinkFormat, map[string]string{
+			"lang": ctx.Locale.Language(),
+			"blob": documentPath + ".md",
+		})
+	}
+}
 
 func Docs(ctx *middleware.Context) {
 	toc := models.Tocs[ctx.Locale.Language()]
@@ -48,6 +58,8 @@ func Docs(ctx *middleware.Context) {
 	ctx.Data["Title"] = node.Title
 	ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="/%s/%s?=%d"></script>`, toc.Lang, node.DocumentPath+".js", node.LastBuildTime)
 	ctx.Data["IsShowingDefault"] = isDefault
+
+	renderEditPage(ctx, node.DocumentPath)
 	ctx.HTML(200, "docs")
 }
 

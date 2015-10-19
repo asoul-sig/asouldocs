@@ -55,6 +55,8 @@ func Pages(ctx *middleware.Context) {
 			ctx.Data["Title"] = page.Title
 			ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="/%s/%s?=%d"></script>`, toc.Lang, page.DocumentPath+".js", page.LastBuildTime)
 			ctx.Data["Pages"] = toc.Pages
+
+			renderEditPage(ctx, page.DocumentPath)
 			ctx.HTML(200, "docs")
 			return
 		}

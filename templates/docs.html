@@ -42,6 +42,9 @@
 				{% if IsShowingDefault %}
 					<div class="ui blue message">{{Tr(Lang, "docs.showing_default")}}</div>
 				{% endif %}
+				{% if Extension.EnableEditPage %}
+					<a class="ui blue button" id="edit_page" href="{{EditPageLink}}">{{Tr(Lang, "docs.edit_page")}}</a>
+				{% endif %}
 				{{Content|safe}}
 			</div>
 
