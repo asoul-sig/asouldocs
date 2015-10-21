@@ -60,12 +60,13 @@ var (
 		HasLandingPage bool
 		DocsBaseURL    string
 
-		UseCustomTpl  bool
-		NavbarTplPath string
-		HomeTplPath   string
-		DocsTplPath   string
-		FooterTplPath string
-		DisqusTplPath string
+		UseCustomTpl   bool
+		NavbarTplPath  string
+		HomeTplPath    string
+		DocsTplPath    string
+		FooterTplPath  string
+		DisqusTplPath  string
+		DuoShuoTplPath string
 	}
 
 	Navbar struct {
@@ -91,6 +92,8 @@ var (
 		EditPageLinkFormat   string
 		EnableDisqus         bool
 		DisqusShortName      string
+		EnableDuoShuo        bool
+		DuoShuoShortName     string
 		HighlightJSCustomCSS string
 		EnableSearch         bool
 		GABlock              string
@@ -145,6 +148,7 @@ func NewContext() {
 	Page.DocsTplPath = "docs.html"
 	Page.FooterTplPath = "footer.html"
 	Page.DisqusTplPath = "disqus.html"
+	Page.DisqusTplPath = "duoshuo.html"
 
 	sec = Cfg.Section("navbar")
 	list := sec.KeyStrings()
@@ -179,6 +183,8 @@ func NewContext() {
 	Extension.EditPageLinkFormat = sec.Key("EDIT_PAGE_LINK_FORMAT").String()
 	Extension.EnableDisqus = sec.Key("ENABLE_DISQUS").MustBool()
 	Extension.DisqusShortName = sec.Key("DISQUS_SHORT_NAME").String()
+	Extension.EnableDuoShuo = sec.Key("ENABLE_DUOSHUO").MustBool()
+	Extension.DuoShuoShortName = sec.Key("DUOSHUO_SHORT_NAME").String()
 	Extension.HighlightJSCustomCSS = sec.Key("HIGHLIGHTJS_CUSTOM_CSS").String()
 	Extension.EnableSearch = sec.Key("ENABLE_SEARCH").MustBool()
 	Extension.GABlock = sec.Key("GA_BLOCK").String()
