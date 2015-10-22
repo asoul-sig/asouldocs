@@ -24,6 +24,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode/utf8"
 
 	"github.com/Unknwon/com"
 	"github.com/Unknwon/log"
@@ -37,13 +38,23 @@ import (
 type Node struct {
 	Name  string // Name in TOC
 	Title string // Name in given language
-	Text  string // Clean text without formatting
+	text  []byte // Clean text without formatting
+	runes []rune
 
 	Plain         bool // Root node without content
 	DocumentPath  string
 	FileName      string // Full path with .md extension
 	Nodes         []*Node
 	LastBuildTime int64
+}
+
+func (n *Node) SetText(text []byte) {
+	n.text = text
+	n.runes = []rune(string(n.text))
+}
+
+func (n *Node) Text() []byte {
+	return n.text
 }
 
 var textRender = blackfridaytext.TextRenderer()
@@ -90,7 +101,7 @@ func (n *Node) ReloadContent() error {
 	n.Plain = len(bytes.TrimSpace(data)) == 0
 
 	if !n.Plain {
-		n.Text = string(bytes.ToLower(blackfriday.Markdown(data, textRender, 0)))
+		n.SetText(bytes.ToLower(blackfriday.Markdown(data, textRender, 0)))
 		data = markdown(data)
 	}
 
@@ -188,12 +199,14 @@ type SearchResult struct {
 	Match string
 }
 
-func adjustRange(start, end, length int) (int, int) {
+func (n *Node) adjustRange(start int) (int, int) {
 	start -= 20
 	if start < 0 {
 		start = 0
 	}
-	end += 230
+
+	length := len(n.runes)
+	end := start + 230
 	if end > length {
 		end = length
 	}
@@ -210,12 +223,12 @@ func (t *Toc) Search(q string) []*SearchResult {
 
 	// Dir node.
 	for i := range t.Nodes {
-		if idx := strings.Index(t.Nodes[i].Text, q); idx > -1 {
-			start, end := adjustRange(idx, idx+len(q), len(t.Nodes[i].Text))
+		if idx := bytes.Index(t.Nodes[i].Text(), []byte(q)); idx > -1 {
+			start, end := t.Nodes[i].adjustRange(utf8.RuneCount(t.Nodes[i].Text()[:idx]))
 			results = append(results, &SearchResult{
 				Title: t.Nodes[i].Title,
 				Path:  t.Nodes[i].Name,
-				Match: t.Nodes[i].Text[start:end],
+				Match: string(t.Nodes[i].runes[start:end]),
 			})
 		}
 	}
@@ -223,12 +236,12 @@ func (t *Toc) Search(q string) []*SearchResult {
 	// File node.
 	for i := range t.Nodes {
 		for j := range t.Nodes[i].Nodes {
-			if idx := strings.Index(t.Nodes[i].Nodes[j].Text, q); idx > -1 {
-				start, end := adjustRange(idx, idx+len(q), len(t.Nodes[i].Nodes[j].Text))
+			if idx := bytes.Index(t.Nodes[i].Nodes[j].Text(), []byte(q)); idx > -1 {
+				start, end := t.Nodes[i].Nodes[j].adjustRange(utf8.RuneCount(t.Nodes[i].Nodes[j].Text()[:idx]))
 				results = append(results, &SearchResult{
 					Title: t.Nodes[i].Nodes[j].Title,
 					Path:  path.Join(t.Nodes[i].Name, t.Nodes[i].Nodes[j].Name),
-					Match: t.Nodes[i].Nodes[j].Text[start:end],
+					Match: string(t.Nodes[i].Nodes[j].runes[start:end]),
 				})
 			}
 		}

@@ -32,7 +32,7 @@ import (
 	"github.com/peachdocs/peach/routers"
 )
 
-const APP_VER = "0.7.1.1021"
+const APP_VER = "0.7.2.1022"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())

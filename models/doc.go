@@ -21,11 +21,6 @@ import (
 	"github.com/peachdocs/peach/modules/setting"
 )
 
-type SearchIndex struct {
-	Name    string
-	Content string
-}
-
 func initLangDocs(tocs map[string]*Toc, localRoot, lang string) {
 	toc := tocs[lang]
 
