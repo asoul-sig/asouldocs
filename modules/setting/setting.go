@@ -148,7 +148,7 @@ func NewContext() {
 	Page.DocsTplPath = "docs.html"
 	Page.FooterTplPath = "footer.html"
 	Page.DisqusTplPath = "disqus.html"
-	Page.DisqusTplPath = "duoshuo.html"
+	Page.DuoShuoTplPath = "duoshuo.html"
 
 	sec = Cfg.Section("navbar")
 	list := sec.KeyStrings()
