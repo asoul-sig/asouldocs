@@ -1,8 +1,8 @@
 [run]
-init_cmds = [["./peach"]]
+init_cmds = [["./peach", "web"]]
 watch_all = true
 watch_dirs = [
-	"$WORKDIR/conf",
+	"$WORKDIR/cmd",
 	"$WORKDIR/models",
 	"$WORKDIR/modules",
 	"$WORKDIR/routers"
@@ -12,5 +12,5 @@ build_delay = 1500
 cmds = [
 	["go", "install"],
 	["go", "build"],
-	["./peach"]
+	["./peach", "web"]
 ]

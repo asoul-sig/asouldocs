@@ -19,6 +19,8 @@ import (
 	"github.com/Unknwon/log"
 	"gopkg.in/ini.v1"
 	"gopkg.in/macaron.v1"
+
+	"github.com/peachdocs/peach/modules/bindata"
 )
 
 type NavbarItem struct {
@@ -108,7 +110,7 @@ func NewContext() {
 	if !com.IsFile(CustomConf) {
 		log.Fatal("No custom configuration found: 'custom/app.ini'")
 	}
-	sources := []interface{}{"conf/app.ini", CustomConf}
+	sources := []interface{}{bindata.MustAsset("conf/app.ini"), CustomConf}
 
 	var err error
 	Cfg, err = macaron.SetConfig(sources[0], sources[1:]...)
@@ -173,7 +175,9 @@ func NewContext() {
 	Docs.Langs = Cfg.Section("i18n").Key("LANGS").Strings(",")
 	Docs.Locales = make(map[string][]byte)
 	for _, lang := range Docs.Langs {
-		if lang != "en-US" && lang != "zh-CN" {
+		if lang == "en-US" || lang == "zh-CN" {
+			Docs.Locales["locale_"+lang+".ini"] = bindata.MustAsset("conf/locale/locale_" + lang + ".ini")
+		} else {
 			Docs.Locales["locale_"+lang+".ini"] = []byte("")
 		}
 	}

@@ -16,69 +16,33 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-	"net/http"
+	"os"
 	"runtime"
 
-	"github.com/Unknwon/log"
-	"github.com/go-macaron/i18n"
-	"github.com/go-macaron/pongo2"
-	"gopkg.in/macaron.v1"
+	"github.com/codegangsta/cli"
 
-	"github.com/peachdocs/peach/models"
-	"github.com/peachdocs/peach/modules/middleware"
+	"github.com/peachdocs/peach/cmd"
 	"github.com/peachdocs/peach/modules/setting"
-	"github.com/peachdocs/peach/routers"
 )
 
-const APP_VER = "0.7.3.1022"
+const APP_VER = "0.8.0.1025"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	setting.AppVer = APP_VER
-
-	config := flag.String("config", "custom/app.ini", "custom config path")
-	flag.Parse()
-
-	setting.CustomConf = *config
-
-	setting.NewContext()
-	models.NewContext()
 }
 
 func main() {
-	log.Info("Peach %s", APP_VER)
-
-	m := macaron.New()
-	m.Use(macaron.Logger())
-	m.Use(macaron.Recovery())
-	m.Use(macaron.Statics(macaron.StaticOptions{
-		SkipLogging: setting.ProdMode,
-	}, "custom/public", "public", models.HTMLRoot))
-	m.Use(i18n.I18n(i18n.Options{
-		Files: setting.Docs.Locales,
-	}))
-	tplDir := "templates"
-	if setting.Page.UseCustomTpl {
-		tplDir = "custom/templates"
+	app := cli.NewApp()
+	app.Name = "Peach"
+	app.Usage = "Modern Documentation Server"
+	app.Version = APP_VER
+	app.Author = "Unknwon"
+	app.Email = "u@gogs.io"
+	app.Commands = []cli.Command{
+		cmd.Web,
+		cmd.New,
 	}
-	m.Use(pongo2.Pongoer(pongo2.Options{
-		Directory: tplDir,
-	}))
-	m.Use(middleware.Contexter())
-
-	m.Get("/", routers.Home)
-	m.Get("/docs", routers.Docs)
-	m.Get("/docs/images/*", routers.DocsStatic)
-	m.Get("/docs/*", routers.Docs)
-	m.Post("/hook", routers.Hook)
-	m.Get("/search", routers.Search)
-	m.Get("/*", routers.Pages)
-
-	m.NotFound(routers.NotFound)
-
-	listenAddr := fmt.Sprintf("0.0.0.0:%d", setting.HTTPPort)
-	log.Info("%s Listen on %s", setting.Site.Name, listenAddr)
-	log.Fatal("Fail to start Peach: %v", http.ListenAndServe(listenAddr, m))
+	app.Flags = append(app.Flags, []cli.Flag{}...)
+	app.Run(os.Args)
 }
