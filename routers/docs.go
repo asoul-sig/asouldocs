@@ -55,9 +55,13 @@ func Docs(ctx *middleware.Context) {
 		node.ReloadContent()
 	}
 
+	langVer := toc.Lang
+	if isDefault {
+		ctx.Data["IsShowingDefault"] = isDefault
+		langVer = setting.Docs.Langs[0]
+	}
 	ctx.Data["Title"] = node.Title
-	ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="/%s/%s?=%d"></script>`, toc.Lang, node.DocumentPath+".js", node.LastBuildTime)
-	ctx.Data["IsShowingDefault"] = isDefault
+	ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="/%s/%s?=%d"></script>`, langVer, node.DocumentPath+".js", node.LastBuildTime)
 
 	renderEditPage(ctx, node.DocumentPath)
 	ctx.HTML(200, "docs")
