@@ -350,6 +350,7 @@ func ReloadDocs() error {
 			}
 			fmt.Println(stdout)
 		} else {
+			os.MkdirAll(path.Dir(absRoot), os.ModePerm)
 			stdout, stderr, err := com.ExecCmd("git", "clone", setting.Docs.Target, absRoot)
 			if err != nil {
 				return fmt.Errorf("Fail to clone docs from remote source(%s): %v - %s", setting.Docs.Target, err, stderr)
