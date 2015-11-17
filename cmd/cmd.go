@@ -12,37 +12,41 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-// Peach is a web server for multi-language, real-time synchronization and searchable documentation.
-package main
+package cmd
 
 import (
-	"os"
-	"runtime"
+	"time"
 
 	"github.com/codegangsta/cli"
-
-	"github.com/peachdocs/peach/cmd"
-	"github.com/peachdocs/peach/modules/setting"
 )
 
-const APP_VER = "0.8.3.1116"
-
-func init() {
-	runtime.GOMAXPROCS(runtime.NumCPU())
-	setting.AppVer = APP_VER
+func stringFlag(name, value, usage string) cli.StringFlag {
+	return cli.StringFlag{
+		Name:  name,
+		Value: value,
+		Usage: usage,
+	}
 }
 
-func main() {
-	app := cli.NewApp()
-	app.Name = "Peach"
-	app.Usage = "Modern Documentation Server"
-	app.Version = APP_VER
-	app.Author = "Unknwon"
-	app.Email = "u@gogs.io"
-	app.Commands = []cli.Command{
-		cmd.Web,
-		cmd.New,
+func boolFlag(name, usage string) cli.BoolFlag {
+	return cli.BoolFlag{
+		Name:  name,
+		Usage: usage,
 	}
-	app.Flags = append(app.Flags, []cli.Flag{}...)
-	app.Run(os.Args)
+}
+
+func intFlag(name string, value int, usage string) cli.IntFlag {
+	return cli.IntFlag{
+		Name:  name,
+		Value: value,
+		Usage: usage,
+	}
+}
+
+func durationFlag(name string, value time.Duration, usage string) cli.DurationFlag {
+	return cli.DurationFlag{
+		Name:  name,
+		Value: value,
+		Usage: usage,
+	}
 }
