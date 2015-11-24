@@ -15,6 +15,8 @@
 package models
 
 import (
+	"os"
+
 	"github.com/Unknwon/com"
 	"github.com/Unknwon/log"
 
@@ -51,5 +53,17 @@ func initLangDocs(tocs map[string]*Toc, localRoot, lang string) {
 func initDocs(tocs map[string]*Toc, localRoot string) {
 	for _, lang := range setting.Docs.Langs {
 		initLangDocs(tocs, localRoot, lang)
+	}
+}
+
+func NewContext() {
+	if com.IsExist(HTMLRoot) {
+		if err := os.RemoveAll(HTMLRoot); err != nil {
+			log.Fatal("Fail to clean up HTMLRoot: %v", err)
+		}
+	}
+
+	if err := ReloadDocs(); err != nil {
+		log.Fatal("Fail to init docs: %v", err)
 	}
 }

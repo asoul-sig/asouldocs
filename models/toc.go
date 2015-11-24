@@ -27,7 +27,6 @@ import (
 	"unicode/utf8"
 
 	"github.com/Unknwon/com"
-	"github.com/Unknwon/log"
 	"github.com/mschoch/blackfriday-text"
 	"github.com/russross/blackfriday"
 	"gopkg.in/ini.v1"
@@ -251,7 +250,7 @@ func (t *Toc) Search(q string) []*SearchResult {
 }
 
 var (
-	tocLocker = sync.RWMutex{}
+	tocLocker = sync.Mutex{}
 	Tocs      map[string]*Toc
 )
 
@@ -369,17 +368,5 @@ func ReloadDocs() error {
 	}
 	initDocs(tocs, localRoot)
 	Tocs = tocs
-	return nil
-}
-
-func NewContext() {
-	if com.IsExist(HTMLRoot) {
-		if err := os.RemoveAll(HTMLRoot); err != nil {
-			log.Fatal("Fail to clean up HTMLRoot: %v", err)
-		}
-	}
-
-	if err := ReloadDocs(); err != nil {
-		log.Fatal("Fail to init docs: %v", err)
-	}
+	return reloadProtects(localRoot)
 }
