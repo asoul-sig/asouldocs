@@ -25,7 +25,7 @@ import (
 	"github.com/peachdocs/peach/modules/setting"
 )
 
-const APP_VER = "0.9.0.1123"
+const APP_VER = "0.9.1.1205"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())

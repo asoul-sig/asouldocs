@@ -55,7 +55,8 @@ func runWeb(ctx *cli.Context) {
 		SkipLogging: setting.ProdMode,
 	}, "custom/public", "public", models.HTMLRoot))
 	m.Use(i18n.I18n(i18n.Options{
-		Files: setting.Docs.Locales,
+		Files:       setting.Docs.Locales,
+		DefaultLang: setting.Docs.Langs[0],
 	}))
 	tplDir := "templates"
 	if setting.Page.UseCustomTpl {
