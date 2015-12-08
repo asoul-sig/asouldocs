@@ -9,6 +9,7 @@ Peach is a web server for multi-language, real-time synchronization and searchab
 ## Getting Help
 
 - [Getting Started](http://peachdocs.org/docs/intro/getting_started)
+- QQ 用户群：254120107
 
 ## Notices 
 
