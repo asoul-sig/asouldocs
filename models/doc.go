@@ -27,22 +27,32 @@ func initLangDocs(tocs map[string]*Toc, localRoot, lang string) {
 	toc := tocs[lang]
 
 	for _, dir := range toc.Nodes {
+		if !com.IsFile(dir.FileName) {
+			continue
+		}
+
 		if err := dir.ReloadContent(); err != nil {
 			log.Error("Fail to load doc file: %v", err)
 			continue
 		}
 
 		for _, file := range dir.Nodes {
-			if com.IsFile(file.FileName) {
-				if err := file.ReloadContent(); err != nil {
-					log.Error("Fail to load doc file: %v", err)
-					continue
-				}
+			if !com.IsFile(file.FileName) {
+				continue
+			}
+
+			if err := file.ReloadContent(); err != nil {
+				log.Error("Fail to load doc file: %v", err)
+				continue
 			}
 		}
 	}
 
 	for _, page := range toc.Pages {
+		if !com.IsFile(page.FileName) {
+			continue
+		}
+
 		if err := page.ReloadContent(); err != nil {
 			log.Error("Fail to load doc file: %v", err)
 			continue
