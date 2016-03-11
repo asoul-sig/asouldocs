@@ -16,18 +16,18 @@ clean:
 	@rm -rf ./peach
 
 build:
-	@godep go build -a -tags "netgo static_build" -installsuffix netgo  .
+	@go build -a -tags "netgo static_build" -installsuffix netgo  .
 
 init:
 	@git clone https://github.com/peachdocs/peach.peach custom
 
 
-image: clean init build
+image:
 	@ echo Building peach image $(TAG)
 	@ docker build -t dockerclub/peach:$(TAG) .
 
 release: build image
-	@docker push peachdocs/peach:$(TAG) .
+	@docker push dockerclub/peach:$(TAG) .
 
 test: clean
 	@godep go test -v ./...
