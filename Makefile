@@ -16,7 +16,7 @@ clean:
 	@rm -rf ./peach
 
 build:
-	@go build -a -tags "netgo static_build" -installsuffix netgo  .
+	@go get && go build -a -tags "netgo static_build" -installsuffix netgo  .
 
 init:
 	@git clone https://github.com/peachdocs/peach.peach custom
