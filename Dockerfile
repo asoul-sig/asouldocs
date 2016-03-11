@@ -23,13 +23,15 @@ COPY .  ${GOPATH}/src/github.com/peachdocs/peach
 
 # Build peach for golang
 RUN cd ${GOPATH}/src/github.com/peachdocs/peach && go get
-RUN cd ${GOPATH}/src/github.com/peachdocs/peach && go build -a -tags "netgo static_build" -installsuffix netgo  .
+RUN cd ${GOPATH}/src/github.com/peachdocs/peach && go build   .
 
 
 # Define working directory.
 WORKDIR /app
-COPY .  /app
 
+RUN rm -rf /app/* && cp -r -f  ${GOPATH}/src/github.com/peachdocs/peach/* /app
+
+RUN rm -rf ${GOPATH}
 # Define mountable directories.
 VOLUME ["/app/custom"]
 

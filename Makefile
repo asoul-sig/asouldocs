@@ -16,7 +16,7 @@ clean:
 	@rm -rf ./peach
 
 build:
-	@go get && go build -a -tags "netgo static_build" -installsuffix netgo  .
+	@go get && go build   .
 
 init:
 	@git clone https://github.com/peachdocs/peach.peach custom
@@ -24,10 +24,10 @@ init:
 
 image:
 	@ echo Building peach image $(TAG)
-	@ docker build -t dockerclub/peach:$(TAG) .
+	@ docker build -t peachdocs/peach:$(TAG) .
 
 release: build image
-	@docker push dockerclub/peach:$(TAG) .
+	@docker push peachdocs/peach:$(TAG) .
 
 test: clean
 	@godep go test -v ./...
@@ -41,7 +41,7 @@ testrun:
 
 
 dockerrun:
-	@ docker run -ti  -d  -p ${PERACH_PORT}:5556 --restart=always --name peach -v ${PERACH_CUSTOM_PATH}:/app/custom  peachdocs/peach /app/peach web
+	@ docker run -ti  -d  -p ${PERACH_PORT}:5556 --restart=always --name peach -v ${PERACH_CUSTOM_PATH}:/app/custom  dockerclub/peach /app/peach web
 
 
 .PHONY: all build clean  image test release
