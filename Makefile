@@ -30,10 +30,10 @@ release: build image
 	@docker push peachdocs/peach:$(TAG) .
 
 test: clean
-	@godep go test -v ./...
+	@go test -v ./...
 
 testbuild:
-	@godep go build -a -tags "netgo static_build" -installsuffix netgo
+	@go build
 
 
 testrun:
