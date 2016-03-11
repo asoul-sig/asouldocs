@@ -1,8 +1,0 @@
-peach:
-    build: .
-    dockerfile: Dockerfile.build
-    entrypoint: /bin/bash
-    command: -c "make init && make build  && ./peach web"
-
-    ports:
-        - "8080:8080"
