@@ -23,23 +23,20 @@ or
 $docker run -ti  -d  -p {YOUR HOST PORT}:5556 --restart=always  --entrypoint="/bin/bash" --name peach -v /custom:/app/custom  peachdocs/peach /app/peach web
 
 ```
-
 ## About make command
 
-### local build peach
 
+```
+# local build peach
 $ make all
 
-
-### local test run peach application
-
+## local test run peach application
 $ make testrun
 
-
-### make a peach docker image
-
+## make a peach docker image
 $ make image
 
-### push a peach docker image to docker hub
-
+## push a peach docker image to docker hub
 $ make release
+
+```
