@@ -5,15 +5,15 @@
 #
 
 # Pull base image.
-FROM dockerclub/ubuntu
+FROM alpine:latest
 
-# Install Go
-RUN \
-  mkdir -p /goroot && \
-  curl https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz | tar xvzf - -C /goroot --strip-components=1
+
+RUN apk update && apk add curl git mercurial bzr go && rm -rf /var/cache/apk/*
+
+
 
 # Set environment variables.
-ENV GOROOT /goroot
+ENV GOROOT /usr/lib/go
 ENV GOPATH /gopath
 ENV PATH $GOROOT/bin:$GOPATH/bin:$PATH
 
