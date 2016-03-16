@@ -24,7 +24,7 @@ init:
 
 image:
 	@ echo Building peach image $(TAG)
-	@ docker build -t peachdocs/peach:$(TAG) .
+	@ docker build -t peachdocs/peach:$(TAG)  .
 
 release: build image
 	@docker push peachdocs/peach:$(TAG) .
