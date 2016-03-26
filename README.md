@@ -1,6 +1,6 @@
 # Peach [![Build Status](https://travis-ci.org/peachdocs/peach.svg?branch=master)](https://travis-ci.org/peachdocs/peach)
 
-![](https://github.com/peachdocs/peach/blob/master/public/img/favicon.ico)
+![](https://github.com/peachdocs/peach/raw/master/public/img/favicon.ico)
 
 Peach is a web server for multi-language, real-time synchronization and searchable documentation.
 
