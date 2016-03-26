@@ -1,7 +1,5 @@
 # Docker for Peach
 
-Visit [Docker Hub](https://hub.docker.com/r/peachdocs/peach/) see all available tags.
-
 ## Usage
 
 To keep your data out of Docker container, we do a volume (`/var/peach` -> `/data/peach`) here, and you can change it based on your situation.
