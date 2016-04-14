@@ -50,9 +50,22 @@ func Protect(ctx *middleware.Context) {
 		return
 	}
 
+	var allows map[string]bool
+	var find bool = false
 	// Check if resource is protected.
-	allows, yes := models.Protector.Resources[strings.TrimPrefix(ctx.Req.URL.Path, "/docs/")]
-	if !yes {
+	subPath := strings.TrimPrefix(ctx.Req.URL.Path, "/docs/")
+	for k, v := range models.Protector.Resources {
+            regex, regexErr := regexp.Compile(k)
+			if   regexErr != nil {
+				return
+			} 
+			if k == subPath || regex.MatchString(subPath) {
+				allows = v
+				find = true
+			    break
+		    }
+    }
+	if !find{
 		return
 	}
 
