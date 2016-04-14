@@ -49,7 +49,6 @@ func Protect(ctx *middleware.Context) {
 	if !models.Protector.HasProtection {
 		return
 	}
-
 	var allows map[string]bool
 	var find bool = false
 	// Check if resource is protected.
