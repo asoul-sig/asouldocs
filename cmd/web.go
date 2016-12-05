@@ -19,9 +19,9 @@ import (
 	"net/http"
 
 	"github.com/Unknwon/log"
-	"github.com/codegangsta/cli"
 	"github.com/go-macaron/i18n"
 	"github.com/go-macaron/pongo2"
+	"github.com/urfave/cli"
 	"gopkg.in/macaron.v1"
 
 	"github.com/peachdocs/peach/models"

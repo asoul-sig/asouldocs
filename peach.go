@@ -19,13 +19,13 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 
 	"github.com/peachdocs/peach/cmd"
 	"github.com/peachdocs/peach/modules/setting"
 )
 
-const APP_VER = "0.9.2.1214"
+const APP_VER = "0.9.2.1205"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
