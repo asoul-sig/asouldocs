@@ -10,7 +10,7 @@ Peach is a web server for multi-language, real-time synchronization and searchab
 
 - [Getting Started](http://peachdocs.org/docs/intro/getting_started)
 - [Ship with Docker](https://github.com/peachdocs/peach/tree/master/docker)
-- QQ 用户群：254120107
+- [Join Discord](https://discord.gg/R7haPpK)
 
 ## License
 
