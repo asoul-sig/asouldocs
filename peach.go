@@ -22,10 +22,10 @@ import (
 	"github.com/urfave/cli"
 
 	"github.com/peachdocs/peach/cmd"
-	"github.com/peachdocs/peach/modules/setting"
+	"github.com/peachdocs/peach/pkg/setting"
 )
 
-const APP_VER = "0.9.2.1205"
+const APP_VER = "0.9.3.0312"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())

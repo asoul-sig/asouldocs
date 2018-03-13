@@ -12,14 +12,15 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package middleware
+package context
 
 import (
 	"strings"
+	"time"
 
 	"gopkg.in/macaron.v1"
 
-	"github.com/peachdocs/peach/modules/setting"
+	"github.com/peachdocs/peach/pkg/setting"
 )
 
 type Context struct {
@@ -40,5 +41,6 @@ func Contexter() macaron.Handler {
 		ctx.Data["Navbar"] = setting.Navbar
 		ctx.Data["Asset"] = setting.Asset
 		ctx.Data["Extension"] = setting.Extension
+		ctx.Data["Year"] = time.Now().Year()
 	}
 }

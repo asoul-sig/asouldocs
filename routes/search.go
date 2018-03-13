@@ -12,15 +12,15 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package routers
+package routes
 
 import (
 	"github.com/peachdocs/peach/models"
-	"github.com/peachdocs/peach/modules/middleware"
-	"github.com/peachdocs/peach/modules/setting"
+	"github.com/peachdocs/peach/pkg/context"
+	"github.com/peachdocs/peach/pkg/setting"
 )
 
-func Search(ctx *middleware.Context) {
+func Search(ctx *context.Context) {
 	ctx.Data["Title"] = ctx.Tr("search")
 
 	toc := models.Tocs[ctx.Locale.Language()]

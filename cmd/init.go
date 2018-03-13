@@ -24,7 +24,7 @@ import (
 	"github.com/urfave/cli"
 	"gopkg.in/ini.v1"
 
-	"github.com/peachdocs/peach/modules/bindata"
+	"github.com/peachdocs/peach/pkg/bindata"
 )
 
 var New = cli.Command{

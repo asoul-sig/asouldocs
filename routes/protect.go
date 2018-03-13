@@ -12,7 +12,7 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package routers
+package routes
 
 import (
 	"crypto/md5"
@@ -21,10 +21,10 @@ import (
 	"strings"
 
 	"github.com/peachdocs/peach/models"
-	"github.com/peachdocs/peach/modules/middleware"
+	"github.com/peachdocs/peach/pkg/context"
 )
 
-func authRequired(ctx *middleware.Context) {
+func authRequired(ctx *context.Context) {
 	ctx.Resp.Header().Set("WWW-Authenticate", "Basic realm=\".\"")
 	ctx.Error(401)
 }
@@ -45,7 +45,7 @@ func encodeMd5(str string) string {
 	return hex.EncodeToString(m.Sum(nil))
 }
 
-func Protect(ctx *middleware.Context) {
+func Protect(ctx *context.Context) {
 	if !models.Protector.HasProtection {
 		return
 	}

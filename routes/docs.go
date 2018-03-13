@@ -12,7 +12,7 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package routers
+package routes
 
 import (
 	"fmt"
@@ -25,11 +25,11 @@ import (
 	"github.com/Unknwon/log"
 
 	"github.com/peachdocs/peach/models"
-	"github.com/peachdocs/peach/modules/middleware"
-	"github.com/peachdocs/peach/modules/setting"
+	"github.com/peachdocs/peach/pkg/context"
+	"github.com/peachdocs/peach/pkg/setting"
 )
 
-func renderEditPage(ctx *middleware.Context, documentPath string) {
+func renderEditPage(ctx *context.Context, documentPath string) {
 	if setting.Extension.EnableEditPage {
 		ctx.Data["EditPageLink"] = com.Expand(setting.Extension.EditPageLinkFormat, map[string]string{
 			"lang": ctx.Locale.Language(),
@@ -38,7 +38,7 @@ func renderEditPage(ctx *middleware.Context, documentPath string) {
 	}
 }
 
-func Docs(ctx *middleware.Context) {
+func Docs(ctx *context.Context) {
 	toc := models.Tocs[ctx.Locale.Language()]
 	if toc == nil {
 		toc = models.Tocs[setting.Docs.Langs[0]]
@@ -67,7 +67,7 @@ func Docs(ctx *middleware.Context) {
 	ctx.HTML(200, "docs")
 }
 
-func DocsStatic(ctx *middleware.Context) {
+func DocsStatic(ctx *context.Context) {
 	if len(ctx.Params("*")) > 0 {
 		f, err := os.Open(path.Join(models.Tocs[setting.Docs.Langs[0]].RootPath, "images", ctx.Params("*")))
 		if err != nil {
@@ -90,7 +90,7 @@ func DocsStatic(ctx *middleware.Context) {
 	ctx.Error(404)
 }
 
-func Hook(ctx *middleware.Context) {
+func Hook(ctx *context.Context) {
 	if ctx.Query("secret") != setting.Docs.Secret {
 		ctx.Error(403)
 		return

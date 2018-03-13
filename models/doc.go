@@ -20,7 +20,7 @@ import (
 	"github.com/Unknwon/com"
 	"github.com/Unknwon/log"
 
-	"github.com/peachdocs/peach/modules/setting"
+	"github.com/peachdocs/peach/pkg/setting"
 )
 
 func initLangDocs(tocs map[string]*Toc, localRoot, lang string) {

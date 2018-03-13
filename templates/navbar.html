@@ -1,7 +1,10 @@
 <div class="ui container">
   <div class="ui large secondary inverted menu">
   	{% for item in Navbar.Items %}
-    <a class="{% if item.Link == Link %}active{% endif %} item" href="{{item.Link}}" {% if item.Blank %}target="_blank"{% endif %}>{% if item.Icon %}<i class="{{item.Icon}} icon"></i> {% endif %}{{Tr(Lang, item.Locale)}}</a>
+      <a class="{% if item.Link == Link %}active{% endif %} item" href="{{item.Link}}" {% if item.Blank %}target="_blank"{% endif %}>
+        {% if item.Icon %}<i class="{{item.Icon}} icon"></i>{% endif %}
+        {{Tr(Lang, item.Locale)}}
+      </a>
     {% endfor %}
     <div class="right item">
       {% if Extension.EnableSearch %}
@@ -18,7 +21,7 @@
         <div class="text">{{LangName}}</div>
       	<div class="menu">
       		{% for lang in AllLangs %}
-					<a class="item {% if Lang == lang.Lang %}active selected{% endif %}" href="{{Link}}?lang={{lang.Lang}}">{{lang.Name}}</a>
+            <a class="item {% if Lang == lang.Lang %}active selected{% endif %}" href="{{Link}}?lang={{lang.Lang}}">{{lang.Name}}</a>
 					{% endfor %}
 				</div>
       </div>

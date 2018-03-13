@@ -25,9 +25,9 @@ import (
 	"gopkg.in/macaron.v1"
 
 	"github.com/peachdocs/peach/models"
-	"github.com/peachdocs/peach/modules/middleware"
-	"github.com/peachdocs/peach/modules/setting"
-	"github.com/peachdocs/peach/routers"
+	"github.com/peachdocs/peach/pkg/context"
+	"github.com/peachdocs/peach/pkg/setting"
+	"github.com/peachdocs/peach/routes"
 )
 
 var Web = cli.Command{
@@ -65,17 +65,17 @@ func runWeb(ctx *cli.Context) {
 	m.Use(pongo2.Pongoer(pongo2.Options{
 		Directory: tplDir,
 	}))
-	m.Use(middleware.Contexter())
+	m.Use(context.Contexter())
 
-	m.Get("/", routers.Home)
-	m.Get("/docs", routers.Docs)
-	m.Get("/docs/images/*", routers.DocsStatic)
-	m.Get("/docs/*", routers.Protect, routers.Docs)
-	m.Post("/hook", routers.Hook)
-	m.Get("/search", routers.Search)
-	m.Get("/*", routers.Pages)
+	m.Get("/", routes.Home)
+	m.Get("/docs", routes.Docs)
+	m.Get("/docs/images/*", routes.DocsStatic)
+	m.Get("/docs/*", routes.Protect, routes.Docs)
+	m.Post("/hook", routes.Hook)
+	m.Get("/search", routes.Search)
+	m.Get("/*", routes.Pages)
 
-	m.NotFound(routers.NotFound)
+	m.NotFound(routes.NotFound)
 
 	listenAddr := fmt.Sprintf("0.0.0.0:%d", setting.HTTPPort)
 	log.Info("%s Listen on %s", setting.Site.Name, listenAddr)

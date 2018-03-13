@@ -12,7 +12,7 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-package routers
+package routes
 
 import (
 	"fmt"
@@ -21,11 +21,11 @@ import (
 	"github.com/Unknwon/com"
 
 	"github.com/peachdocs/peach/models"
-	"github.com/peachdocs/peach/modules/middleware"
-	"github.com/peachdocs/peach/modules/setting"
+	"github.com/peachdocs/peach/pkg/context"
+	"github.com/peachdocs/peach/pkg/setting"
 )
 
-func Home(ctx *middleware.Context) {
+func Home(ctx *context.Context) {
 	if !setting.Page.HasLandingPage {
 		ctx.Redirect(setting.Page.DocsBaseURL)
 		return
@@ -34,7 +34,7 @@ func Home(ctx *middleware.Context) {
 	ctx.HTML(200, "home")
 }
 
-func Pages(ctx *middleware.Context) {
+func Pages(ctx *context.Context) {
 	toc := models.Tocs[ctx.Locale.Language()]
 	if toc == nil {
 		toc = models.Tocs[setting.Docs.Langs[0]]
@@ -67,7 +67,7 @@ func Pages(ctx *middleware.Context) {
 	NotFound(ctx)
 }
 
-func NotFound(ctx *middleware.Context) {
+func NotFound(ctx *context.Context) {
 	ctx.Data["Title"] = "404"
 	ctx.HTML(404, "404")
 }
