@@ -4,7 +4,7 @@
 
 Peach is a web server for multi-language, real-time synchronization and searchable documentation.
 
-#### Current version: 0.9.2
+#### Current version: 0.9.4
 
 ## Getting Help
 

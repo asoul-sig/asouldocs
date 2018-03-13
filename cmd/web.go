@@ -49,7 +49,9 @@ func runWeb(ctx *cli.Context) {
 	log.Info("Peach %s", setting.AppVer)
 
 	m := macaron.New()
-	m.Use(macaron.Logger())
+	if !setting.ProdMode {
+		m.Use(macaron.Logger())
+	}
 	m.Use(macaron.Recovery())
 	m.Use(macaron.Statics(macaron.StaticOptions{
 		SkipLogging: setting.ProdMode,
