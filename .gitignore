@@ -24,7 +24,6 @@ _testmain.go
 *.prof
 peach.sublime-workspace
 peach.sublime-project
-peach
 custom*
 data
 /.idea

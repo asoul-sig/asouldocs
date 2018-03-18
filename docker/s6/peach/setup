@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cd /app/peach
+
+# Link volumed data with app data
+ln -sfn /data/peach/log  ./log
+ln -sfn /data/peach/custom ./custom
+
+chown -R peach:peach /data/peach /app/peach
+chmod 0755 /data /data/peach
