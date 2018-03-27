@@ -77,8 +77,6 @@ func runWeb(ctx *cli.Context) {
 	m.Get("/search", routes.Search)
 	m.Get("/*", routes.Pages)
 
-	m.NotFound(routes.NotFound)
-
 	listenAddr := fmt.Sprintf("0.0.0.0:%d", setting.HTTPPort)
 	log.Info("%s Listen on %s", setting.Site.Name, listenAddr)
 	log.Fatal("Fail to start Peach: %v", http.ListenAndServe(listenAddr, m))
