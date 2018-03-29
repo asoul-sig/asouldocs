@@ -9,7 +9,7 @@ create_socat_links() {
         elif echo $USED_PORT | grep -E "(^|:)$PORT($|:)" > /dev/null; then
             echo "init:socat  | Can't bind linked container ${NAME} to localhost, port ${PORT} already in use" 1>&2
         else
-            SERV_FOLDER=/app/gogs/docker/s6/SOCAT_${NAME}_${PORT}
+            SERV_FOLDER=/app/peach/docker/s6/SOCAT_${NAME}_${PORT}
             mkdir -p ${SERV_FOLDER}
             CMD="socat -ls TCP4-LISTEN:${PORT},fork,reuseaddr TCP4:${ADDR}:${PORT}"
             echo -e "#!/bin/sh\nexec $CMD" > ${SERV_FOLDER}/run
