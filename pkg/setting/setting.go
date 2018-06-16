@@ -80,10 +80,11 @@ var (
 	}
 
 	Docs struct {
-		Type   DocType
-		Target string
-		Secret string
-		Langs  []string
+		Type      DocType
+		Target    string
+		TargetDir string
+		Secret    string
+		Langs     []string
 
 		// Only used for languages are not en-US or zh-CN to bypass error panic.
 		Locales map[string][]byte
@@ -171,6 +172,7 @@ func NewContext() {
 	sec = Cfg.Section("docs")
 	Docs.Type = DocType(sec.Key("TYPE").In("local", []string{LOCAL, REMOTE}))
 	Docs.Target = sec.Key("TARGET").String()
+	Docs.TargetDir = sec.Key("TARGET_DIR").String()
 	Docs.Secret = sec.Key("SECRET").String()
 	Docs.Langs = Cfg.Section("i18n").Key("LANGS").Strings(",")
 	Docs.Locales = make(map[string][]byte)

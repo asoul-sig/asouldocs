@@ -356,6 +356,9 @@ func ReloadDocs() error {
 			}
 			fmt.Println(stdout)
 		}
+
+		// Append subdir to root as needed
+		localRoot = path.Join(localRoot, setting.Docs.TargetDir)
 	}
 
 	if !com.IsDir(localRoot) {
