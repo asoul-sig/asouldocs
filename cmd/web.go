@@ -72,7 +72,7 @@ func runWeb(ctx *cli.Context) {
 	m.Get("/", routes.Home)
 	m.Get(setting.Page.DocsBaseURL, routes.Docs)
 	m.Get(setting.Page.DocsBaseURL + "/images/*", routes.DocsStatic)
-	m.Get(setting.Page.DocsBaseURL + "docs/*", routes.Protect, routes.Docs)
+	m.Get(setting.Page.DocsBaseURL + "/*", routes.Protect, routes.Docs)
 	m.Post("/hook", routes.Hook)
 	m.Get("/search", routes.Search)
 	m.Get("/*", routes.Pages)
