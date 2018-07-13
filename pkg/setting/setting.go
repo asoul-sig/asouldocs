@@ -50,6 +50,7 @@ var (
 	AppVer   string
 	ProdMode bool
 	HTTPPort int
+	HTTPHost string
 
 	Site struct {
 		Name   string
@@ -127,6 +128,7 @@ func NewContext() {
 	}
 
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(5555)
+	HTTPHost = sec.Key("HTTP_HOST").MustString("127.0.0.1")
 
 	sec = Cfg.Section("site")
 	Site.Name = sec.Key("NAME").MustString("Peach Server")
