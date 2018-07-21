@@ -4,7 +4,7 @@ MAINTAINER u@gogs.io
 # Install system utils & runtime dependencies
 ADD https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64 /usr/sbin/gosu
 RUN chmod +x /usr/sbin/gosu \
- && apk --no-cache --no-progress add ca-certificates bash git s6 curl socat
+ && apk --no-cache --no-progress add ca-certificates bash git s6 curl socat openssh-client
 
 COPY . /app/peach/
 WORKDIR /app/peach/
