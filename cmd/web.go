@@ -70,14 +70,14 @@ func runWeb(ctx *cli.Context) {
 	m.Use(context.Contexter())
 
 	m.Get("/", routes.Home)
-	m.Get("/docs", routes.Docs)
-	m.Get("/docs/images/*", routes.DocsStatic)
-	m.Get("/docs/*", routes.Protect, routes.Docs)
+	m.Get(setting.Page.DocsBaseURL, routes.Docs)
+	m.Get(setting.Page.DocsBaseURL + "/images/*", routes.DocsStatic)
+	m.Get(setting.Page.DocsBaseURL + "/*", routes.Protect, routes.Docs)
 	m.Post("/hook", routes.Hook)
 	m.Get("/search", routes.Search)
 	m.Get("/*", routes.Pages)
 
-	listenAddr := fmt.Sprintf("0.0.0.0:%d", setting.HTTPPort)
+	listenAddr := fmt.Sprintf("%s:%d", setting.HTTPHost, setting.HTTPPort)
 	log.Info("%s Listen on %s", setting.Site.Name, listenAddr)
 	log.Fatal("Fail to start Peach: %v", http.ListenAndServe(listenAddr, m))
 }

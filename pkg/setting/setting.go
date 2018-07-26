@@ -49,6 +49,7 @@ var (
 
 	AppVer   string
 	ProdMode bool
+	HTTPHost string
 	HTTPPort int
 
 	Site struct {
@@ -126,6 +127,7 @@ func NewContext() {
 		macaron.ColorLog = false
 	}
 
+	HTTPHost = sec.Key("HTTP_HOST").MustString("127.0.0.1")
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(5555)
 
 	sec = Cfg.Section("site")
