@@ -12,7 +12,8 @@ $ docker pull peachdocs/peach
 $ mkdir -p /var/peach
 
 # Use `docker run` for the first time. 
-# Peach will complain about missing custom app.ini, leave it there and see Settings section below.
+# Peach will complain about missing custom app.ini, leave it there for the moment,
+# you will restart the container after finished the configuration part.
 $ docker run --name=peach -p 5555:5555 -v /var/peach:/data/peach peachdocs/peach
 
 # Use `docker start` if you have stopped it.
@@ -49,10 +50,6 @@ $ docker volume create --name peach-data
 # Use `docker run` for the first time.
 $ docker run --name=peach -p 5555:5555 -v peach-data:/data/peach peachdocs/peach
 ```
-
-## Settings
-
-
 
 ## Upgrade
 
