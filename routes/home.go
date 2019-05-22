@@ -27,7 +27,7 @@ import (
 
 func Home(ctx *context.Context) {
 	if !setting.Page.HasLandingPage {
-		ctx.Redirect(setting.Page.DocsBaseURL)
+		ctx.Redirect(setting.Site.AppRoot + setting.Page.DocsBaseURL)
 		return
 	}
 
@@ -55,7 +55,7 @@ func Pages(ctx *context.Context) {
 			}
 
 			ctx.Data["Title"] = page.Title
-			ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="/%s/%s?=%d"></script>`, langVer, page.DocumentPath+".js", page.LastBuildTime)
+			ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="%s/%s/%s?=%d"></script>`, setting.Site.AppRoot, langVer, page.DocumentPath+".js", page.LastBuildTime)
 			ctx.Data["Pages"] = toc.Pages
 
 			renderEditPage(ctx, page.DocumentPath)

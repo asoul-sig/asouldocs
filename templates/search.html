@@ -10,7 +10,7 @@
 				{% for result in Results %}
 					<div class="ui segment">
 						<div class="ui header">
-							<a href="{{Page.DocsBaseURL}}/{{result.Path}}">{{result.Title}}</a>
+							<a href="{{Site.AppRoot}}{{Page.DocsBaseURL}}/{{result.Path}}">{{result.Title}}</a>
 						</div>
 						<p>...{{result.Match}}...</p>
 					</div>

@@ -53,10 +53,11 @@ var (
 	HTTPPort int
 
 	Site struct {
-		Name   string
-		Desc   string
-		UseCDN bool
-		URL    string
+		Name    string
+		Desc    string
+		UseCDN  bool
+		URL     string
+		AppRoot string
 	}
 
 	Page struct {
@@ -135,6 +136,7 @@ func NewContext() {
 	Site.Desc = sec.Key("DESC").String()
 	Site.UseCDN = sec.Key("USE_CDN").MustBool()
 	Site.URL = sec.Key("URL").String()
+	Site.AppRoot = sec.Key("APP_ROOT").MustString("")
 
 	sec = Cfg.Section("page")
 	Page.HasLandingPage = sec.Key("HAS_LANDING_PAGE").MustBool()

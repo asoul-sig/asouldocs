@@ -22,6 +22,7 @@ import (
 
 	"github.com/peachdocs/peach/models"
 	"github.com/peachdocs/peach/pkg/context"
+	"github.com/peachdocs/peach/pkg/setting"
 )
 
 func authRequired(ctx *context.Context) {
@@ -51,7 +52,7 @@ func Protect(ctx *context.Context) {
 	}
 
 	// Check if resource is protected.
-	allows, yes := models.Protector.Resources[strings.TrimPrefix(ctx.Req.URL.Path, "/docs/")]
+	allows, yes := models.Protector.Resources[strings.TrimPrefix(ctx.Req.URL.Path, setting.Site.AppRoot+"/docs/")]
 	if !yes {
 		return
 	}

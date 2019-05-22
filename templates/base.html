@@ -4,9 +4,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="description" content="{{Site.Desc}}" />
 
-		<link rel="shortcut icon" href="/img/favicon.ico" />
-		<link href="/css/semantic.min.css?v={{AppVer}}" rel="stylesheet" />
-		<link href="/css/peach.css?v={{AppVer}}" rel="stylesheet" />
+		<link rel="shortcut icon" href="{{Site.AppRoot}}/img/favicon.ico" />
+		<link href="{{Site.AppRoot}}/css/semantic.min.css?v={{AppVer}}" rel="stylesheet" />
+		<link href="{{Site.AppRoot}}/css/peach.css?v={{AppVer}}" rel="stylesheet" />
 
 		{% if Asset.CustomCSS %}
 			<link href="{{Asset.CustomCSS}}" rel="stylesheet" />
@@ -15,19 +15,19 @@
 		{% if Site.UseCDN %}
 			<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 		{% else %}
-			<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+			<script type="text/javascript" src="{{Site.AppRoot}}/js/jquery-1.11.3.min.js"></script>
 		{% endif %}
 		
-		<script type="text/javascript" src="/js/semantic.min.js?v={{AppVer}}"></script>
-		<script type="text/javascript" src="/js/emojify-1.1.0.min.js"></script>
-		<script type="text/javascript" src="/js/peach.js?v={{AppVer}}"></script>
+		<script type="text/javascript" src="{{Site.AppRoot}}/js/semantic.min.js?v={{AppVer}}"></script>
+		<script type="text/javascript" src="{{Site.AppRoot}}/js/emojify-1.1.0.min.js"></script>
+		<script type="text/javascript" src="{{Site.AppRoot}}/js/peach.js?v={{AppVer}}"></script>
 
 		{% if Extension.HighlightJSCustomCSS %}
 			<link rel="stylesheet" href="{{Extension.HighlightJSCustomCSS}}">
 		{% else %}
-			<link rel="stylesheet" href="/css/highlight-9.12.0/default.css">
+			<link rel="stylesheet" href="{{Site.AppRoot}}/css/highlight-9.12.0/default.css">
 		{% endif %}
-		<script src="/js/highlight-9.12.0.pack.js"></script>
+		<script src="{{Site.AppRoot}}/js/highlight-9.12.0.pack.js"></script>
 
 		<title>{% block title %}{{Title}}{% endblock %}</title>
 	</head>

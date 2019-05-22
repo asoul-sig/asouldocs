@@ -45,7 +45,7 @@ func Docs(ctx *context.Context) {
 	}
 	ctx.Data["Toc"] = toc
 
-	nodeName := strings.TrimPrefix(strings.ToLower(strings.TrimSuffix(ctx.Req.URL.Path, ".html")), setting.Page.DocsBaseURL)
+	nodeName := strings.TrimPrefix(strings.ToLower(strings.TrimSuffix(ctx.Req.URL.Path, ".html")), setting.Site.AppRoot+setting.Page.DocsBaseURL)
 	node, isDefault := toc.GetDoc(nodeName)
 	if node == nil {
 		NotFound(ctx)
@@ -61,7 +61,7 @@ func Docs(ctx *context.Context) {
 		langVer = setting.Docs.Langs[0]
 	}
 	ctx.Data["Title"] = node.Title
-	ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="/%s/%s?=%d"></script>`, langVer, node.DocumentPath+".js", node.LastBuildTime)
+	ctx.Data["Content"] = fmt.Sprintf(`<script type="text/javascript" src="%s/%s/%s?=%d"></script>`, setting.Site.AppRoot, langVer, node.DocumentPath+".js", node.LastBuildTime)
 
 	renderEditPage(ctx, node.DocumentPath)
 	ctx.HTML(200, "docs")

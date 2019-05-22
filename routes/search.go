@@ -30,7 +30,7 @@ func Search(ctx *context.Context) {
 
 	q := ctx.Query("q")
 	if len(q) == 0 {
-		ctx.Redirect(setting.Page.DocsBaseURL)
+		ctx.Redirect(setting.Site.AppRoot + setting.Page.DocsBaseURL)
 		return
 	}
 
