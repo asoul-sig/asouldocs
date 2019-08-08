@@ -122,7 +122,7 @@ func (n *Node) GenHTML(data []byte) error {
 	if setting.Docs.Type.IsLocal() {
 		htmlPath = path.Join(HTMLRoot, strings.TrimPrefix(n.FileName, setting.Docs.Target))
 	} else {
-		htmlPath = path.Join(HTMLRoot, strings.TrimPrefix(n.FileName, docsRoot))
+		htmlPath = path.Join(HTMLRoot, strings.TrimPrefix(n.FileName, filepath.Join(docsRoot, setting.Docs.TargetDir)))
 	}
 	htmlPath = strings.Replace(htmlPath, ".md", ".js", 1)
 
