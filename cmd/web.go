@@ -1,4 +1,4 @@
-// Copyright 2015 Unknwon
+// Copyright 2015 unknwon
 //
 // Licensed under the Apache License, Version 2.0 (the "License"): you may
 // not use this file except in compliance with the License. You may obtain
@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Unknwon/log"
+	"github.com/unknwon/log"
 	"github.com/go-macaron/i18n"
 	"github.com/go-macaron/pongo2"
 	"github.com/urfave/cli"

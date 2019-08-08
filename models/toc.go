@@ -1,4 +1,4 @@
-// Copyright 2015 Unknwon
+// Copyright 2015 unknwon
 //
 // Licensed under the Apache License, Version 2.0 (the "License"): you may
 // not use this file except in compliance with the License. You may obtain
@@ -26,7 +26,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/Unknwon/com"
+	"github.com/unknwon/com"
 	"github.com/mschoch/blackfriday-text"
 	"github.com/russross/blackfriday"
 	"gopkg.in/ini.v1"

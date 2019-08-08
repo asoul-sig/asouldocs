@@ -1,4 +1,4 @@
-// Copyright 2015 Unknwon
+// Copyright 2015 unknwon
 //
 // Licensed under the Apache License, Version 2.0 (the "License"): you may
 // not use this file except in compliance with the License. You may obtain
@@ -21,8 +21,8 @@ import (
 	"path"
 	"strings"
 
-	"github.com/Unknwon/com"
-	"github.com/Unknwon/log"
+	"github.com/unknwon/com"
+	"github.com/unknwon/log"
 
 	"github.com/peachdocs/peach/models"
 	"github.com/peachdocs/peach/pkg/context"

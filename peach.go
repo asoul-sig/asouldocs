@@ -1,4 +1,4 @@
-// Copyright 2015 Unknwon
+// Copyright 2015 unknwon
 //
 // Licensed under the Apache License, Version 2.0 (the "License"): you may
 // not use this file except in compliance with the License. You may obtain
@@ -25,7 +25,7 @@ import (
 	"github.com/peachdocs/peach/pkg/setting"
 )
 
-const APP_VER = "0.9.6.0616"
+const APP_VER = "0.9.7.0807"
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -37,7 +37,7 @@ func main() {
 	app.Name = "Peach"
 	app.Usage = "Modern Documentation Server"
 	app.Version = APP_VER
-	app.Author = "Unknwon"
+	app.Author = "unknwon"
 	app.Email = "u@gogs.io"
 	app.Commands = []cli.Command{
 		cmd.Web,
