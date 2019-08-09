@@ -1,14 +1,16 @@
 <div class="ui container">
   <div class="ui large secondary inverted menu">
-  	{% for item in Navbar.Items %}
-      <a class="{% if item.Link == Link %}active{% endif %} item" href="{{item.Link}}" {% if item.Blank %}target="_blank"{% endif %}>
-        {% if item.Icon %}<i class="{{item.Icon}} icon"></i>{% endif %}
-        {{Tr(Lang, item.Locale)}}
-      </a>
+    {% for item in Navbar.Items %}
+      {% if item.Enable %}
+        <a class="{% if item.Link == Link %}active{% endif %} item" href="{{item.Link}}" {% if item.Blank %}target="_blank"{% endif %}>
+          {% if item.Icon %}<i class="{{item.Icon}} icon"></i>{% endif %}
+          {{Tr(Lang, item.Locale)}}
+        </a>
+      {% endif %}
     {% endfor %}
     <div class="right item">
       {% if Extension.EnableSearch %}
-        <form action="/search">
+        <form action="{{Site.AppRoot}}/search">
           <div class="item">
             <div class="ui small input">
               <input name="q" value="{{Keyword}}" placeholder="{{Tr(Lang, "navbar.search")}}...">

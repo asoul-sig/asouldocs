@@ -54,6 +54,7 @@ func runWeb(ctx *cli.Context) {
 	}
 	m.Use(macaron.Recovery())
 	m.Use(macaron.Statics(macaron.StaticOptions{
+		Prefix:      setting.Site.AppRoot,
 		SkipLogging: setting.ProdMode,
 	}, "custom/public", "public", models.HTMLRoot))
 	m.Use(i18n.I18n(i18n.Options{
@@ -69,13 +70,13 @@ func runWeb(ctx *cli.Context) {
 	}))
 	m.Use(context.Contexter())
 
-	m.Get("/", routes.Home)
-	m.Get(setting.Page.DocsBaseURL, routes.Docs)
-	m.Get(setting.Page.DocsBaseURL + "/images/*", routes.DocsStatic)
-	m.Get(setting.Page.DocsBaseURL + "/*", routes.Protect, routes.Docs)
-	m.Post("/hook", routes.Hook)
-	m.Get("/search", routes.Search)
-	m.Get("/*", routes.Pages)
+	m.Get(setting.Site.AppRoot+"/", routes.Home)
+	m.Get(setting.Site.AppRoot+setting.Page.DocsBaseURL, routes.Docs)
+	m.Get(setting.Site.AppRoot+setting.Page.DocsBaseURL+"/images/*", routes.DocsStatic)
+	m.Get(setting.Site.AppRoot+setting.Page.DocsBaseURL+"/*", routes.Protect, routes.Docs)
+	m.Post(setting.Site.AppRoot+"/hook", routes.Hook)
+	m.Get(setting.Site.AppRoot+"/search", routes.Search)
+	m.Get(setting.Site.AppRoot+"/*", routes.Pages)
 
 	listenAddr := fmt.Sprintf("%s:%d", setting.HTTPHost, setting.HTTPPort)
 	log.Info("%s Listen on %s", setting.Site.Name, listenAddr)
