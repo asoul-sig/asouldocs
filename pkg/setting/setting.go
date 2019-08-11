@@ -24,9 +24,10 @@ import (
 )
 
 type NavbarItem struct {
-	Icon         string
-	Locale, Link string
-	Blank        bool
+	Icon          string
+	Locale, Link  string
+	Blank         bool
+	Enabled       bool
 }
 
 const (
@@ -165,6 +166,7 @@ func NewContext() {
 			Locale: Cfg.Section(secName).Key("LOCALE").MustString(secName),
 			Link:   Cfg.Section(secName).Key("LINK").MustString("/"),
 			Blank:  Cfg.Section(secName).Key("BLANK").MustBool(),
+			Enabled: Cfg.Section(secName).Key("ENABLED").MustBool(true),
 		}
 	}
 
