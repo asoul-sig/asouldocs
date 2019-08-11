@@ -1,7 +1,7 @@
 <div class="ui container">
   <div class="ui large secondary inverted menu">
     {% for item in Navbar.Items %}
-      {% if item.Enable %}
+      {% if item.Enabled %}
         <a class="{% if item.Link == Link %}active{% endif %} item" href="{{item.Link}}" {% if item.Blank %}target="_blank"{% endif %}>
           {% if item.Icon %}<i class="{{item.Icon}} icon"></i>{% endif %}
           {{Tr(Lang, item.Locale)}}
