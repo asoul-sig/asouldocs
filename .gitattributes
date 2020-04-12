@@ -1,6 +1,4 @@
-public/css/highlight-9.12.0/* linguist-vendored
-public/css/themes/* linguist-vendored
-public/css/semantic.min.css linguist-vendored
+public/css/* linguist-vendored
 public/fonts/* linguist-vendored
 public/js/emojify-1.1.0.min.js linguist-vendored
 public/js/highlight-9.12.0.pack.js linguist-vendored
