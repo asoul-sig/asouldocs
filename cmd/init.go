@@ -14,7 +14,7 @@ import (
 	"github.com/urfave/cli"
 	"gopkg.in/ini.v1"
 
-	"github.com/asoul-go/asouldocs/pkg/bindata"
+	"github.com/asoul-sig/asouldocs/pkg/bindata"
 )
 
 var New = cli.Command{

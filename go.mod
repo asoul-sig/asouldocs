@@ -1,4 +1,4 @@
-module github.com/asoul-go/asouldocs
+module github.com/asoul-sig/asouldocs
 
 go 1.17
 

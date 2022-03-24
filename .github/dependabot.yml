@@ -6,6 +6,6 @@ updates:
     schedule:
       interval: "weekly"
     reviewers:
-      - "asoul-go/core"
+      - "asoul-sig/core"
     commit-message:
       prefix: "mod:"

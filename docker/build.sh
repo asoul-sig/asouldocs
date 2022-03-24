@@ -10,9 +10,9 @@ export PATH=${PATH}:${GOPATH}/bin
 apk --no-cache --no-progress add --virtual build-deps go gcc musl-dev
 
 # Init go environment to build
-mkdir -p ${GOPATH}/src/github.com/asoul-go/
-ln -s /app/asouldocs/ ${GOPATH}/src/github.com/asoul-go/asouldocs
-cd ${GOPATH}/src/github.com/asoul-go/asouldocs
+mkdir -p ${GOPATH}/src/github.com/asoul-sig/
+ln -s /app/asouldocs/ ${GOPATH}/src/github.com/asoul-sig/asouldocs
+cd ${GOPATH}/src/github.com/asoul-sig/asouldocs
 go get -v
 mv ${GOPATH}/bin/asouldocs .
 

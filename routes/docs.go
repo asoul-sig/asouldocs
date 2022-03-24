@@ -14,9 +14,9 @@ import (
 	"github.com/unknwon/com"
 	"github.com/unknwon/log"
 
-	"github.com/asoul-go/asouldocs/models"
-	"github.com/asoul-go/asouldocs/pkg/context"
-	"github.com/asoul-go/asouldocs/pkg/setting"
+	"github.com/asoul-sig/asouldocs/models"
+	"github.com/asoul-sig/asouldocs/pkg/context"
+	"github.com/asoul-sig/asouldocs/pkg/setting"
 )
 
 func renderEditPage(ctx *context.Context, documentPath string) {

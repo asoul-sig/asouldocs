@@ -21,7 +21,7 @@ import (
 	"github.com/unknwon/com"
 	"gopkg.in/ini.v1"
 
-	"github.com/asoul-go/asouldocs/pkg/setting"
+	"github.com/asoul-sig/asouldocs/pkg/setting"
 )
 
 type Node struct {
