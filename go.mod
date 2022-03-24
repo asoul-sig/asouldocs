@@ -6,7 +6,7 @@ require (
 	github.com/go-macaron/i18n v0.0.0-20190805070610-6d779f6a12cf
 	github.com/go-macaron/pongo2 v0.0.0-20180906102555-6074d2551820
 	github.com/mschoch/blackfriday-text v0.0.0-20160725121510-f4ea365e801b
-	github.com/russross/blackfriday v1.5.2
+	github.com/russross/blackfriday v2.0.0+incompatible
 	github.com/unknwon/com v0.0.0-20190804042917-757f69c95f3e
 	github.com/unknwon/log v0.0.0-20150304194804-e617c87089d3
 	github.com/urfave/cli v1.22.5
