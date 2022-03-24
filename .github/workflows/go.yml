@@ -52,5 +52,5 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Run tests with coverage
+      - name: Run tests
         run: go test -v -race ./...
