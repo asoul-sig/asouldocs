@@ -11,7 +11,7 @@ require (
 	github.com/unknwon/log v0.0.0-20150304194804-e617c87089d3
 	github.com/urfave/cli v1.22.5
 	gopkg.in/ini.v1 v1.46.0
-	gopkg.in/macaron.v1 v1.3.4
+	gopkg.in/macaron.v1 v1.4.0
 )
 
 require (
