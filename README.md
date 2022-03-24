@@ -2,8 +2,8 @@
 ![ASoulDocs](https://user-images.githubusercontent.com/2946214/159929046-6f1eb4c1-53b5-40d5-b5a2-e7d805566e73.png#gh-dark-mode-only)
 
 <div align="center">
-  <a href="https://github.com/asoul-go/asouldocs/actions?query=branch%3Amain"><img src="https://img.shields.io/github/checks-status/asoul-go/asouldocs/main?logo=github&style=for-the-badge" alt="GitHub Workflow Status"></a>
-  <a href="https://sourcegraph.com/github.com/asoul-go/asouldocs"><img src="https://img.shields.io/badge/view%20on-Sourcegraph-brightgreen.svg?style=for-the-badge&logo=sourcegraph" alt="Sourcegraph"></a>
+  <a href="https://github.com/asoul-sig/asouldocs/actions?query=branch%3Amain"><img src="https://img.shields.io/github/checks-status/asoul-sig/asouldocs/main?logo=github&style=for-the-badge" alt="GitHub Workflow Status"></a>
+  <a href="https://sourcegraph.com/github.com/asoul-sig/asouldocs"><img src="https://img.shields.io/badge/view%20on-Sourcegraph-brightgreen.svg?style=for-the-badge&logo=sourcegraph" alt="Sourcegraph"></a>
 
   _**ASoulDocs**_ is a web server for multilingual, real-time synchronized and searchable documentation.
 </div>

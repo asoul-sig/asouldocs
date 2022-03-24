@@ -10,8 +10,8 @@ import (
 	"encoding/hex"
 	"strings"
 
-	"github.com/asoul-go/asouldocs/models"
-	"github.com/asoul-go/asouldocs/pkg/context"
+	"github.com/asoul-sig/asouldocs/models"
+	"github.com/asoul-sig/asouldocs/pkg/context"
 )
 
 func authRequired(ctx *context.Context) {

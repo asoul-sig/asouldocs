@@ -10,7 +10,7 @@ import (
 
 	"gopkg.in/macaron.v1"
 
-	"github.com/asoul-go/asouldocs/pkg/setting"
+	"github.com/asoul-sig/asouldocs/pkg/setting"
 )
 
 type Context struct {

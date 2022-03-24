@@ -10,7 +10,7 @@ env:
 
 jobs:
   lsif-go:
-    if: github.repository == 'asoul-go/asouldocs'
+    if: github.repository == 'asoul-sig/asouldocs'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

@@ -10,7 +10,7 @@ import (
 	"github.com/unknwon/com"
 	"github.com/unknwon/log"
 
-	"github.com/asoul-go/asouldocs/pkg/setting"
+	"github.com/asoul-sig/asouldocs/pkg/setting"
 )
 
 func initLangDocs(tocs map[string]*Toc, localRoot, lang string) {

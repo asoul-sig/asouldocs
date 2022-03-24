@@ -11,8 +11,8 @@ import (
 
 	"github.com/urfave/cli"
 
-	"github.com/asoul-go/asouldocs/cmd"
-	"github.com/asoul-go/asouldocs/pkg/setting"
+	"github.com/asoul-sig/asouldocs/cmd"
+	"github.com/asoul-sig/asouldocs/pkg/setting"
 )
 
 const APP_VER = "0.9.8.0810"
