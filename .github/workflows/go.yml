@@ -1,24 +1,56 @@
 name: Go
-on: [push]
-jobs:
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.go'
+      - 'go.mod'
+      - '.golangci.yml'
+      - '.github/workflows/go.yml'
+  pull_request:
+    paths:
+      - '**.go'
+      - 'go.mod'
+      - '.golangci.yml'
+      - '.github/workflows/go.yml'
+env:
+  GOPROXY: "https://proxy.golang.org"
 
-  build:
-    name: Build
+jobs:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+          args: --timeout=30m
+      - name: Check Go module tidiness
+        shell: bash
+        run: |
+          go mod tidy
+          STATUS=$(git status --porcelain go.mod go.sum)
+          if [ ! -z "$STATUS" ]; then
+            echo "Running go mod tidy modified go.mod and/or go.sum"
+            exit 1
+          fi
 
-    - name: Set up Go 1.13
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.13
-      id: go
-
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v1
-
-    - name: Get dependencies
-      run: |
-        go get -v ./...
-
-    - name: Build
-      run: go build -v
+  test:
+    name: Test
+    strategy:
+      matrix:
+        go-version: [ 1.17.x, 1.18.x ]
+        platform: [ ubuntu-latest, macos-latest, windows-latest ]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run tests with coverage
+        run: go test -v -race ./...

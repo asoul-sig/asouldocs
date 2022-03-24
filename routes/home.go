@@ -41,7 +41,7 @@ func Pages(ctx *context.Context) {
 				page = models.Tocs[langVer].Pages[i]
 			}
 			if !setting.ProdMode {
-				page.ReloadContent()
+				_ = page.ReloadContent()
 			}
 
 			ctx.Data["Title"] = page.Title

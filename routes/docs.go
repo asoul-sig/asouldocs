@@ -42,7 +42,7 @@ func Docs(ctx *context.Context) {
 		return
 	}
 	if !setting.ProdMode {
-		node.ReloadContent()
+		_ = node.ReloadContent()
 	}
 
 	langVer := toc.Lang
