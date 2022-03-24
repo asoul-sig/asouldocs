@@ -10,11 +10,11 @@ export PATH=${PATH}:${GOPATH}/bin
 apk --no-cache --no-progress add --virtual build-deps go gcc musl-dev
 
 # Init go environment to build
-mkdir -p ${GOPATH}/src/github.com/peachdocs/
-ln -s /app/peach/ ${GOPATH}/src/github.com/peachdocs/peach
-cd ${GOPATH}/src/github.com/peachdocs/peach
+mkdir -p ${GOPATH}/src/github.com/asoul-go/
+ln -s /app/asouldocs/ ${GOPATH}/src/github.com/asoul-go/asouldocs
+cd ${GOPATH}/src/github.com/asoul-go/asouldocs
 go get -v
-mv ${GOPATH}/bin/peach .
+mv ${GOPATH}/bin/asouldocs .
 
 # Cleanup GOPATH
 rm -r $GOPATH
@@ -23,4 +23,4 @@ rm -r $GOPATH
 apk --no-progress del build-deps
 
 # Create user
-adduser -H -D -g 'Peach Docs' peach -h /data/peach -s /bin/bash && passwd -u peach
+adduser -H -D -g 'ASoulDocs' asouldocs -h /data/asouldocs -s /bin/bash && passwd -u asouldocs

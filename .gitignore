@@ -22,9 +22,8 @@ _testmain.go
 *.exe
 *.test
 *.prof
-peach.sublime-workspace
-peach.sublime-project
 custom*
 data
 /.idea
-/peach
+/asouldocs
+.DS_Store
