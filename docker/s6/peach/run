@@ -4,5 +4,5 @@ if test -f ./setup; then
     source ./setup
 fi
 
-export USER=peach
-exec gosu $USER /app/peach/peach web
+export USER=asouldocs
+exec gosu $USER /app/asouldocs/asouldocs web

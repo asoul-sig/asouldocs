@@ -9,7 +9,7 @@ create_socat_links() {
         elif echo $USED_PORT | grep -E "(^|:)$PORT($|:)" > /dev/null; then
             echo "init:socat  | Can't bind linked container ${NAME} to localhost, port ${PORT} already in use" 1>&2
         else
-            SERV_FOLDER=/app/peach/docker/s6/SOCAT_${NAME}_${PORT}
+            SERV_FOLDER=/app/asouldocs/docker/s6/SOCAT_${NAME}_${PORT}
             mkdir -p ${SERV_FOLDER}
             CMD="socat -ls TCP4-LISTEN:${PORT},fork,reuseaddr TCP4:${ADDR}:${PORT}"
             echo -e "#!/bin/sh\nexec $CMD" > ${SERV_FOLDER}/run
@@ -25,13 +25,13 @@ EOT
 cleanup() {
     # Cleanup SOCAT services and s6 event folder
     # On start and on shutdown in case container has been killed
-    rm -rf $(find /app/peach/docker/s6/ -name 'event')
-    rm -rf /app/peach/docker/s6/SOCAT_*
+    rm -rf $(find /app/asouldocs/docker/s6/ -name 'event')
+    rm -rf /app/asouldocs/docker/s6/SOCAT_*
 }
 
 create_volume_subfolder() {
     # Create VOLUME subfolder
-    for f in /data/peach/data /data/peach/custom /data/peach/log; do
+    for f in /data/asouldocs/data /data/asouldocs/custom /data/asouldocs/log; do
         if ! test -d $f; then
             mkdir -p $f
         fi
@@ -52,5 +52,5 @@ fi
 if [ $# -gt 0 ];then
     exec "$@"
 else
-    exec /bin/s6-svscan /app/peach/docker/s6/
+    exec /bin/s6-svscan /app/asouldocs/docker/s6/
 fi
