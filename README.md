@@ -1,8 +1,8 @@
-# Peach [![Build Status](https://travis-ci.org/peachdocs/peach.svg?branch=master)](https://travis-ci.org/peachdocs/peach)
+# ASoulDocs
 
-![](https://github.com/peachdocs/peach/raw/master/public/img/favicon.ico)
+[![GitHub Workflow Status](https://img.shields.io/github/checks-status/asoul-go/asouldocs/main?logo=github&style=for-the-badge)](https://github.com/asoul-go/asouldocs/actions?query=branch%3Amain)
 
-Peach is a web server for multi-language, real-time synchronization and searchable documentation.
+ASoulDocs is a web server for multilingual, real-time synchronized and searchable documentation.
 
 #### Current version: 0.9.8
 
@@ -10,8 +10,7 @@ Peach is a web server for multi-language, real-time synchronization and searchab
 
 - [Getting Started](http://peachdocs.org/docs/intro/getting_started)
 - [Ship with Docker](https://github.com/peachdocs/peach/tree/master/docker)
-- [Join Discord](https://discord.gg/R7haPpK)
 
 ## License
 
-This project is under Apache v2 License. See the [LICENSE](LICENSE) file for the full license text.
+This project is under the MIT License. See the [LICENSE](LICENSE) file for the full license text.
