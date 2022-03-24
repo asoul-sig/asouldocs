@@ -32,5 +32,5 @@ func main() {
 		cmd.New,
 	}
 	app.Flags = append(app.Flags, []cli.Flag{}...)
-	app.Run(os.Args)
+	_ = app.Run(os.Args)
 }

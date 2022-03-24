@@ -62,20 +62,20 @@ func runNew(ctx *cli.Context) {
 	}
 
 	fmt.Printf("➜  Creating '%s'...\n", target)
-	os.MkdirAll(target, os.ModePerm)
+	_ = os.MkdirAll(target, os.ModePerm)
 
 	// Create default files.
 	dirs := []string{"templates", "public"}
 	for _, dir := range dirs {
 		fmt.Printf("➜  Creating '%s'...\n", dir)
-		os.RemoveAll(filepath.Join(target, dir))
+		_ = os.RemoveAll(filepath.Join(target, dir))
 		restoreAssets(target, dir)
 	}
 
 	// Create custom templates.
 	yes := ctx.Bool("yes")
 	if !yes {
-		fmt.Printf(toYellow("Do you want to use custom templates?[Y/n] "))
+		fmt.Print(toYellow("Do you want to use custom templates?[Y/n] "))
 		yes = checkYesNo()
 	}
 
