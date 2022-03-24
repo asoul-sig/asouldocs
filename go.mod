@@ -10,7 +10,7 @@ require (
 	github.com/unknwon/com v0.0.0-20190804042917-757f69c95f3e
 	github.com/unknwon/log v0.0.0-20150304194804-e617c87089d3
 	github.com/urfave/cli v1.22.5
-	gopkg.in/ini.v1 v1.46.0
+	gopkg.in/ini.v1 v1.66.4
 	gopkg.in/macaron.v1 v1.3.4
 )
 
@@ -21,6 +21,7 @@ require (
 	github.com/juju/errors v0.0.0-20181118221551-089d3ea4e4d5 // indirect
 	github.com/russross/blackfriday/v2 v2.0.1 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
+	github.com/stretchr/testify v1.7.1 // indirect
 	github.com/unknwon/i18n v0.0.0-20190805065654-5c6446a380b6 // indirect
 	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect
 	golang.org/x/text v0.3.2 // indirect
