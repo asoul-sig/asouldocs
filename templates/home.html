@@ -13,10 +13,10 @@
 		<title>{{.Title}}</title>
 	</head>
 	<body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
-		<div class="space-y-10 overflow-hidden">
+		<div class="space-y-10">
 			<header class="relative">
-				<div class="px-4 sm:px-6 md:px-8">
-					<div class="absolute inset-0 bottom-10 bg-bottom bg-no-repeat bg-slate-50 dark:bg-[#0B1120] index_beams__3fKa4">
+				<div class="px-4 sm:px-6 md:px-8 pb-10">
+					<div class="absolute inset-0 bg-bottom bg-no-repeat bg-slate-50 dark:bg-[#0B1120]">
 						<div class="absolute inset-0 bg-grid-slate-900/[0.04] bg-[bottom_1px_center] dark:bg-grid-slate-400/[0.05] dark:bg-bottom dark:border-b dark:border-slate-100/5" style="mask-image:linear-gradient(to bottom, transparent, black);-webkit-mask-image:linear-gradient(to bottom, transparent, black)"></div>
 					</div>
 					<div class="relative pt-6 lg:pt-8 flex items-center justify-between text-slate-700 font-semibold text-sm leading-6 dark:text-slate-200">
@@ -40,144 +40,182 @@
 										<li>
 											<a class="hover:text-sky-500 dark:hover:text-sky-400" href="{{.Page.DocsBaseURL}}">Docs</a>
 										</li>
-										</ul>
-									</nav>
-									<div class="flex items-center border-l border-slate-200 ml-6 pl-6 dark:border-slate-800">
-										<label class="sr-only" id="headlessui-listbox-label-2">Theme</label>
-										<button type="button" id="headlessui-listbox-button-3" aria-haspopup="true" aria-expanded="false" aria-labelledby="headlessui-listbox-label-2 headlessui-listbox-button-undefined">
-											<span class="dark:hidden">
-												<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" class="fill-sky-400/20 stroke-sky-500"></path><path d="M12 4v1M17.66 6.344l-.828.828M20.005 12.004h-1M17.66 17.664l-.828-.828M12 20.01V19M6.34 17.664l.835-.836M3.995 12.004h1.01M6 6l.835.836" class="stroke-sky-500"></path></svg>
-											</span>
-											<span class="hidden dark:inline">
-												<svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.715 15.15A6.5 6.5 0 0 1 9 6.035C6.106 6.922 4 9.645 4 12.867c0 3.94 3.153 7.136 7.042 7.136 3.101 0 5.734-2.032 6.673-4.853Z" class="fill-sky-400/20"></path><path d="m17.715 15.15.95.316a1 1 0 0 0-1.445-1.185l.495.869ZM9 6.035l.846.534a1 1 0 0 0-1.14-1.49L9 6.035Zm8.221 8.246a5.47 5.47 0 0 1-2.72.718v2a7.47 7.47 0 0 0 3.71-.98l-.99-1.738Zm-2.72.718A5.5 5.5 0 0 1 9 9.5H7a7.5 7.5 0 0 0 7.5 7.5v-2ZM9 9.5c0-1.079.31-2.082.845-2.93L8.153 5.5A7.47 7.47 0 0 0 7 9.5h2Zm-4 3.368C5 10.089 6.815 7.75 9.292 6.99L8.706 5.08C5.397 6.094 3 9.201 3 12.867h2Zm6.042 6.136C7.718 19.003 5 16.268 5 12.867H3c0 4.48 3.588 8.136 8.042 8.136v-2Zm5.725-4.17c-.81 2.433-3.074 4.17-5.725 4.17v2c3.552 0 6.553-2.327 7.622-5.537l-1.897-.632Z" class="fill-sky-500"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M17 3a1 1 0 0 1 1 1 2 2 0 0 0 2 2 1 1 0 1 1 0 2 2 2 0 0 0-2 2 1 1 0 1 1-2 0 2 2 0 0 0-2-2 1 1 0 1 1 0-2 2 2 0 0 0 2-2 1 1 0 0 1 1-1Z" class="fill-sky-500"></path></svg>
-											</span>
-										</button>
-										<a href="https://github.com/tailwindlabs/tailwindcss" class="ml-6 block text-slate-400 hover:text-slate-500 dark:hover:text-slate-300">
-											<span class="sr-only">Tailwind CSS on GitHub</span>
-											<svg viewBox="0 0 16 16" class="w-5 h-5" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-										</a>
-									</div>
+									</ul>
+								</nav>
+								<div class="flex items-center border-l border-slate-200 ml-6 pl-6 dark:border-slate-800">
+									<label class="sr-only" id="headlessui-listbox-label-2">Theme</label>
+									<button type="button" id="headlessui-listbox-button-3" aria-haspopup="true" aria-expanded="false" aria-labelledby="headlessui-listbox-label-2 headlessui-listbox-button-undefined">
+										<span class="dark:hidden">
+											<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" class="fill-sky-400/20 stroke-sky-500"></path><path d="M12 4v1M17.66 6.344l-.828.828M20.005 12.004h-1M17.66 17.664l-.828-.828M12 20.01V19M6.34 17.664l.835-.836M3.995 12.004h1.01M6 6l.835.836" class="stroke-sky-500"></path></svg>
+										</span>
+										<span class="hidden dark:inline">
+											<svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.715 15.15A6.5 6.5 0 0 1 9 6.035C6.106 6.922 4 9.645 4 12.867c0 3.94 3.153 7.136 7.042 7.136 3.101 0 5.734-2.032 6.673-4.853Z" class="fill-sky-400/20"></path><path d="m17.715 15.15.95.316a1 1 0 0 0-1.445-1.185l.495.869ZM9 6.035l.846.534a1 1 0 0 0-1.14-1.49L9 6.035Zm8.221 8.246a5.47 5.47 0 0 1-2.72.718v2a7.47 7.47 0 0 0 3.71-.98l-.99-1.738Zm-2.72.718A5.5 5.5 0 0 1 9 9.5H7a7.5 7.5 0 0 0 7.5 7.5v-2ZM9 9.5c0-1.079.31-2.082.845-2.93L8.153 5.5A7.47 7.47 0 0 0 7 9.5h2Zm-4 3.368C5 10.089 6.815 7.75 9.292 6.99L8.706 5.08C5.397 6.094 3 9.201 3 12.867h2Zm6.042 6.136C7.718 19.003 5 16.268 5 12.867H3c0 4.48 3.588 8.136 8.042 8.136v-2Zm5.725-4.17c-.81 2.433-3.074 4.17-5.725 4.17v2c3.552 0 6.553-2.327 7.622-5.537l-1.897-.632Z" class="fill-sky-500"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M17 3a1 1 0 0 1 1 1 2 2 0 0 0 2 2 1 1 0 1 1 0 2 2 2 0 0 0-2 2 1 1 0 1 1-2 0 2 2 0 0 0-2-2 1 1 0 1 1 0-2 2 2 0 0 0 2-2 1 1 0 0 1 1-1Z" class="fill-sky-500"></path></svg>
+										</span>
+									</button>
+									<a href="https://github.com/tailwindlabs/tailwindcss" class="ml-6 block text-slate-400 hover:text-slate-500 dark:hover:text-slate-300">
+										<span class="sr-only">Tailwind CSS on GitHub</span>
+										<svg viewBox="0 0 16 16" class="w-5 h-5" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+									</a>
 								</div>
 							</div>
 						</div>
-						<div class="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32">
-							<h1 class="text-slate-900 font-extrabold italic text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white">
-								{{tr "home::title"}}
-							</h1>
-							<p class="mt-6 text-lg text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400">
-								{{tr "home::tag_line"}}
-							</p>
-							<div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
-								<a class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400" href="{{.Page.DocsBaseURL}}">
-									{{tr "home::get_started"}}
-								</a>
-								<button type="button" class="hidden sm:flex items-center w-72 text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700">
-									<svg
-										width="24"
-										height="24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="flex-none text-slate-300 dark:text-slate-400"
-										aria-hidden="true"
-									>
-										<path d="m19 19-3.5-3.5"></path>
-										<circle cx="11" cy="11" r="6"></circle>
-									</svg>
-									<span class="flex-auto">Quick search...</span>
-									<kbd class="font-sans font-semibold dark:text-slate-500">
-										<abbr title="Command" class="no-underline text-slate-300 dark:text-slate-500">⌘</abbr>
-										K
-									</kbd>
-								</button>
-							</div>
+					</div>
+					<div class="relative max-w-5xl mx-auto pt-20 sm:pt-24 lg:pt-32">
+						<h1 class="text-slate-900 font-extrabold italic text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white">
+							{{tr "home::title"}}
+						</h1>
+						<p class="mt-6 text-lg lg:text-xl text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400">
+							{{tr "home::tag_line"}}
+						</p>
+						<div class="mt-6 sm:mt-10 flex justify-center space-x-6 text-sm">
+							<a class="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400" href="{{.Page.DocsBaseURL}}">
+								{{tr "home::get_started"}}
+							</a>
+							<button type="button" class="hidden sm:flex items-center w-72 text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm rounded-lg text-slate-400 dark:bg-slate-800 dark:ring-0 dark:text-slate-300 dark:highlight-white/5 dark:hover:bg-slate-700">
+								<svg
+									width="24"
+									height="24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="flex-none text-slate-300 dark:text-slate-400"
+									aria-hidden="true"
+								>
+									<path d="m19 19-3.5-3.5"></path>
+									<circle cx="11" cy="11" r="6"></circle>
+								</svg>
+								<span class="flex-auto">Quick search...</span>
+								<kbd class="font-sans font-semibold dark:text-slate-500">
+									<abbr title="Command" class="no-underline text-slate-300 dark:text-slate-500">⌘</abbr>
+									K
+								</kbd>
+							</button>
 						</div>
 					</div>
-					// todo
+				</div>
 			</header>
-			<section class="text-center px-8">
-				<h2
-					class="text-slate-900 text-4xl tracking-tight font-extrabold sm:text-5xl dark:text-white"
-				>
-					“Best practices” don’t actually work.
-				</h2>
-				<figure>
-					<blockquote>
-						<p class="mt-6 max-w-3xl mx-auto text-lg">
-							I’ve written<!-- -->
-							<a
-								href="https://adamwathan.me/css-utility-classes-and-separation-of-concerns/"
-								class="text-sky-500 font-semibold dark:text-sky-400"
-								>a few thousand words</a
-							>
-							<!-- -->on why traditional “semantic class names” are the reason
-							CSS is hard to maintain, but the truth is you’re never going to
-							believe me until you actually try it. If you can suppress the urge
-							to retch long enough to give it a chance, I really think you’ll
-							wonder how you ever worked with CSS any other way.
-						</p>
-					</blockquote>
-					<figcaption
-						class="mt-6 flex items-center justify-center space-x-4 text-left"
-					>
-						<img
-							src="/_next/static/media/adam.87b7f7dc7e16987ddbf37dd55b1ff705.jpg"
-							alt=""
-							class="w-14 h-14 rounded-full"
-							loading="lazy"
-						/>
-						<div>
-							<div class="text-slate-900 font-semibold dark:text-white">
-								Adam Wathan
-							</div>
-							<div class="mt-0.5 text-sm leading-6">
-								Creator of Tailwind CSS
-							</div>
-						</div>
-					</figcaption>
-				</figure>
+			<section class="text-center px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-8 border-b border-slate-200 dark:border-slate-700">
+          <div class="p-2">
+            <h2 class="font-semibold text-lg sm:text-xl md:text-2xl text-slate-900 dark:text-slate-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+              </svg>
+              {{tr "home::multilingual"}}
+            </h2>
+            <p class="text-lg">
+              {{tr "home::multilingual_desc"}}
+            </p>
+          </div>
+          <div class="p-2">
+            <h2 class="font-semibold text-lg sm:text-xl md:text-2xl text-slate-900 dark:text-slate-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              {{tr "home::real_time_sync"}}
+            </h2>
+            <p class="text-lg">
+              {{tr "home::real_time_sync_desc"}}
+            </p>
+          </div>
+          <div class="p-2">
+            <h2 class="font-semibold text-lg sm:text-xl md:text-2xl text-slate-900 dark:text-slate-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v11m0 5l4.879-4.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242z" />
+              </svg>
+              {{tr "home::searchable"}}
+            </h2>
+            <p class="text-lg">
+              {{tr "home::searchable_desc"}}
+            </p>
+          </div>
+          <div class="p-2">
+            <h2 class="font-semibold text-lg sm:text-xl md:text-2xl text-slate-900 dark:text-slate-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              {{tr "home::markdown"}}
+            </h2>
+            <p class="text-lg">
+              {{tr "home::markdown_desc"}}
+            </p>
+          </div>
+          <div class="p-2">
+            <h2 class="font-semibold text-lg sm:text-xl md:text-2xl text-slate-900 dark:text-slate-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              {{tr "home::configurable"}}
+            </h2>
+            <p class="text-lg">
+              {{tr "home::configurable_desc"}}
+            </p>
+          </div>
+          <div class="p-2">
+            <h2 class="font-semibold text-lg sm:text-xl md:text-2xl text-slate-900 dark:text-slate-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+              </svg>
+              {{tr "home::comment"}}
+            </h2>
+            <p class="text-lg">
+              {{tr "home::comment_desc"}}
+            </p>
+          </div>
+        </div>
 			</section>
+
 			<footer class="pb-5 text-sm leading-6">
 				<div class="max-w-7xl mx-auto divide-y divide-slate-200 px-4 sm:px-6 md:px-8 dark:divide-slate-700">
-					<div class="flex">
-						<div class="flex-none w-1/2 space-y-10 sm:space-y-8 lg:flex lg:space-y-0">
-							<div class="lg:flex-none lg:w-1/2">
-								<h2 class="font-semibold text-slate-900 dark:text-slate-100">Getting Started</h2>
-								<ul class="mt-3 space-y-2">
-									<li>
-										<a class="hover:text-slate-900 dark:hover:text-slate-300" href="{{.Page.DocsBaseURL}}">Installation</a>
-									</li>
-									<li>
-										<a class="hover:text-slate-900 dark:hover:text-slate-300" href="/docs/editor-setup">Editor Setup</a>
-									</li>
-									<li>
-										<a class="hover:text-slate-900 dark:hover:text-slate-300" href="/docs/using-with-preprocessors">Using with Preprocessors</a>
-									</li>
-									<li>
-										<a class="hover:text-slate-900 dark:hover:text-slate-300" href="/docs/optimizing-for-production">Optimizing for Production</a>
-									</li>
-									<li>
-										<a class="hover:text-slate-900 dark:hover:text-slate-300" href="/docs/browser-support">Browser Support</a>
-									</li>
-									<li>
-										<a class="hover:text-slate-900 dark:hover:text-slate-300" href="/docs/upgrade-guide">Upgrade Guide</a>
-									</li>
-								</ul>
-							</div>
-							<div class="lg:flex-none lg:w-1/2">
-								<h2 class="font-semibold text-slate-900 dark:text-slate-100">Core Concepts</h2>
-							</div>
-						</div>
-						<div class="flex-none w-1/2 space-y-10 sm:space-y-8 lg:flex lg:space-y-0">
-							<div class="lg:flex-none lg:w-1/2">
-								<h2 class="font-semibold text-slate-900 dark:text-slate-100">Customization</h2>
-							</div>
-							<div class="lg:flex-none lg:w-1/2">
-								<h2 class="font-semibold text-slate-900 dark:text-slate-100">Community</h2>
-							</div>
-						</div>
+					<div class="grid grid-cols-1 md:grid-cols-3">
+            <div class="lg:flex-none lg:w-1/2">
+              <h2 class="font-semibold text-slate-900 dark:text-slate-100">Getting started</h2>
+              <ul class="mt-3 space-y-2">
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="{{.Page.DocsBaseURL}}">Installation</a>
+                </li>
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="/docs/browser-support">Browser support</a>
+                </li>
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="/docs/upgrade-guide">Customization</a>
+                </li>
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="/docs/upgrade-guide">Upgrade guide</a>
+                </li>
+              </ul>
+            </div>
+            <div class="lg:flex-none lg:w-1/2">
+              <h2 class="font-semibold text-slate-900 dark:text-slate-100">Community</h2>
+              <ul class="mt-3 space-y-2">
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="https://">GitHub</a>
+                </li>
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="https://github.com/asoul-sig">A-SOUL SIG</a>
+                </li>
+              </ul>
+            </div>
+            <div class="lg:flex-none lg:w-1/2">
+              <h2 class="font-semibold text-slate-900 dark:text-slate-100">Built by</h2>
+              <ul class="mt-3 space-y-2">
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="https://asouldocs.dev/">ASoulDocs</a>
+                </li>
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="https://flamego.dev/">Flamego</a>
+                </li>
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="https://tailwindcss.com/">Tailwind CSS</a>
+                </li>
+                <li>
+                  <a class="hover:text-slate-900 dark:hover:text-slate-300" href="https://heroicons.com/">Heroicons</a>
+                </li>
+              </ul>
+            </div>
 					</div>
 					<div class="mt-16 pt-5 flex">
 						© {{year}} {{tr "footer::copyright"}}

@@ -9,8 +9,6 @@ import (
 	"github.com/unknwon/log"
 	"gopkg.in/ini.v1"
 	"gopkg.in/macaron.v1"
-
-	"github.com/asoul-sig/asouldocs/pkg/bindata"
 )
 
 type NavbarItem struct {

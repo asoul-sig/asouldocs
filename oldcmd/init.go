@@ -13,8 +13,6 @@ import (
 	"github.com/unknwon/com"
 	"github.com/urfave/cli"
 	"gopkg.in/ini.v1"
-
-	"github.com/asoul-sig/asouldocs/pkg/bindata"
 )
 
 var New = cli.Command{
@@ -46,10 +44,10 @@ func toYellow(str string) string {
 }
 
 func restoreAssets(target, dir string) {
-	if err := bindata.RestoreAssets(target, dir); err != nil {
-		fmt.Printf(toRed("✗  %v\n"), err)
-		os.Exit(1)
-	}
+	// if err := bindata.RestoreAssets(target, dir); err != nil {
+	// 	fmt.Printf(toRed("✗  %v\n"), err)
+	// 	os.Exit(1)
+	// }
 }
 
 func runNew(ctx *cli.Context) {
