@@ -15,15 +15,6 @@ import (
 	"github.com/asoul-sig/asouldocs/pkg/setting"
 )
 
-func Home(ctx *context.Context) {
-	if !setting.Page.HasLandingPage {
-		ctx.Redirect(setting.Page.DocsBaseURL)
-		return
-	}
-
-	ctx.HTML(200, "home")
-}
-
 func Pages(ctx *context.Context) {
 	toc := models.Tocs[ctx.Locale.Language()]
 	if toc == nil {

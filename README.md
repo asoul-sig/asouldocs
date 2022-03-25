@@ -8,6 +8,8 @@
   _**ASoulDocs**_ is a web server for multilingual, real-time synchronized and searchable documentation.
 </div>
 
+### 🚧 The `main` branch is undergoing heavy refactoring. Meanwhile, please use artifacts from [GitHub releases](https://github.com/asoul-sig/asouldocs/releases) directly.
+
 ## Getting Help
 
 - [Getting Started](http://peachdocs.org/docs/intro/getting_started)

@@ -1,6 +1,2 @@
-public/css/* linguist-vendored
-public/fonts/* linguist-vendored
-public/js/emojify-1.1.0.min.js linguist-vendored
+public/css/** linguist-vendored
 public/js/highlight-9.12.0.pack.js linguist-vendored
-public/js/jquery-1.11.3.min.js linguist-vendored
-public/js/semantic.min.js linguist-vendored

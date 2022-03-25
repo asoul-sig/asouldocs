@@ -7,30 +7,29 @@ package main
 
 import (
 	"os"
-	"runtime"
 
 	"github.com/urfave/cli"
+	log "unknwon.dev/clog/v2"
 
-	"github.com/asoul-sig/asouldocs/cmd"
-	"github.com/asoul-sig/asouldocs/pkg/setting"
+	"github.com/asoul-sig/asouldocs/internal/cmd"
+	"github.com/asoul-sig/asouldocs/internal/conf"
+	"github.com/asoul-sig/asouldocs/oldcmd"
 )
 
-const APP_VER = "0.9.8.0810"
-
 func init() {
-	runtime.GOMAXPROCS(runtime.NumCPU())
-	setting.AppVer = APP_VER
+	conf.App.Version = "1.0.0+dev"
 }
 
 func main() {
 	app := cli.NewApp()
 	app.Name = "ASoulDocs"
 	app.Usage = "Ellien's documentation server"
-	app.Version = APP_VER
+	app.Version = conf.App.Version
 	app.Commands = []cli.Command{
 		cmd.Web,
-		cmd.New,
+		oldcmd.New,
 	}
-	app.Flags = append(app.Flags, []cli.Flag{}...)
-	_ = app.Run(os.Args)
+	if err := app.Run(os.Args); err != nil {
+		log.Fatal("Failed to start application: %v", err)
+	}
 }
