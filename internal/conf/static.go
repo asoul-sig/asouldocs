@@ -21,6 +21,11 @@ var (
 		ExternalURL string `ini:"EXTERNAL_URL"`
 	}
 
+	// Asset settings
+	Asset struct {
+		CustomDirectory string
+	}
+
 	// Page settings
 	Page struct {
 		HasLandingPage  bool
@@ -49,10 +54,6 @@ var (
 var (
 	Navbar struct {
 		Items []*NavbarItem
-	}
-
-	Asset struct {
-		CustomCSS string
 	}
 
 	Docs struct {

@@ -8,6 +8,7 @@ import (
 	"fmt"
 	gotemplate "html/template"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/flamego/flamego"
@@ -19,6 +20,7 @@ import (
 	"github.com/asoul-sig/asouldocs/conf/locale"
 	"github.com/asoul-sig/asouldocs/internal/conf"
 	"github.com/asoul-sig/asouldocs/internal/route"
+	"github.com/asoul-sig/asouldocs/public"
 	"github.com/asoul-sig/asouldocs/templates"
 )
 
@@ -43,22 +45,29 @@ func runWeb(ctx *cli.Context) {
 
 	f := flamego.New()
 	f.Use(flamego.Recovery())
-	f.Use(flamego.Static())
+	f.Use(flamego.Static(
+		flamego.StaticOptions{
+			FileSystem: http.FS(public.Files),
+			SetETag:    true,
+		},
+	))
+	f.Use(flamego.Static(
+		flamego.StaticOptions{
+			Directory: conf.Asset.CustomDirectory,
+			SetETag:   true,
+		},
+	))
 
 	fs, err := template.EmbedFS(templates.Files, ".", []string{".html"})
 	if err != nil {
 		log.Fatal("Failed to convert template files to embed.FS: %v", err)
 	}
-	var translate func(key string, args ...interface{}) string
 	f.Use(template.Templater(
 		template.Options{
 			FileSystem:        fs,
 			AppendDirectories: []string{conf.Page.CustomDirectory},
 			FuncMaps: []gotemplate.FuncMap{{
-				"tr": func(key string, args ...interface{}) string {
-					return translate(key, args...)
-				},
-				"year": func() int { return time.Now().Year() },
+				"Year": func() int { return time.Now().Year() },
 			}},
 		},
 	))
@@ -78,28 +87,19 @@ func runWeb(ctx *cli.Context) {
 		},
 	))
 
-	f.Use(func(data template.Data, l i18n.Locale) {
-		translate = l.Translate
+	f.Use(func(r *http.Request, data template.Data, l i18n.Locale) {
+		data["Tr"] = l.Translate
+		data["Link"] = strings.TrimSuffix(r.URL.Path, ".html")
 		data["Site"] = conf.Site
 		data["Page"] = conf.Page
+		data["Languages"] = languages
 		// todo
-		// data["Link"] = strings.TrimSuffix(ctx.Req.URL.Path, ".html")
-		// data["AppVer"] = setting.AppVer
 		// data["Navbar"] = setting.Navbar
-		// data["Asset"] = setting.Asset
 		// data["Extension"] = setting.Extension
-		// data["Year"] = time.Now().Year()
 	})
 
 	f.Get("/", route.Home)
 
-	// m.Use(macaron.Statics(macaron.StaticOptions{
-	// 	SkipLogging: setting.ProdMode,
-	// }, "custom/public", "public", models.HTMLRoot))
-	// m.Use(i18n.I18n(i18n.Options{
-	// 	Files:       setting.Docs.Locales,
-	// 	DefaultLang: setting.Docs.Langs[0],
-	// }))
 	// m.Get(setting.Page.DocsBaseURL, routes.Docs)
 	// m.Get(setting.Page.DocsBaseURL+"/images/*", routes.DocsStatic)
 	// m.Get(setting.Page.DocsBaseURL+"/*", routes.Protect, routes.Docs)
