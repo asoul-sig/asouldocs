@@ -52,10 +52,6 @@ var (
 // todo
 
 var (
-	Navbar struct {
-		Items []*NavbarItem
-	}
-
 	Docs struct {
 		Type      DocType
 		Target    string
@@ -68,24 +64,15 @@ var (
 	}
 
 	Extension struct {
-		EnableEditPage       bool
-		EditPageLinkFormat   string
-		EnableDisqus         bool
-		DisqusShortName      string
-		EnableDuoShuo        bool
-		DuoShuoShortName     string
-		HighlightJSCustomCSS string
-		EnableSearch         bool
-		GABlock              string
+		EnableEditPage     bool
+		EditPageLinkFormat string
+		EnableDisqus       bool
+		DisqusShortName    string
+		EnableDuoShuo      bool
+		DuoShuoShortName   string
+		EnableSearch       bool
 	}
 )
-
-type NavbarItem struct {
-	Icon         string
-	Locale, Link string
-	Blank        bool
-	Enabled      bool
-}
 
 const (
 	LOCAL  = "local"

@@ -89,12 +89,11 @@ func runWeb(ctx *cli.Context) {
 
 	f.Use(func(r *http.Request, data template.Data, l i18n.Locale) {
 		data["Tr"] = l.Translate
-		data["Link"] = strings.TrimSuffix(r.URL.Path, ".html")
+		data["URL"] = strings.TrimSuffix(r.URL.Path, ".html")
 		data["Site"] = conf.Site
 		data["Page"] = conf.Page
 		data["Languages"] = languages
 		// todo
-		// data["Navbar"] = setting.Navbar
 		// data["Extension"] = setting.Extension
 	})
 
