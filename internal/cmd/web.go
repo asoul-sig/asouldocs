@@ -108,7 +108,6 @@ func runWeb(ctx *cli.Context) {
 	// m.Get(setting.Page.DocsBaseURL+"/images/*", routes.DocsStatic)
 	// m.Get(setting.Page.DocsBaseURL+"/*", routes.Protect, routes.Docs)
 	// m.Post("/hook", routes.Hook)
-	// m.Get("/search", routes.Search)
 	// m.Get("/*", routes.Pages)
 
 	listenAddr := fmt.Sprintf("%s:%d", conf.App.HTTPHost, conf.App.HTTPPort)
