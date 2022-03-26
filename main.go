@@ -13,7 +13,6 @@ import (
 
 	"github.com/asoul-sig/asouldocs/internal/cmd"
 	"github.com/asoul-sig/asouldocs/internal/conf"
-	"github.com/asoul-sig/asouldocs/oldcmd"
 )
 
 func init() {
@@ -27,7 +26,6 @@ func main() {
 	app.Version = conf.App.Version
 	app.Commands = []cli.Command{
 		cmd.Web,
-		oldcmd.New,
 	}
 	if err := app.Run(os.Args); err != nil {
 		log.Fatal("Failed to start application: %v", err)

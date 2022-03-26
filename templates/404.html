@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" class="[--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem]">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#ffffff" />
+		<meta name="description" content="{{.Site.Description}}" />
+
+		<link rel="shortcut icon" href="/img/favicon.png" />
+
+		<script src="https://cdn.tailwindcss.com"></script>
+
+		<title>{{.Title}}</title>
+	</head>
+	<body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
+    <div class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
+      <div class="max-w-8xl mx-auto">
+        <div class="py-4 border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-slate-300/10 px-4">
+          <div class="relative flex items-center">
+            <!-- Logo -->
+            <a class="mr-3 flex-none w-[2.0625rem] overflow-hidden md:w-auto" href="/">
+              <picture>
+                <source srcset="/img/asouldocs-dark.png" media="(prefers-color-scheme: dark)">
+                <img src="/img/asouldocs-light.png" style="height: 28px">
+              </picture>
+            </a>
+            <div class="relative hidden lg:flex items-center ml-auto">
+              <nav class="text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
+                {{template "navbar" .}}
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="color:#000;background:#fff;font-family:-apple-system, BlinkMacSystemFont, Roboto, &quot;Segoe UI&quot;, &quot;Fira Sans&quot;, Avenir, &quot;Helvetica Neue&quot;, &quot;Lucida Grande&quot;, sans-serif;height:100vh;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <div>
+        <style>
+          body { margin: 0 }
+        </style>
+        <h1 style="display:inline-block;border-right:1px solid rgba(0, 0, 0,.3);margin:0;margin-right:20px;padding:10px 23px 10px 0;font-size:24px;font-weight:500;vertical-align:top">
+          404
+        </h1>
+        <div style="display:inline-block;text-align:left;line-height:49px;height:49px;vertical-align:middle">
+          <h2 style="font-size:14px;font-weight:normal;line-height:inherit;margin:0;padding:0">
+            {{call .Tr "status::404_desc"}}
+          </h2>
+        </div>
+      </div>
+    </div>
+	</body>
+</html>

@@ -20,8 +20,8 @@
 						<div class="absolute inset-0 bg-grid-slate-900/[0.04] bg-[bottom_1px_center] dark:bg-grid-slate-400/[0.05] dark:bg-bottom dark:border-b dark:border-slate-100/5" style="mask-image:linear-gradient(to bottom, transparent, black);-webkit-mask-image:linear-gradient(to bottom, transparent, black)"></div>
 					</div>
 					<div class="relative pt-6 lg:pt-8 flex items-center justify-between text-slate-700 font-semibold text-sm leading-6 dark:text-slate-200">
-						<a href="/">
-              <!-- Logo -->
+            <!-- Logo -->
+            <a href="/">
               <picture>
                 <source srcset="/img/asouldocs-dark.png" media="(prefers-color-scheme: dark)">
                 <img src="/img/asouldocs-light.png" style="height: 28px">
@@ -33,16 +33,9 @@
 								<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m19 19-3.5-3.5"></path><circle cx="11" cy="11" r="6"></circle></svg>
 							</button>
 							<div class="flex items-center">
-								<nav>
-									<ul class="flex items-center space-x-5">
-										<li>
-											<a class="hover:text-sky-500 dark:hover:text-sky-400" href="{{.Page.DocsBaseURL}}">{{call .Tr "navbar::docs"}}</a>
-										</li>
-										<li>
-											<a class="hover:text-sky-500 dark:hover:text-sky-400" href="https://github.com/asoul-sig/asouldocs">GitHub</a>
-										</li>
-									</ul>
-								</nav>
+                <nav>
+                  {{template "navbar" .}}
+                </nav>
 							</div>
 						</div>
 					</div>

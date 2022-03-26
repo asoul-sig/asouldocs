@@ -99,6 +99,11 @@ func runWeb(ctx *cli.Context) {
 
 	f.Get("/", route.Home)
 
+	f.NotFound(func(t template.Template, data template.Data, l i18n.Locale) {
+		data["Title"] = l.Translate("status::404")
+		t.HTML(http.StatusNotFound, "404")
+	})
+
 	// m.Get(setting.Page.DocsBaseURL, routes.Docs)
 	// m.Get(setting.Page.DocsBaseURL+"/images/*", routes.DocsStatic)
 	// m.Get(setting.Page.DocsBaseURL+"/*", routes.Protect, routes.Docs)
