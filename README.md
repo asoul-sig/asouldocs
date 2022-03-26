@@ -8,10 +8,11 @@
   _**ASoulDocs**_ is a web server for multilingual, real-time synchronized and searchable documentation.
 </div>
 
-## Getting Help
+### 🚧 The `main` branch is undergoing heavy refactoring. Meanwhile, please use artifacts from [GitHub releases](https://github.com/asoul-sig/asouldocs/releases) directly.
 
-- [Getting Started](http://peachdocs.org/docs/intro/getting_started)
-- [Ship with Docker](https://github.com/peachdocs/peach/tree/master/docker)
+|Light|Dark|
+|:---:|:---:|
+|![](https://user-images.githubusercontent.com/2946214/160249262-4d8a04e0-575f-4421-9d06-d2f6c9153bba.png)|![](https://user-images.githubusercontent.com/2946214/160249274-22c16a3e-4a46-45f2-bd7d-ee219929f038.png)|
 
 ## License
 

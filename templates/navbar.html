@@ -1,32 +1,8 @@
-<div class="ui container">
-  <div class="ui large secondary inverted menu">
-    {% for item in Navbar.Items %}
-      {% if item.Enabled %}
-        <a class="{% if item.Link == Link %}active{% endif %} item" href="{{item.Link}}" {% if item.Blank %}target="_blank"{% endif %}>
-          {% if item.Icon %}<i class="{{item.Icon}} icon"></i>{% endif %}
-          {{Tr(Lang, item.Locale)}}
-        </a>
-      {% endif %}
-    {% endfor %}
-    <div class="right item">
-      {% if Extension.EnableSearch %}
-        <form action="/search">
-          <div class="item">
-            <div class="ui small input">
-              <input name="q" value="{{Keyword}}" placeholder="{{Tr(Lang, "navbar.search")}}...">
-            </div>
-          </div>
-        </form>
-      {% endif %}
-      <div class="ui language floating dropdown link item">
-        <i class="world icon"></i>
-        <div class="text">{{LangName}}</div>
-      	<div class="menu">
-      		{% for lang in AllLangs %}
-            <a class="item {% if Lang == lang.Lang %}active selected{% endif %}" href="{{Link}}?lang={{lang.Lang}}">{{lang.Name}}</a>
-					{% endfor %}
-				</div>
-      </div>
-    </div>
-  </div>
-</div>
+<ul class="flex items-center space-x-5">
+  <li>
+    <a class="hover:text-sky-500 dark:hover:text-sky-400" href="{{.Page.DocsBaseURL}}">{{call .Tr "navbar::docs"}}</a>
+  </li>
+  <li>
+    <a class="hover:text-sky-500 dark:hover:text-sky-400" href="https://github.com/asoul-sig/asouldocs">GitHub</a>
+  </li>
+</ul>
