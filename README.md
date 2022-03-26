@@ -14,11 +14,6 @@
 |:---:|:---:|
 |![](https://user-images.githubusercontent.com/2946214/160249262-4d8a04e0-575f-4421-9d06-d2f6c9153bba.png)|![](https://user-images.githubusercontent.com/2946214/160249274-22c16a3e-4a46-45f2-bd7d-ee219929f038.png)|
 
-## Getting Help
-
-- [Getting Started](http://peachdocs.org/docs/intro/getting_started)
-- [Ship with Docker](https://github.com/peachdocs/peach/tree/master/docker)
-
 ## License
 
 This project is under the MIT License. See the [LICENSE](LICENSE) file for the full license text.
