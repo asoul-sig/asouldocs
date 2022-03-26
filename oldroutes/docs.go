@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-package routes
+package oldroutes
 
 import (
 	"fmt"
@@ -14,7 +14,6 @@ import (
 	"github.com/unknwon/com"
 	"github.com/unknwon/log"
 
-	"github.com/asoul-sig/asouldocs/models"
 	"github.com/asoul-sig/asouldocs/pkg/context"
 	"github.com/asoul-sig/asouldocs/pkg/setting"
 )
@@ -29,9 +28,9 @@ func renderEditPage(ctx *context.Context, documentPath string) {
 }
 
 func Docs(ctx *context.Context) {
-	toc := models.Tocs[ctx.Locale.Language()]
+	toc := oldmodels.Tocs[ctx.Locale.Language()]
 	if toc == nil {
-		toc = models.Tocs[setting.Docs.Langs[0]]
+		toc = oldmodels.Tocs[setting.Docs.Langs[0]]
 	}
 	ctx.Data["Toc"] = toc
 
@@ -59,7 +58,7 @@ func Docs(ctx *context.Context) {
 
 func DocsStatic(ctx *context.Context) {
 	if len(ctx.Params("*")) > 0 {
-		f, err := os.Open(path.Join(models.Tocs[setting.Docs.Langs[0]].RootPath, "images", ctx.Params("*")))
+		f, err := os.Open(path.Join(oldmodels.Tocs[setting.Docs.Langs[0]].RootPath, "images", ctx.Params("*")))
 		if err != nil {
 			ctx.JSON(500, map[string]interface{}{
 				"error": err.Error(),
@@ -87,7 +86,7 @@ func Hook(ctx *context.Context) {
 	}
 
 	log.Info("Incoming hook update request")
-	if err := models.ReloadDocs(); err != nil {
+	if err := oldmodels.ReloadDocs(); err != nil {
 		ctx.Error(500)
 		return
 	}

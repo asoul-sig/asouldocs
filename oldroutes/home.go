@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-package routes
+package oldroutes
 
 import (
 	"fmt"
@@ -10,15 +10,16 @@ import (
 
 	"github.com/unknwon/com"
 
-	"github.com/asoul-sig/asouldocs/models"
 	"github.com/asoul-sig/asouldocs/pkg/context"
 	"github.com/asoul-sig/asouldocs/pkg/setting"
+
+	"github.com/asoul-sig/asouldocs/oldmodels"
 )
 
 func Pages(ctx *context.Context) {
-	toc := models.Tocs[ctx.Locale.Language()]
+	toc := oldmodels.Tocs[ctx.Locale.Language()]
 	if toc == nil {
-		toc = models.Tocs[setting.Docs.Langs[0]]
+		toc = oldmodels.Tocs[setting.Docs.Langs[0]]
 	}
 
 	pageName := strings.ToLower(strings.TrimSuffix(ctx.Req.URL.Path[1:], ".html"))
@@ -29,7 +30,7 @@ func Pages(ctx *context.Context) {
 			if !com.IsFile(page.FileName) {
 				ctx.Data["IsShowingDefault"] = true
 				langVer = setting.Docs.Langs[0]
-				page = models.Tocs[langVer].Pages[i]
+				page = oldmodels.Tocs[langVer].Pages[i]
 			}
 			if !setting.ProdMode {
 				_ = page.ReloadContent()
