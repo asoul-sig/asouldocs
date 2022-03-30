@@ -47,7 +47,6 @@ func convertFile(file string) (content []byte, meta map[string]interface{}, head
 	}
 
 	var buf bytes.Buffer
-
 	err = md.Renderer().Render(&buf, body, doc)
 	if err != nil {
 		return nil, nil, nil, errors.Wrap(err, "render")

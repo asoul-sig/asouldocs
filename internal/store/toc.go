@@ -14,39 +14,38 @@ import (
 	"gopkg.in/ini.v1"
 )
 
-// todo: Toc represents table of content in a specific language.
-type Toc struct {
-	Root     string  // todo:
-	Language string  // todo:
-	Nodes    []*Node // todo:
-	Pages    []*Node // todo:
+// TOC represents documentation hierarchy for a specific language.
+type TOC struct {
+	Language string  // The language of the documentation
+	Nodes    []*Node // Directories of the documentation
+	Pages    []*Node // Individuals pages of the documentation
 }
 
+// Node is a node in the documentation hierarchy.
 type Node struct {
-	Name      string            // todo:Name in given language
-	Path      string            // todo:
-	LocalPath string            // todo:Full path with .md extension
-	Content   []byte            // todo
-	Headings  goldmarktoc.Items // todo
+	Name      string            // The name in the given language
+	Path      string            // The URL path
+	LocalPath string            // Full path with .md extension
+	Content   []byte            // The content of the node
+	Headings  goldmarktoc.Items // Headings in the node
 
-	Nodes []*Node // todo:
+	Nodes []*Node // The list of sub-nodes
 }
 
 // initTocs initializes documentation hierarchy for given languages in the given
 // root directory.
-func initTocs(root string, languages []string) (map[string]*Toc, error) {
+func initTocs(root string, languages []string) (map[string]*TOC, error) {
 	tocPath := filepath.Join(root, "toc.ini")
 	tocCfg, err := ini.Load(tocPath)
 	if err != nil {
 		return nil, errors.Wrapf(err, "load %q", tocPath)
 	}
 
-	tocs := make(map[string]*Toc)
+	tocs := make(map[string]*TOC)
 	for _, lang := range languages {
 		fmt.Println("***", lang, "***")
 
-		toc := &Toc{
-			Root:     root,
+		toc := &TOC{
 			Language: lang,
 		}
 

@@ -14,7 +14,7 @@ import (
 )
 
 // Init initializes the documentation store from given type and target.
-func Init(typ conf.DocType, target, dir string, languages []string) (map[string]*Toc, error) {
+func Init(typ conf.DocType, target, dir string, languages []string) (map[string]*TOC, error) {
 	root := filepath.Join(target, dir)
 	if typ == conf.DocTypeRemote {
 		// TODO: Fetch docs from remote
