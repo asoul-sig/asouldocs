@@ -28,3 +28,4 @@ data
 /asouldocs
 .DS_Store
 .task
+node_modules

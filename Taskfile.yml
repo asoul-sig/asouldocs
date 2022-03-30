@@ -26,8 +26,6 @@ tasks:
       - main.go
       - internal/**/*.go
       - conf/**/*
-      - public/**/*
-      - templates/**/*
 
   clean:
     desc: Cleans up system meta files
