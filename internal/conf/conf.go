@@ -6,7 +6,9 @@ package conf
 
 import (
 	"path/filepath"
+	"strings"
 
+	"github.com/flamego/flamego"
 	"github.com/pkg/errors"
 	"gopkg.in/ini.v1"
 	log "unknwon.dev/clog/v2"
@@ -75,6 +77,14 @@ func Init(customConf string) (err error) {
 		return errors.Wrap(err, "mapping [page] section")
 	} else if err = File.Section("i18n").MapTo(&I18n); err != nil {
 		return errors.Wrap(err, "mapping [i18n] section")
+	} else if err = File.Section("docs").MapTo(&Docs); err != nil {
+		return errors.Wrap(err, "mapping [docs] section")
+	}
+
+	Page.DocsBasePath = strings.TrimRight(Page.DocsBasePath, "/")
+
+	if App.Env == "prod" {
+		flamego.SetEnv(flamego.EnvTypeProd)
 	}
 	return nil
 }

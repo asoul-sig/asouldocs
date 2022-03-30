@@ -8,7 +8,6 @@ import (
 	"fmt"
 	gotemplate "html/template"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/flamego/flamego"
@@ -19,7 +18,7 @@ import (
 
 	"github.com/asoul-sig/asouldocs/conf/locale"
 	"github.com/asoul-sig/asouldocs/internal/conf"
-	"github.com/asoul-sig/asouldocs/internal/route"
+	"github.com/asoul-sig/asouldocs/internal/store"
 	"github.com/asoul-sig/asouldocs/public"
 	"github.com/asoul-sig/asouldocs/templates"
 )
@@ -38,19 +37,17 @@ func runWeb(ctx *cli.Context) {
 	if err != nil {
 		log.Fatal("Failed to init configuration: %v", err)
 	}
-
-	// models.NewContext() // todo
-
 	log.Info("ASoulDocs %s", conf.App.Version)
+
+	tocs, err := store.Init(conf.Docs.Type, conf.Docs.Target, conf.Docs.TargetDir, conf.I18n.Languages)
+	if err != nil {
+		log.Fatal("Failed to init store: %v", err)
+	}
 
 	f := flamego.New()
 	f.Use(flamego.Recovery())
-	f.Use(flamego.Static(
-		flamego.StaticOptions{
-			FileSystem: http.FS(public.Files),
-			SetETag:    true,
-		},
-	))
+
+	// Custom assets should be served first to support overwrite
 	f.Use(flamego.Static(
 		flamego.StaticOptions{
 			Directory: conf.Asset.CustomDirectory,
@@ -58,24 +55,44 @@ func runWeb(ctx *cli.Context) {
 		},
 	))
 
-	fs, err := template.EmbedFS(templates.Files, ".", []string{".html"})
-	if err != nil {
-		log.Fatal("Failed to convert template files to embed.FS: %v", err)
-	}
-	f.Use(template.Templater(
-		template.Options{
-			FileSystem:        fs,
-			AppendDirectories: []string{conf.Page.CustomDirectory},
-			FuncMaps: []gotemplate.FuncMap{{
-				"Year": func() int { return time.Now().Year() },
-			}},
-		},
-	))
+	// Load assets and templates directly from disk in development
+	funcMaps := []gotemplate.FuncMap{{
+		"Year": func() int { return time.Now().Year() },
+		"Safe": func(p []byte) gotemplate.HTML { return gotemplate.HTML(p) },
+	}}
+	if flamego.Env() == flamego.EnvTypeDev {
+		f.Use(flamego.Static())
+		f.Use(template.Templater(
+			template.Options{
+				AppendDirectories: []string{conf.Page.CustomDirectory},
+				FuncMaps:          funcMaps,
+			},
+		))
+	} else {
+		f.Use(flamego.Static(
+			flamego.StaticOptions{
+				FileSystem: http.FS(public.Files),
+				SetETag:    true,
+			},
+		))
 
-	languages := make([]i18n.Language, len(conf.I18n.Langs))
-	for i := range conf.I18n.Langs {
+		fs, err := template.EmbedFS(templates.Files, ".", []string{".html"})
+		if err != nil {
+			log.Fatal("Failed to convert template files to embed.FS: %v", err)
+		}
+		f.Use(template.Templater(
+			template.Options{
+				FileSystem:        fs,
+				AppendDirectories: []string{conf.Page.CustomDirectory},
+				FuncMaps:          funcMaps,
+			},
+		))
+	}
+
+	languages := make([]i18n.Language, len(conf.I18n.Languages))
+	for i := range conf.I18n.Languages {
 		languages[i] = i18n.Language{
-			Name:        conf.I18n.Langs[i],
+			Name:        conf.I18n.Languages[i],
 			Description: conf.I18n.Names[i],
 		}
 	}
@@ -89,26 +106,73 @@ func runWeb(ctx *cli.Context) {
 
 	f.Use(func(r *http.Request, data template.Data, l i18n.Locale) {
 		data["Tr"] = l.Translate
-		data["URL"] = strings.TrimSuffix(r.URL.Path, ".html")
+		data["URL"] = r.URL.Path
 		data["Site"] = conf.Site
 		data["Page"] = conf.Page
 		data["Languages"] = languages
-		// todo
-		// data["Extension"] = setting.Extension
 	})
 
-	f.Get("/", route.Home)
-
-	f.NotFound(func(t template.Template, data template.Data, l i18n.Locale) {
+	notFound := func(t template.Template, data template.Data, l i18n.Locale) {
 		data["Title"] = l.Translate("status::404")
 		t.HTML(http.StatusNotFound, "404")
-	})
+	}
 
-	// m.Get(setting.Page.DocsBaseURL, routes.Docs)
-	// m.Get(setting.Page.DocsBaseURL+"/images/*", routes.DocsStatic)
-	// m.Get(setting.Page.DocsBaseURL+"/*", routes.Protect, routes.Docs)
-	// m.Post("/hook", routes.Hook)
-	// m.Get("/*", routes.Pages)
+	f.Get("/",
+		func(c flamego.Context, t template.Template, data template.Data, l i18n.Locale) {
+			if !conf.Page.HasLandingPage {
+				c.Redirect(conf.Page.DocsBasePath)
+				return
+			}
+
+			data["Title"] = l.Translate("name") + " - " + l.Translate("tag_line")
+			t.HTML(http.StatusOK, "home")
+		},
+	)
+	f.Get(conf.Page.DocsBasePath+"/?{**}",
+		func(c flamego.Context, t template.Template, data template.Data, l i18n.Locale) {
+			toc, ok := tocs[l.Lang()]
+			if !ok {
+				toc = tocs[conf.I18n.Languages[0]]
+			}
+
+			current := c.Param("**")
+			if current == "" || current == "/" {
+				c.Redirect(conf.Page.DocsBasePath + "/" + toc.Nodes[0].Path)
+				return
+			}
+
+			data["Current"] = current
+			data["TOC"] = toc
+
+			// TODO: fallback to default language if given page does not exist in the current language, and display notice
+		loop:
+			for _, dir := range toc.Nodes {
+				data["Category"] = dir.Name
+				if dir.Path == current {
+					data["Title"] = dir.Name + " - " + l.Translate("name")
+					data["Node"] = dir
+					break loop
+				}
+
+				for _, file := range dir.Nodes {
+					if file.Path == current {
+						data["Title"] = file.Name + " - " + l.Translate("name")
+						data["Node"] = file
+						break loop
+					}
+				}
+			}
+
+			if data["Node"] == nil {
+				notFound(t, data, l)
+				return
+			}
+
+			t.HTML(http.StatusOK, "docs")
+		},
+	)
+
+	f.NotFound(notFound)
 
 	listenAddr := fmt.Sprintf("%s:%d", conf.App.HTTPHost, conf.App.HTTPPort)
 	log.Info("Listen on http://%s", listenAddr)
