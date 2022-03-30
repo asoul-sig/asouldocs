@@ -11,6 +11,7 @@ require (
 	github.com/stretchr/testify v1.7.1
 	github.com/urfave/cli v1.22.5
 	github.com/yuin/goldmark v1.4.11
+	github.com/yuin/goldmark-emoji v1.0.1
 	github.com/yuin/goldmark-meta v1.1.0
 	gopkg.in/ini.v1 v1.66.4
 	unknwon.dev/clog/v2 v2.2.0
