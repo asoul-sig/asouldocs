@@ -11,7 +11,7 @@ import (
 	goldmarktoc "github.com/abhinav/goldmark-toc"
 	"github.com/pkg/errors"
 	"github.com/yuin/goldmark"
-	"github.com/yuin/goldmark-emoji"
+	emoji "github.com/yuin/goldmark-emoji"
 	goldmarkmeta "github.com/yuin/goldmark-meta"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
