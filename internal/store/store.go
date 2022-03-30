@@ -18,6 +18,7 @@ func Init(typ conf.DocType, target, dir string, languages []string) (map[string]
 	root := filepath.Join(target, dir)
 	if typ == conf.DocTypeRemote {
 		// TODO: Fetch docs from remote
+		return nil, errors.New("not implemented")
 	}
 
 	if !osutil.IsDir(root) {
