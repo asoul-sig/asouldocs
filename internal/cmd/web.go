@@ -106,6 +106,7 @@ func runWeb(ctx *cli.Context) {
 
 	f.Use(func(r *http.Request, data template.Data, l i18n.Locale) {
 		data["Tr"] = l.Translate
+		data["Lang"] = l.Lang()
 		data["URL"] = r.URL.Path
 		data["Site"] = conf.Site
 		data["Page"] = conf.Page
