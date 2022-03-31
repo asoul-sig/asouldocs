@@ -42,6 +42,7 @@ func convertFile(file string) (content []byte, meta map[string]interface{}, head
 			highlighting.NewHighlighting(
 				highlighting.WithStyle("base16-snazzy"),
 			),
+			extension.NewFootnote(),
 		),
 	)
 
