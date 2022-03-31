@@ -12,15 +12,18 @@ require (
 	github.com/urfave/cli v1.22.5
 	github.com/yuin/goldmark v1.4.11
 	github.com/yuin/goldmark-emoji v1.0.1
+	github.com/yuin/goldmark-highlighting v0.0.0-20220208100518-594be1970594
 	github.com/yuin/goldmark-meta v1.1.0
 	gopkg.in/ini.v1 v1.66.4
 	unknwon.dev/clog/v2 v2.2.0
 )
 
 require (
+	github.com/alecthomas/chroma v0.10.0 // indirect
 	github.com/alecthomas/participle/v2 v2.0.0-alpha7 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect

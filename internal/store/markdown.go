@@ -12,10 +12,11 @@ import (
 	"github.com/pkg/errors"
 	"github.com/yuin/goldmark"
 	emoji "github.com/yuin/goldmark-emoji"
+	highlighting "github.com/yuin/goldmark-highlighting"
 	goldmarkmeta "github.com/yuin/goldmark-meta"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
-	"github.com/yuin/goldmark/renderer/html"
+	goldmarkhtml "github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
 )
 
@@ -30,14 +31,17 @@ func convertFile(file string) (content []byte, meta map[string]interface{}, head
 			parser.WithAutoHeadingID(),
 		),
 		goldmark.WithRendererOptions(
-			html.WithHardWraps(),
-			html.WithXHTML(),
-			html.WithUnsafe(),
+			goldmarkhtml.WithHardWraps(),
+			goldmarkhtml.WithXHTML(),
+			goldmarkhtml.WithUnsafe(),
 		),
 		goldmark.WithExtensions(
 			extension.GFM,
 			goldmarkmeta.Meta,
 			emoji.Emoji,
+			highlighting.NewHighlighting(
+				highlighting.WithStyle("base16-snazzy"),
+			),
 		),
 	)
 
