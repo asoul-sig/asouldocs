@@ -23,13 +23,26 @@ type TOC struct {
 
 // Node is a node in the documentation hierarchy.
 type Node struct {
-	Name      string            // The name in the given language
-	Path      string            // The URL path
-	LocalPath string            // Full path with .md extension
-	Content   []byte            // The content of the node
-	Headings  goldmarktoc.Items // Headings in the node
+	Path      string // The URL path
+	LocalPath string // Full path with .md extension
+
+	Content  []byte            // The content of the node
+	Name     string            // The name in the given language
+	Headings goldmarktoc.Items // Headings in the node
 
 	Nodes []*Node // The list of sub-nodes
+}
+
+// Reload reloads and converts the content from local disk.
+func (n *Node) Reload() error {
+	content, meta, headings, err := convertFile(n.LocalPath)
+	if err != nil {
+		return err
+	}
+	n.Content = content
+	n.Name = fmt.Sprintf("%s", meta["name"])
+	n.Headings = headings
+	return nil
 }
 
 // initTocs initializes documentation hierarchy for given languages in the given
@@ -70,14 +83,10 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 			const readme = "README"
 			if tocCfg.Section(dirname).HasValue(readme) {
 				dirNode.LocalPath = filepath.Join(root, lang, dirNode.Path, readme+".md")
-
-				content, meta, headings, err := convertFile(dirNode.LocalPath)
+				err = dirNode.Reload()
 				if err != nil {
-					return nil, errors.Wrapf(err, "convert file %q", dirNode.LocalPath)
+					return nil, errors.Wrapf(err, "reload node from %q", dirNode.LocalPath)
 				}
-				dirNode.Name = fmt.Sprintf("%s", meta["name"])
-				dirNode.Content = content
-				dirNode.Headings = headings
 			}
 
 			for _, file := range files {
@@ -94,13 +103,10 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 				}
 				dirNode.Nodes = append(dirNode.Nodes, node)
 
-				content, meta, headings, err := convertFile(node.LocalPath)
+				err = node.Reload()
 				if err != nil {
-					return nil, errors.Wrapf(err, "convert file %q", node.LocalPath)
+					return nil, errors.Wrapf(err, "reload node from %q", node.LocalPath)
 				}
-				node.Name = fmt.Sprintf("%s", meta["name"])
-				node.Content = content
-				node.Headings = headings
 			}
 		}
 
@@ -116,13 +122,10 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 			}
 			toc.Pages = append(toc.Pages, node)
 
-			content, meta, headings, err := convertFile(node.LocalPath)
+			err = node.Reload()
 			if err != nil {
-				return nil, errors.Wrapf(err, "read and render file %q", node.LocalPath)
+				return nil, errors.Wrapf(err, "reload node from %q", node.LocalPath)
 			}
-			node.Name = fmt.Sprintf("%s", meta["name"])
-			node.Content = content
-			node.Headings = headings
 		}
 
 		tocs[lang] = toc

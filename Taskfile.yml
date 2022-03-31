@@ -26,6 +26,7 @@ tasks:
       - main.go
       - internal/**/*.go
       - conf/**/*
+    method: timestamp
 
   clean:
     desc: Cleans up system meta files

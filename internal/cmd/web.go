@@ -145,29 +145,37 @@ func runWeb(ctx *cli.Context) {
 			data["TOC"] = toc
 
 			// TODO: fallback to default language if given page does not exist in the current language, and display notice
+			var node *store.Node
 		loop:
 			for _, dir := range toc.Nodes {
 				data["Category"] = dir.Name
 				if dir.Path == current {
-					data["Title"] = dir.Name + " - " + l.Translate("name")
-					data["Node"] = dir
+					node = dir
 					break loop
 				}
 
 				for _, file := range dir.Nodes {
 					if file.Path == current {
-						data["Title"] = file.Name + " - " + l.Translate("name")
-						data["Node"] = file
+						node = file
 						break loop
 					}
 				}
 			}
 
-			if data["Node"] == nil {
+			if node == nil {
 				notFound(t, data, l)
 				return
 			}
 
+			if flamego.Env() == flamego.EnvTypeDev {
+				err = node.Reload()
+				if err != nil {
+					panic("reload node: " + err.Error())
+				}
+			}
+
+			data["Title"] = node.Name + " - " + l.Translate("name")
+			data["Node"] = node
 			t.HTML(http.StatusOK, "docs")
 		},
 	)
