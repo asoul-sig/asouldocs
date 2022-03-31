@@ -12,6 +12,8 @@ import (
 	goldmarktoc "github.com/abhinav/goldmark-toc"
 	"github.com/pkg/errors"
 	"gopkg.in/ini.v1"
+
+	"github.com/asoul-sig/asouldocs/internal/osutil"
 )
 
 // TOC represents documentation hierarchy for a specific language.
@@ -55,7 +57,7 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 	}
 
 	tocs := make(map[string]*TOC)
-	for _, lang := range languages {
+	for i, lang := range languages {
 		fmt.Println("***", lang, "***")
 
 		toc := &TOC{
@@ -82,7 +84,12 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 
 			const readme = "README"
 			if tocCfg.Section(dirname).HasValue(readme) {
-				dirNode.LocalPath = filepath.Join(root, lang, dirNode.Path, readme+".md")
+				localpath := filepath.Join(root, lang, dirNode.Path, readme+".md")
+				if i > 0 && !osutil.IsFile(localpath) {
+					continue // It is OK to have missing file for non-default language
+				}
+
+				dirNode.LocalPath = localpath
 				err = dirNode.Reload()
 				if err != nil {
 					return nil, errors.Wrapf(err, "reload node from %q", dirNode.LocalPath)
@@ -94,12 +101,16 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 				if filename == readme {
 					continue
 				}
-				fmt.Println(strings.Repeat(" ", len(dirname))+"|__", filename)
 
 				docpath := filepath.Join(dirname, filename)
+				localpath := filepath.Join(root, lang, docpath) + ".md"
+				if i > 0 && !osutil.IsFile(localpath) {
+					continue // It is OK to have missing file for non-default language
+				}
+
 				node := &Node{
 					Path:      docpath,
-					LocalPath: filepath.Join(root, lang, docpath) + ".md",
+					LocalPath: localpath,
 				}
 				dirNode.Nodes = append(dirNode.Nodes, node)
 
@@ -107,6 +118,7 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 				if err != nil {
 					return nil, errors.Wrapf(err, "reload node from %q", node.LocalPath)
 				}
+				fmt.Println(strings.Repeat(" ", len(dirname))+"|__", filename)
 			}
 		}
 
