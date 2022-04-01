@@ -4,6 +4,14 @@
 
 package conf
 
+// Build time and commit information.
+//
+// ⚠️ WARNING: should only be set by "-ldflags".
+var (
+	BuildTime   string
+	BuildCommit string
+)
+
 var (
 	// Application settings
 	App struct {

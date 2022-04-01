@@ -21,10 +21,13 @@ type TOC struct {
 	Language string  // The language of the documentation
 	Nodes    []*Node // Directories of the documentation
 	Pages    []*Node // Individuals pages of the documentation
+
+	nodes map[string]*Node // Key is the Node.Path
 }
 
 // Node is a node in the documentation hierarchy.
 type Node struct {
+	Category  string // The category of the node, for directories and single pages, categories are empty
 	Path      string // The URL path
 	LocalPath string // Full path with .md extension
 
@@ -62,25 +65,26 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 
 		toc := &TOC{
 			Language: lang,
+			nodes:    make(map[string]*Node),
 		}
 
 		dirs := tocCfg.Section("").KeyStrings()
 		toc.Nodes = make([]*Node, 0, len(dirs))
 		for _, dir := range dirs {
 			dirname := tocCfg.Section("").Key(dir).String()
-			fmt.Println(dirname + "/")
-
 			files := tocCfg.Section(dirname).KeyStrings()
 			// Skip empty directory
 			if len(files) == 0 {
 				continue
 			}
+			fmt.Println(dirname + "/")
 
 			dirNode := &Node{
 				Path:  dirname,
 				Nodes: make([]*Node, 0, len(files)-1),
 			}
 			toc.Nodes = append(toc.Nodes, dirNode)
+			toc.nodes[dirNode.Path] = dirNode
 
 			const readme = "README"
 			if tocCfg.Section(dirname).HasValue(readme) {
@@ -109,10 +113,12 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 				}
 
 				node := &Node{
+					Category:  dirNode.Name,
 					Path:      docpath,
 					LocalPath: localpath,
 				}
 				dirNode.Nodes = append(dirNode.Nodes, node)
+				toc.nodes[node.Path] = node
 
 				err = node.Reload()
 				if err != nil {
@@ -133,6 +139,7 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 				LocalPath: filepath.Join(root, lang, page) + ".md",
 			}
 			toc.Pages = append(toc.Pages, node)
+			toc.nodes[node.Path] = node
 
 			err = node.Reload()
 			if err != nil {
