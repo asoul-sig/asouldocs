@@ -57,7 +57,7 @@ task web --watch
 In a separate window, start Tailwind CLI:
 
 ```bash
-npx tailwindcss -i ./src/main.css -o ./public/css/main.css --minify --watch
+npx tailwindcss -i ./src/main.css -o ./public/css/main.css --watch
 ```
 
 ## Other nice things

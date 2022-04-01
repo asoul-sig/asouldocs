@@ -39,7 +39,7 @@ func runWeb(ctx *cli.Context) {
 	}
 	log.Info("ASoulDocs %s", conf.App.Version)
 
-	tocs, err := store.Init(conf.Docs.Type, conf.Docs.Target, conf.Docs.TargetDir, conf.I18n.Languages)
+	docstore, err := store.Init(conf.Docs.Type, conf.Docs.Target, conf.Docs.TargetDir, conf.I18n.Languages)
 	if err != nil {
 		log.Fatal("Failed to init store: %v", err)
 	}
@@ -105,12 +105,15 @@ func runWeb(ctx *cli.Context) {
 	))
 
 	f.Use(func(r *http.Request, data template.Data, l i18n.Locale) {
-		data["Tr"] = l.Translate
-		data["Lang"] = l.Lang()
-		data["URL"] = r.URL.Path
+		data["BuildCommit"] = conf.BuildCommit
 		data["Site"] = conf.Site
 		data["Page"] = conf.Page
+
+		data["Tr"] = l.Translate
+		data["Lang"] = l.Lang()
 		data["Languages"] = languages
+
+		data["URL"] = r.URL.Path
 	})
 
 	notFound := func(t template.Template, data template.Data, l i18n.Locale) {
@@ -131,39 +134,17 @@ func runWeb(ctx *cli.Context) {
 	)
 	f.Get(conf.Page.DocsBasePath+"/?{**}",
 		func(c flamego.Context, t template.Template, data template.Data, l i18n.Locale) {
-			toc, ok := tocs[l.Lang()]
-			if !ok {
-				toc = tocs[conf.I18n.Languages[0]]
-			}
-
 			current := c.Param("**")
 			if current == "" || current == "/" {
-				c.Redirect(conf.Page.DocsBasePath + "/" + toc.Nodes[0].Path)
+				c.Redirect(conf.Page.DocsBasePath + "/" + docstore.FirstDocPath())
 				return
 			}
 
 			data["Current"] = current
-			data["TOC"] = toc
+			data["TOC"] = docstore.TOC(l.Lang())
 
-			// TODO: fallback to default language if given page does not exist in the current language, and display notice
-			var node *store.Node
-		loop:
-			for _, dir := range toc.Nodes {
-				data["Category"] = dir.Name
-				if dir.Path == current {
-					node = dir
-					break loop
-				}
-
-				for _, file := range dir.Nodes {
-					if file.Path == current {
-						node = file
-						break loop
-					}
-				}
-			}
-
-			if node == nil {
+			node, fallback, err := docstore.Match(l.Lang(), current)
+			if err != nil {
 				notFound(t, data, l)
 				return
 			}
@@ -175,6 +156,8 @@ func runWeb(ctx *cli.Context) {
 				}
 			}
 
+			data["Fallback"] = fallback
+			data["Category"] = node.Category
 			data["Title"] = node.Name + " - " + l.Translate("name")
 			data["Node"] = node
 			t.HTML(http.StatusOK, "docs")
