@@ -6,6 +6,7 @@ package store
 
 import (
 	"fmt"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -27,7 +28,7 @@ type TOC struct {
 
 // Node is a node in the documentation hierarchy.
 type Node struct {
-	Category  string // The category of the node, for directories and single pages, categories are empty
+	Category  string // The category (name) of the node, for directories and single pages, categories are empty
 	Path      string // The URL path
 	LocalPath string // Full path with .md extension
 
@@ -39,8 +40,9 @@ type Node struct {
 }
 
 // Reload reloads and converts the content from local disk.
-func (n *Node) Reload() error {
-	content, meta, headings, err := convertFile(n.LocalPath)
+func (n *Node) Reload(baseURLPath string) error {
+	pathPrefix := path.Join(baseURLPath, strings.SplitN(n.Path, "/", 2)[0])
+	content, meta, headings, err := convertFile(pathPrefix, n.LocalPath)
 	if err != nil {
 		return err
 	}
@@ -50,9 +52,11 @@ func (n *Node) Reload() error {
 	return nil
 }
 
+const readme = "README"
+
 // initTocs initializes documentation hierarchy for given languages in the given
 // root directory.
-func initTocs(root string, languages []string) (map[string]*TOC, error) {
+func initTocs(root string, languages []string, baseURLPath string) (map[string]*TOC, error) {
 	tocPath := filepath.Join(root, "toc.ini")
 	tocCfg, err := ini.Load(tocPath)
 	if err != nil {
@@ -86,7 +90,6 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 			toc.Nodes = append(toc.Nodes, dirNode)
 			toc.nodes[dirNode.Path] = dirNode
 
-			const readme = "README"
 			if tocCfg.Section(dirname).HasValue(readme) {
 				localpath := filepath.Join(root, lang, dirNode.Path, readme+".md")
 				if i > 0 && !osutil.IsFile(localpath) {
@@ -94,7 +97,7 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 				}
 
 				dirNode.LocalPath = localpath
-				err = dirNode.Reload()
+				err = dirNode.Reload(baseURLPath)
 				if err != nil {
 					return nil, errors.Wrapf(err, "reload node from %q", dirNode.LocalPath)
 				}
@@ -106,21 +109,20 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 					continue
 				}
 
-				docpath := filepath.Join(dirname, filename)
-				localpath := filepath.Join(root, lang, docpath) + ".md"
+				localpath := filepath.Join(root, lang, dirname, filename) + ".md"
 				if i > 0 && !osutil.IsFile(localpath) {
 					continue // It is OK to have missing file for non-default language
 				}
 
 				node := &Node{
 					Category:  dirNode.Name,
-					Path:      docpath,
+					Path:      path.Join(dirname, filename),
 					LocalPath: localpath,
 				}
 				dirNode.Nodes = append(dirNode.Nodes, node)
 				toc.nodes[node.Path] = node
 
-				err = node.Reload()
+				err = node.Reload(baseURLPath)
 				if err != nil {
 					return nil, errors.Wrapf(err, "reload node from %q", node.LocalPath)
 				}
@@ -141,7 +143,7 @@ func initTocs(root string, languages []string) (map[string]*TOC, error) {
 			toc.Pages = append(toc.Pages, node)
 			toc.nodes[node.Path] = node
 
-			err = node.Reload()
+			err = node.Reload("")
 			if err != nil {
 				return nil, errors.Wrapf(err, "reload node from %q", node.LocalPath)
 			}

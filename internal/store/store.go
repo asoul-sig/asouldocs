@@ -66,7 +66,7 @@ func (s *Store) Match(language, path string) (n *Node, fallback bool, err error)
 }
 
 // Init initializes the documentation store from given type and target.
-func Init(typ conf.DocType, target, dir string, languages []string) (*Store, error) {
+func Init(typ conf.DocType, target, dir string, languages []string, baseURLPath string) (*Store, error) {
 	if len(languages) < 1 {
 		return nil, errors.New("no languages")
 	}
@@ -81,7 +81,7 @@ func Init(typ conf.DocType, target, dir string, languages []string) (*Store, err
 		return nil, errors.Errorf("directory root %q does not exist", root)
 	}
 
-	tocs, err := initTocs(root, languages)
+	tocs, err := initTocs(root, languages, baseURLPath)
 	if err != nil {
 		return nil, errors.Wrap(err, "init toc")
 	}

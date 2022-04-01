@@ -39,7 +39,7 @@ func runWeb(ctx *cli.Context) {
 	}
 	log.Info("ASoulDocs %s", conf.App.Version)
 
-	docstore, err := store.Init(conf.Docs.Type, conf.Docs.Target, conf.Docs.TargetDir, conf.I18n.Languages)
+	docstore, err := store.Init(conf.Docs.Type, conf.Docs.Target, conf.Docs.TargetDir, conf.I18n.Languages, conf.Page.DocsBasePath)
 	if err != nil {
 		log.Fatal("Failed to init store: %v", err)
 	}
@@ -150,7 +150,7 @@ func runWeb(ctx *cli.Context) {
 			}
 
 			if flamego.Env() == flamego.EnvTypeDev {
-				err = node.Reload()
+				err = node.Reload(conf.Page.DocsBasePath)
 				if err != nil {
 					panic("reload node: " + err.Error())
 				}
