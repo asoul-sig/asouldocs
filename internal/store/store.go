@@ -13,7 +13,8 @@ import (
 	"github.com/asoul-sig/asouldocs/internal/osutil"
 )
 
-// todo
+// Store is a store maintaining documentation hierarchies for multiple
+// languages.
 type Store struct {
 	defaultLanguage string
 	tocs            map[string]*TOC // Key is the language
@@ -46,7 +47,8 @@ func (s *Store) TOC(language string) *TOC {
 
 var ErrNoMatch = errors.New("no match for the path")
 
-// todo
+// Match matches a node with given path in given language. If the no such node
+// exists, it fallbacks to use the node with same path in default language.
 func (s *Store) Match(language, path string) (n *Node, fallback bool, err error) {
 	toc := s.TOC(language)
 	n, ok := toc.nodes[path]

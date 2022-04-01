@@ -18,6 +18,7 @@ import (
 
 	"github.com/asoul-sig/asouldocs/conf/locale"
 	"github.com/asoul-sig/asouldocs/internal/conf"
+	"github.com/asoul-sig/asouldocs/internal/osutil"
 	"github.com/asoul-sig/asouldocs/internal/store"
 	"github.com/asoul-sig/asouldocs/public"
 	"github.com/asoul-sig/asouldocs/templates"
@@ -55,19 +56,10 @@ func runWeb(ctx *cli.Context) {
 		},
 	))
 
-	// Load assets and templates directly from disk in development
-	funcMaps := []gotemplate.FuncMap{{
-		"Year": func() int { return time.Now().Year() },
-		"Safe": func(p []byte) gotemplate.HTML { return gotemplate.HTML(p) },
-	}}
-	if flamego.Env() == flamego.EnvTypeDev {
+	// Load assets from disk if in development and the local directory exists
+	if flamego.Env() == flamego.EnvTypeDev &&
+		osutil.IsDir("public") {
 		f.Use(flamego.Static())
-		f.Use(template.Templater(
-			template.Options{
-				AppendDirectories: []string{conf.Page.CustomDirectory},
-				FuncMaps:          funcMaps,
-			},
-		))
 	} else {
 		f.Use(flamego.Static(
 			flamego.StaticOptions{
@@ -75,7 +67,22 @@ func runWeb(ctx *cli.Context) {
 				SetETag:    true,
 			},
 		))
+	}
 
+	// Load templates from disk if in development and the local directory exists
+	funcMaps := []gotemplate.FuncMap{{
+		"Year": func() int { return time.Now().Year() },
+		"Safe": func(p []byte) gotemplate.HTML { return gotemplate.HTML(p) },
+	}}
+	if flamego.Env() == flamego.EnvTypeDev &&
+		osutil.IsDir("templates") {
+		f.Use(template.Templater(
+			template.Options{
+				AppendDirectories: []string{conf.Page.CustomDirectory},
+				FuncMaps:          funcMaps,
+			},
+		))
+	} else {
 		fs, err := template.EmbedFS(templates.Files, ".", []string{".html"})
 		if err != nil {
 			log.Fatal("Failed to convert template files to embed.FS: %v", err)
