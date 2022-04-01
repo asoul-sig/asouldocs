@@ -12,20 +12,23 @@ It has been years we struggled with picking one of them, that's basically why _*
 
 The following table illustrates the features (that we care) comparisons between _**ASoulDocs**_ and other existing tools (that we investigated, concepts may be different from what we understand):
 
-|Name/Feature            |_**ASoulDocs**_|[Mkdocs](https://www.mkdocs.org/)|[Hugo](https://gohugo.io/)|[VuePress](https://v2.vuepress.vuejs.org/)/[VitePress](https://vitepress.vuejs.org/)|[GitBook](https://www.gitbook.com/)|[Notion](https://www.notion.so/)|
-|:----------------------:|:-------------:|:----:|:--:|:----------------:|:----:|:-----:|
-|Self-hosted             | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-|Multilingual<sup>1</sup>| ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-|Builtin push-to-sync    | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
-|Algolia search          | 🎯 | ❌ | ✅ | ✅ | ❌ | ❌ |
-|Commenting system       | 🎯 | ❌ | ✅ | ❌ | ❌ | ✅ |
-|Versionable             | 🎯 | ❌ | ❌ | ❌ | ❌ | ❌ |
-|Protected resources     | 🎯 | ❌ | ❌ | ❌ | ❌ | ❌ |
-|Dark mode               | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ |
-|Customizable<sup>2</sup>| ✅ | ❌ | ✅ | ❌ | ❌ | ❌ |
+|Name/Feature                 |_**ASoulDocs**_|[Mkdocs](https://www.mkdocs.org/)|[Hugo](https://gohugo.io/)|[VuePress](https://v2.vuepress.vuejs.org/)/[VitePress](https://vitepress.vuejs.org/)|[GitBook](https://www.gitbook.com/)|
+|:---------------------------:|:-------------:|:----:|:--:|:----------------:|:----:|
+|Self-hosted                  | ✅ | ✅ | ✅ | ✅ | ❌ |
+|Multilingual<sup>1</sup>     | ✅ | ✅ | ✅ | ✅ | ❌ |
+|Builtin push-to-sync         | ✅ | ❌ | ❌ | ❌ | ✅ |
+|Algolia search               | 🎯 | ❌ | ✅ | ✅ | ❌ |
+|Builtin search               | 🎯 | ✅ | ❌ | ✅ | ✅ |
+|Commenting system            | 🎯 | ❌ | ✅ | ❌ | ❌ |
+|Versionable                  | 🎯 | ❌ | ❌ | ❌ | ❌ |
+|Protected resources          | 🎯 | ❌ | ❌ | ❌ | ❌ |
+|Dark mode                    | ✅ | ❌ | ✅ | ✅ | ❌ |
+|Customizable<sup>2</sup>     | ✅ | ❌ | ✅ | ❌ | ❌ |
+|Language fallback<sup>3</sup>| ✅ | ❌ | ❌ | ❌ | ❌ |
 
 - <sup>1</sup>: None of others support multilingual without changing the URL, which to us is a bizarre because we have to share different URLs for different groups of users.
 - <sup>2</sup>: In such way that visitors couldn't recognize what is powering the site behind the scene.
+- <sup>3</sup>: When a page does not exist in the preferred language, fallback to show the version from the default language.
 - 🎯: Features that are on the roadmap.
 
 ## History
@@ -36,6 +39,6 @@ The tech stack has evolved since 2015, [Macaron](https://go-macaron.com) and [Se
 
 The project is now part of [A-SOUL SIG](https://github.com/asoul-sig) (previously "github.com/peachdocs"), consists a group of A-SOUL fans.
 
-## Getting started
+## OK, then what?
 
-_Stay tuned!_
+[Install the server](installation.md) or go ahead to [Quick start](quick_start.md)!
