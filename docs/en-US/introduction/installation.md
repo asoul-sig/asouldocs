@@ -12,7 +12,7 @@ Install from source code requires you having a working local environment of [Go]
 
 Use the following command to check:
 
-```sh
+```bash
 $ go version
 go version go1.18 darwin/arm64
 ```
@@ -21,13 +21,13 @@ The minimum requirement version of Go is **1.17**.
 
 Then build the binary:
 
-```sh
+```bash
 $ go build
 ```
 
 Finally, start the server:
 
-```sh
+```bash
 $ ./asouldocs web
 ```
 
