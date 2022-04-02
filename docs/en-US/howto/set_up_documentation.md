@@ -118,16 +118,44 @@ Other notes:
 1. Only single-level directories are supported.
 1. Every document directory must have a `README.md` file, to at least define its name through the [frontmatter](#frontmatter).
 
+### Localization configuration
+
+By default, the server assumes to have documentation both in English (`en-US`) and Simplified Chinese (`zh-CN`), as in the [default configuration](https://github.com/asoul-sig/asouldocs/blob/39b59c4159e4a2b0e0a290c79f85c46a3e1faf0b/conf/app.ini#L26-L30):
+
+```ini
+[i18n]
+; The list of languages that is supported
+LANGUAGES = en-US,zh-CN
+; The list of user-friendly names of languages
+NAMES = English,简体中文
+```
+
+The first language in the `LANGUAGES` is considered as the default language, and the server shows its content if the prefered language (from browser's `Accept-Language` request header) does not exists, or the particular document is not available in the prefered language (but available in the default language).
+
+If you are just writing documentation in English, you would need to overwrite the configuration as follows:
+
+```ini
+[i18n]
+; The list of languages that is supported
+LANGUAGES = en-US
+; The list of user-friendly names of languages
+NAMES = English
+```
+
 ## Target
 
 ### Local
 
 ### Remote
 
-## Frontmatter
+### Target directory
 
-## Links
+## Document
 
-## Images
+### Frontmatter
 
-## Render caching
+### Links
+
+### Images
+
+### Render caching
