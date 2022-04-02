@@ -992,6 +992,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: auto;
 }
 
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .-my-1 {
   margin-top: -0.25rem;
   margin-bottom: -0.25rem;
@@ -1001,16 +1006,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: auto;
 }
 
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
 .-ml-0\.5 {
   margin-left: -0.125rem;
 }
 
 .-ml-0 {
   margin-left: -0px;
-}
-
-.mr-3 {
-  margin-right: 0.75rem;
 }
 
 .mt-8 {
@@ -1631,6 +1636,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-bottom-width: 2px;
 }
 
+.max-w-8xl {
+  max-width: 90rem;
+}
+
 /* Syntax highlighting */
 
 #content-wrapper pre {
@@ -1938,6 +1947,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     display: none;
   }
 
+  .md\:w-auto {
+    width: auto;
+  }
+
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1965,6 +1978,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 @media (min-width: 1024px) {
   .lg\:z-50 {
     z-index: 50;
+  }
+
+  .lg\:mx-0 {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 
   .lg\:mt-4 {
@@ -2016,6 +2034,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   .lg\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+
+  .lg\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .lg\:pl-\[19\.5rem\] {

@@ -144,18 +144,29 @@ NAMES = English
 
 ## Target
 
-### Local
+The target of documents can be either a local directory or a remote Git address.
 
-### Remote
+To use a local directory:
 
-### Target directory
+```ini
+[docs]
+TYPE = local
+TARGET = ./docs
+```
 
-## Document
+To use a remote Git address:
 
-### Frontmatter
+```ini
+[docs]
+TYPE = remote
+TARGET = https://github.com/asoul-sig/asouldocs.git
+```
 
-### Links
+If documents are residing in a subdirectory of the target, use `TARGET_DIR` as follows:
 
-### Images
-
-### Render caching
+```ini
+[docs]
+TYPE = remote
+TARGET = https://github.com/asoul-sig/asouldocs.git
+TARGET_DIR = docs
+```
