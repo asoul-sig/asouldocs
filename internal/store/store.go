@@ -7,7 +7,9 @@ package store
 import (
 	"path/filepath"
 
+	"github.com/gogs/git-module"
 	"github.com/pkg/errors"
+	log "unknwon.dev/clog/v2"
 
 	"github.com/asoul-sig/asouldocs/internal/conf"
 	"github.com/asoul-sig/asouldocs/internal/osutil"
@@ -48,7 +50,8 @@ func (s *Store) TOC(language string) *TOC {
 var ErrNoMatch = errors.New("no match for the path")
 
 // Match matches a node with given path in given language. If the no such node
-// exists, it fallbacks to use the node with same path in default language.
+// exists or the node content is empty, it fallbacks to use the node with same
+// path in default language.
 func (s *Store) Match(language, path string) (n *Node, fallback bool, err error) {
 	toc := s.TOC(language)
 	n, ok := toc.nodes[path]
@@ -75,8 +78,27 @@ func Init(typ conf.DocType, target, dir string, languages []string, baseURLPath 
 
 	root := filepath.Join(target, dir)
 	if typ == conf.DocTypeRemote {
-		// TODO: Fetch docs from remote
-		return nil, errors.New("not implemented")
+		localCache := filepath.Join("data", "docs")
+		if !osutil.IsExist(localCache) {
+			log.Trace("Cloning %s...", target)
+			err := git.Clone(target, localCache, git.CloneOptions{Depth: 1})
+			if err != nil {
+				return nil, errors.Wrapf(err, "clone %q", target)
+			}
+		} else {
+			repo, err := git.Open(localCache)
+			if err != nil {
+				return nil, errors.Wrapf(err, "open %q", localCache)
+			}
+
+			log.Trace("Pulling %s...", target)
+			err = repo.Pull()
+			if err != nil {
+				return nil, errors.Wrapf(err, "pull %q", target)
+			}
+		}
+
+		root = filepath.Join(localCache, dir)
 	}
 
 	if !osutil.IsDir(root) {
