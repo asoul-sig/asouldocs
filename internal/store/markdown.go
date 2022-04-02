@@ -44,6 +44,7 @@ func convertFile(pathPrefix, file string) (content []byte, meta map[string]inter
 			emoji.Emoji,
 			highlighting.NewHighlighting(
 				highlighting.WithStyle("base16-snazzy"),
+				highlighting.WithGuessLanguage(true),
 			),
 			extension.NewFootnote(),
 		),
@@ -97,6 +98,10 @@ func inspectLinks(pathPrefix string, doc ast.Node) error {
 			// TODO: external links adds an SVG
 			return ast.WalkSkipChildren, nil
 		} else if dest.Scheme != "" {
+			return ast.WalkContinue, nil
+		}
+
+		if bytes.HasPrefix(link.Destination, []byte("#")) {
 			return ast.WalkContinue, nil
 		}
 

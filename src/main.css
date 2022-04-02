@@ -12,3 +12,13 @@
 .prose :where(a:hover):not(:where([class~=not-prose] *)) {
   border-bottom-width: 2px;
 }
+
+/* Syntax highlighting */
+#content-wrapper pre {
+  padding: 15px 0;
+}
+
+#content-wrapper pre code > span {
+  line-height: 25px;
+  padding: 0 20px;
+}

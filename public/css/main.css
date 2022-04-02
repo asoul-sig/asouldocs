@@ -1029,6 +1029,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 0.5rem;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -1075,10 +1079,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mt-10 {
   margin-top: 2.5rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
 }
 
 .block {
@@ -1629,6 +1629,17 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .prose :where(a:hover):not(:where([class~=not-prose] *)) {
   border-bottom-width: 2px;
+}
+
+/* Syntax highlighting */
+
+#content-wrapper pre {
+  padding: 15px 0;
+}
+
+#content-wrapper pre code > span {
+  line-height: 25px;
+  padding: 0 20px;
 }
 
 .hover\:border-slate-400:hover {
