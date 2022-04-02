@@ -34,4 +34,4 @@ At bare minimum, the server requires a `custom/app.ini` file and a local directo
     YYYY/MM/DD 00:00:00 [ INFO] Listen on http://localhost:5555
     ```
 
-Great! Let’s move on to [how to set up documentation](../howto/set_up_documentation.md).
+Great! Let’s move on to [how to set up documentation](../howto/set-up-documentation.md).

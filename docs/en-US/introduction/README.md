@@ -41,4 +41,4 @@ The project is now part of [A-SOUL SIG](https://github.com/asoul-sig) (previousl
 
 ## OK, then what?
 
-[Install the server](installation.md) or go ahead to [Quick start](quick_start.md)!
+[Install the server](installation.md) or go ahead to [Quick start](quick-start.md)!
