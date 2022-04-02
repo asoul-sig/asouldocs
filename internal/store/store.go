@@ -80,7 +80,7 @@ func Init(typ conf.DocType, target, dir string, languages []string, baseURLPath 
 	if typ == conf.DocTypeRemote {
 		localCache := filepath.Join("data", "docs")
 		if !osutil.IsExist(localCache) {
-			log.Info("Cloning %s...", target)
+			log.Trace("Cloning %s...", target)
 			err := git.Clone(target, localCache, git.CloneOptions{Depth: 1})
 			if err != nil {
 				return nil, errors.Wrapf(err, "clone %q", target)
@@ -91,7 +91,7 @@ func Init(typ conf.DocType, target, dir string, languages []string, baseURLPath 
 				return nil, errors.Wrapf(err, "open %q", localCache)
 			}
 
-			log.Info("Pulling %s...", target)
+			log.Trace("Pulling %s...", target)
 			err = repo.Pull()
 			if err != nil {
 				return nil, errors.Wrapf(err, "pull %q", target)
