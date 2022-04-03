@@ -56,6 +56,13 @@ func runWeb(ctx *cli.Context) {
 		},
 	))
 
+	// Serve assets of the documentation
+	f.Use(flamego.Static(
+		flamego.StaticOptions{
+			Directory: docstore.RootDir(),
+		},
+	))
+
 	// Load assets from disk if in development and the local directory exists
 	if flamego.Env() == flamego.EnvTypeDev &&
 		osutil.IsDir("public") {

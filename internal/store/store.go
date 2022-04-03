@@ -18,8 +18,14 @@ import (
 // Store is a store maintaining documentation hierarchies for multiple
 // languages.
 type Store struct {
+	rootDir         string
 	defaultLanguage string
 	tocs            map[string]*TOC // Key is the language
+}
+
+// RootDir returns the root directory of documentation hierarchies.
+func (s *Store) RootDir() string {
+	return s.rootDir
 }
 
 // FirstDocPath returns the URL path of the first doc that has content in the
@@ -110,6 +116,7 @@ func Init(typ conf.DocType, target, dir string, languages []string, baseURLPath 
 		return nil, errors.Wrap(err, "init toc")
 	}
 	return &Store{
+		rootDir:         root,
 		defaultLanguage: languages[0],
 		tocs:            tocs,
 	}, nil
