@@ -1625,14 +1625,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   --scroll-mt: 9.875rem;
 }
 
-.prose :where(a):not(:where([class~=not-prose] *)) {
+.prose :where(a):not(:where([class~="not-prose"] *)) {
   color: var(--tw-prose-links);
   text-decoration: none;
   font-weight: 600;
   border-bottom: 1px solid #7dd3fc;
 }
 
-.prose :where(a:hover):not(:where([class~=not-prose] *)) {
+.prose :where(a:hover):not(:where([class~="not-prose"] *)) {
   border-bottom-width: 2px;
 }
 
@@ -1649,6 +1649,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 #content-wrapper pre code > span {
   line-height: 25px;
   padding: 0 20px;
+}
+
+/* https://stackoverflow.com/a/24298427/1875015 */
+
+[id]::before {
+  content: "";
+  display: block;
+  height: 75px;
+  margin-top: -75px;
+  visibility: hidden;
 }
 
 .hover\:border-slate-400:hover {
