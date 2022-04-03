@@ -1,5 +1,5 @@
 ---
-name: Set up documentation
+title: Set up documentation
 ---
 
 There are four essential components of a _**ASoulDocs**_ documentation project:
@@ -43,7 +43,7 @@ For example, you can replace the "GitHub" in navbar to be a happy face by overwr
 </ul>
 ```
 
-You can read more about how to [customize templates](../howto/customize_templates.md).
+You can read more about how to [customize templates](../howto/customize-templates.md).
 
 ## Document hierarchy
 
@@ -87,7 +87,7 @@ The `toc.ini` is used to define how exactly these documents should look like on 
 -: set_up_documentation
 ```
 
-In the default section, document directories are defined in the exact order, and these names are corresponding to the directories' name:
+In the default section, document directories are defined in the exact order, and these names are corresponding to the directories' title:
 
 ```ini
 -: introduction

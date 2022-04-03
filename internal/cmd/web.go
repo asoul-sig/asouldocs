@@ -165,7 +165,7 @@ func runWeb(ctx *cli.Context) {
 
 			data["Fallback"] = fallback
 			data["Category"] = node.Category
-			data["Title"] = node.Name + " - " + l.Translate("name")
+			data["Title"] = node.Title + " - " + l.Translate("name")
 			data["Node"] = node
 			t.HTML(http.StatusOK, "docs")
 		},

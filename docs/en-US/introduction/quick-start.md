@@ -1,5 +1,5 @@
 ---
-name: Quick start
+title: Quick start
 ---
 
 Let's boot up a server serving the documentation of _**ASoulDocs**_ its own!

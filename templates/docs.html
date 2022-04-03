@@ -54,9 +54,9 @@
                 <li class="mt-8 lg:mt-4">
                   <h5 class="mb-8 lg:mb-3 font-semibold">
                     {{if .Content}}
-                      <a class="block text-sky-600 dark:text-sky-500" href="{{$.Page.DocsBasePath}}/{{.Path}}">{{.Name}}</a>
+                      <a class="block text-sky-600 dark:text-sky-500" href="{{$.Page.DocsBasePath}}/{{.Path}}">{{.Title}}</a>
                     {{else}}
-                      <span class="text-slate-900 dark:text-slate-200">{{.Name}}</span>
+                      <span class="text-slate-900 dark:text-slate-200">{{.Title}}</span>
                     {{end}}
                   </h5>
                   {{if .Nodes}}
@@ -65,11 +65,11 @@
                         <li>
                           {{if eq $.Current .Path}}
                             <a class="block border-l pl-4 -ml-px text-sky-500 border-current font-semibold dark:text-sky-400" href="{{$.Page.DocsBasePath}}/{{.Path}}">
-                              {{.Name}}
+                              {{.Title}}
                             </a>
                           {{else}}
                             <a class="block border-l pl-4 -ml-px border-transparent hover:border-slate-400 dark:hover:border-slate-500 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300" href="{{$.Page.DocsBasePath}}/{{.Path}}">
-                              {{.Name}}
+                              {{.Title}}
                             </a>
                           {{end}}
                         </li>
@@ -112,7 +112,7 @@
                 {{end}}
                 <div class="flex items-center">
                   <h1 class="inline-block text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight dark:text-slate-200">
-                    {{.Node.Name}}
+                    {{.Node.Title}}
                   </h1>
                 </div>
               </div>

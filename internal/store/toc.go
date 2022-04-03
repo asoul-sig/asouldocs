@@ -33,7 +33,7 @@ type Node struct {
 	LocalPath string // Full path with .md extension
 
 	Content  []byte            // The content of the node
-	Name     string            // The name in the given language
+	Title    string            // The title of the document in the given language
 	Headings goldmarktoc.Items // Headings in the node
 
 	Nodes []*Node // The list of sub-nodes
@@ -47,7 +47,7 @@ func (n *Node) Reload(baseURLPath string) error {
 		return err
 	}
 	n.Content = content
-	n.Name = fmt.Sprintf("%s", meta["name"])
+	n.Title = fmt.Sprintf("%s", meta["title"])
 	n.Headings = headings
 	return nil
 }
@@ -115,7 +115,7 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 				}
 
 				node := &Node{
-					Category:  dirNode.Name,
+					Category:  dirNode.Title,
 					Path:      path.Join(dirname, filename),
 					LocalPath: localpath,
 				}

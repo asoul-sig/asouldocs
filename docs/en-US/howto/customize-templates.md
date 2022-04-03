@@ -1,5 +1,7 @@
 ---
-name: Customize templates
+title: Customize templates
 ---
 
 TODO
+
+- Template variables
