@@ -101,13 +101,19 @@ func inspectLinks(pathPrefix string, doc ast.Node) error {
 			return ast.WalkContinue, nil
 		}
 
-		if bytes.HasPrefix(link.Destination, []byte("#")) {
-			return ast.WalkContinue, nil
+		var anchor []byte
+		if i := bytes.IndexByte(link.Destination, '#'); i > -1 {
+			if i == 0 {
+				return ast.WalkContinue, nil
+			}
+
+			anchor = link.Destination[i:]
+			link.Destination = link.Destination[:i]
 		}
 
 		// Example: README.md => /docs/introduction
 		if bytes.EqualFold(link.Destination, []byte(readme+".md")) {
-			link.Destination = []byte(pathPrefix)
+			link.Destination = append([]byte(pathPrefix), anchor...)
 			return ast.WalkSkipChildren, nil
 		}
 
@@ -119,6 +125,8 @@ func inspectLinks(pathPrefix string, doc ast.Node) error {
 
 		// Example: ("/docs", "../howto/") => "/docs/howto"
 		link.Destination = []byte(path.Join(pathPrefix, string(link.Destination)))
+
+		link.Destination = append(link.Destination, anchor...)
 		return ast.WalkSkipChildren, nil
 	})
 }
