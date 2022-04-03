@@ -116,7 +116,7 @@ Within each section, files are defined in the exact order, and these names are c
 Other notes:
 
 1. Only single-level directories are supported.
-1. Every document directory must have a `README.md` file, to at least define its name through the [frontmatter](#frontmatter).
+1. Every document directory must have a `README.md` file, to at least define its name through the [frontmatter](write-document.md#frontmatter).
 
 ### Localization configuration
 
