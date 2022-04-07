@@ -110,13 +110,13 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 			if n.Previous == nil {
 				n.Previous = &PageLink{
 					Title: previous.Title,
-					Path:  previous.Path,
+					Path:  string(convertRelativeLink(baseURLPath, []byte(previous.Path))),
 				}
 			}
 			if previous.Next == nil {
 				previous.Next = &PageLink{
 					Title: n.Title,
-					Path:  n.Path,
+					Path:  string(convertRelativeLink(baseURLPath, []byte(n.Path))),
 				}
 			}
 		}
