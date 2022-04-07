@@ -5,6 +5,7 @@
 package store
 
 import (
+	"bytes"
 	"fmt"
 	"path"
 	"path/filepath"
@@ -86,9 +87,11 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 		return nil, errors.Wrapf(err, "load %q", tocPath)
 	}
 
+	var tocprint bytes.Buffer
 	tocs := make(map[string]*TOC)
 	for i, lang := range languages {
-		fmt.Println("***", lang, "***")
+		tocprint.WriteString(lang)
+		tocprint.WriteString(":\n")
 
 		toc := &TOC{
 			Language: lang,
@@ -127,7 +130,8 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 			if len(files) == 0 {
 				continue
 			}
-			fmt.Println(dirname + "/")
+			tocprint.WriteString(dirname)
+			tocprint.WriteString("/\n")
 
 			dirNode := &Node{
 				Path:  dirname,
@@ -178,7 +182,10 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 				}
 
 				setPrevious(node)
-				fmt.Println(strings.Repeat(" ", len(dirname))+"|__", filename)
+				tocprint.WriteString(strings.Repeat(" ", len(dirname)))
+				tocprint.WriteString("|__")
+				tocprint.WriteString(filename)
+				tocprint.WriteString("\n")
 			}
 		}
 
@@ -186,7 +193,8 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 		pages := tocCfg.Section("pages").KeysHash()
 		toc.Pages = make([]*Node, 0, len(pages))
 		for _, page := range pages {
-			fmt.Println(page)
+			tocprint.WriteString(page)
+			tocprint.WriteString("\n")
 
 			node := &Node{
 				Path:      page,
@@ -203,5 +211,7 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 
 		tocs[lang] = toc
 	}
+
+	fmt.Print(tocprint.String())
 	return tocs, nil
 }
