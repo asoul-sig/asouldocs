@@ -36,7 +36,15 @@ type Node struct {
 	Title    string            // The title of the document in the given language
 	Headings goldmarktoc.Items // Headings in the node
 
-	Nodes []*Node // The list of sub-nodes
+	Nodes    []*Node   // The list of sub-nodes
+	Previous *PageLink // The previous page
+	Next     *PageLink // The next page
+}
+
+// PageLink is a link to another page.
+type PageLink struct {
+	Title string // The title of the page
+	Path  string // the path to the page
 }
 
 // Reload reloads and converts the content from local disk.
@@ -47,8 +55,23 @@ func (n *Node) Reload(baseURLPath string) error {
 		return err
 	}
 	n.Content = content
-	n.Title = fmt.Sprintf("%s", meta["title"])
+	n.Title = fmt.Sprintf("%v", meta["title"])
 	n.Headings = headings
+
+	previous, ok := meta["previous"].(map[interface{}]interface{})
+	if ok {
+		n.Previous = &PageLink{
+			Title: fmt.Sprintf("%v", previous["title"]),
+			Path:  string(convertRelativeLink(pathPrefix, []byte(fmt.Sprintf("%v", previous["path"])))),
+		}
+	}
+	next, ok := meta["next"].(map[interface{}]interface{})
+	if ok {
+		n.Next = &PageLink{
+			Title: fmt.Sprintf("%v", next["title"]),
+			Path:  string(convertRelativeLink(pathPrefix, []byte(fmt.Sprintf("%v", next["path"])))),
+		}
+	}
 	return nil
 }
 
@@ -70,6 +93,29 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 		toc := &TOC{
 			Language: lang,
 			nodes:    make(map[string]*Node),
+		}
+
+		var previous *Node
+		setPrevious := func(n *Node) {
+			defer func() {
+				previous = n
+			}()
+			if previous == nil {
+				return
+			}
+
+			if n.Previous == nil {
+				n.Previous = &PageLink{
+					Title: previous.Title,
+					Path:  previous.Path,
+				}
+			}
+			if previous.Next == nil {
+				previous.Next = &PageLink{
+					Title: n.Title,
+					Path:  n.Path,
+				}
+			}
 		}
 
 		dirs := tocCfg.Section("").KeyStrings()
@@ -101,6 +147,10 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 				if err != nil {
 					return nil, errors.Wrapf(err, "reload node from %q", dirNode.LocalPath)
 				}
+
+				if len(dirNode.Content) > 0 {
+					setPrevious(dirNode)
+				}
 			}
 
 			for _, file := range files {
@@ -126,6 +176,8 @@ func initTocs(root string, languages []string, baseURLPath string) (map[string]*
 				if err != nil {
 					return nil, errors.Wrapf(err, "reload node from %q", node.LocalPath)
 				}
+
+				setPrevious(node)
 				fmt.Println(strings.Repeat(" ", len(dirname))+"|__", filename)
 			}
 		}

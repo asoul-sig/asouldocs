@@ -1,5 +1,8 @@
 ---
 title: Introduction
+previous:
+  title: Home
+  path: ../../
 ---
 
 _**ASoulDocs**_ is a web server for multilingual, real-time synchronized and searchable documentation.

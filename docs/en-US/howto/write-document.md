@@ -21,8 +21,18 @@ The frontmatter is a block of YAML snippet, `---` are used to both indicate the 
 Here is an full example of supported fields:
 
 ```yaml
-title: (Required) The title of the document
+title: The title of the document
+previous:
+  title: The title of the previous page
+  link: the relative path to the page
+next:
+  title: The title of the next page
+  link: the relative path to the page
 ```
+
+
+- Only the `title` field is required, others all have reasonable default.
+- The `link` syntax of both `previous` and `next` sections is exactly same as described in [Links and images](#links-and-images).
 
 ### Links and images
 

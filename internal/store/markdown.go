@@ -78,6 +78,36 @@ func convertFile(pathPrefix, file string) (content []byte, meta map[string]inter
 	return buf.Bytes(), goldmarkmeta.Get(ctx), headings, nil
 }
 
+func convertRelativeLink(pathPrefix string, link []byte) []byte {
+	var anchor []byte
+	if i := bytes.IndexByte(link, '#'); i > -1 {
+		if i == 0 {
+			return link
+		}
+
+		anchor = link[i:]
+		link = link[:i]
+	}
+
+	// Example: README.md => /docs/introduction
+	if bytes.EqualFold(link, []byte(readme+".md")) {
+		link = append([]byte(pathPrefix), anchor...)
+		return link
+	}
+
+	// Example: "installation.md" => "installation"
+	link = bytes.TrimSuffix(link, []byte(".md"))
+
+	// Example: "../howto/README" => "../howto/"
+	link = bytes.TrimSuffix(link, []byte(readme))
+
+	// Example: ("/docs", "../howto/") => "/docs/howto"
+	link = []byte(path.Join(pathPrefix, string(link)))
+
+	link = append(link, anchor...)
+	return link
+}
+
 func inspectLinks(pathPrefix string, doc ast.Node) error {
 	return ast.Walk(doc, func(n ast.Node, entering bool) (ast.WalkStatus, error) {
 		if !entering {
@@ -101,32 +131,7 @@ func inspectLinks(pathPrefix string, doc ast.Node) error {
 			return ast.WalkContinue, nil
 		}
 
-		var anchor []byte
-		if i := bytes.IndexByte(link.Destination, '#'); i > -1 {
-			if i == 0 {
-				return ast.WalkContinue, nil
-			}
-
-			anchor = link.Destination[i:]
-			link.Destination = link.Destination[:i]
-		}
-
-		// Example: README.md => /docs/introduction
-		if bytes.EqualFold(link.Destination, []byte(readme+".md")) {
-			link.Destination = append([]byte(pathPrefix), anchor...)
-			return ast.WalkSkipChildren, nil
-		}
-
-		// Example: "installation.md" => "installation"
-		link.Destination = bytes.TrimSuffix(link.Destination, []byte(".md"))
-
-		// Example: "../howto/README" => "../howto/"
-		link.Destination = bytes.TrimSuffix(link.Destination, []byte(readme))
-
-		// Example: ("/docs", "../howto/") => "/docs/howto"
-		link.Destination = []byte(path.Join(pathPrefix, string(link.Destination)))
-
-		link.Destination = append(link.Destination, anchor...)
+		link.Destination = convertRelativeLink(pathPrefix, link.Destination)
 		return ast.WalkSkipChildren, nil
 	})
 }

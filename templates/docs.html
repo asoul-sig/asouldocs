@@ -121,20 +121,28 @@
               {{Safe .Node.Content}}
             </div>
             <footer class="text-sm leading-6 mt-12">
-              <!-- <div class="mb-10 text-slate-700 font-semibold flex items-center dark:text-slate-200">
-                <a class="group flex items-center hover:text-slate-900 dark:hover:text-white" href="/docs/installation">
-                  <svg viewBox="0 0 3 6" class="mr-3 w-auto h-1.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:group-hover:text-slate-300">
-                    <path d="M3 0L0 3L3 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
-                  Installation
-                </a>
-                <a class="group ml-auto flex items-center hover:text-slate-900 dark:hover:text-white" href="/docs/using-with-preprocessors">
-                  Using with Preprocessors
-                  <svg viewBox="0 0 3 6" class="ml-3 w-auto h-1.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:group-hover:text-slate-300">
-                    <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
-                </a>
-              </div> -->
+              {{if or .Node.Previous .Node.Next}}
+                <div class="mb-10 text-slate-700 font-semibold flex items-center dark:text-slate-200">
+                  {{if .Node.Previous}}
+                    <a class="group flex items-center hover:text-slate-900 dark:hover:text-white" href="{{.Node.Previous.Path}}">
+                      <!-- Heroicon: outline/chevron-left -->
+                      <svg viewBox="0 0 3 6" class="mr-3 w-auto h-1.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:group-hover:text-slate-300">
+                        <path d="M3 0L0 3L3 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                      {{.Node.Previous.Title}}
+                    </a>
+                  {{end}}
+                  {{if .Node.Next}}
+                    <a class="group ml-auto flex items-center hover:text-slate-900 dark:hover:text-white" href="{{.Node.Next.Path}}">
+                      {{.Node.Next.Title}}
+                      <!-- Heroicon: outline/chevron-right -->
+                      <svg viewBox="0 0 3 6" class="ml-3 w-auto h-1.5 text-slate-400 overflow-visible group-hover:text-slate-600 dark:group-hover:text-slate-300">
+                        <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </a>
+                  {{end}}
+                </div>
+              {{end}}
               <div class="pt-10 pb-28 border-t border-slate-200 sm:flex justify-between text-slate-500 dark:border-slate-200/5">
                 <div class="mb-6 sm:mb-0 sm:flex">
                   <p>
