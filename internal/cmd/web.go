@@ -179,18 +179,16 @@ func runWeb(ctx *cli.Context) {
 		},
 	)
 	f.Any("/webhook", func(w http.ResponseWriter) {
-		log.Trace("Reloading...")
 		err := docstore.Reload()
 		if err != nil {
 			log.Error("Failed to reload store triggered by webhook: %v", err)
 
 			w.WriteHeader(http.StatusInternalServerError)
 			_ = json.NewEncoder(w).Encode(map[string]any{
-				"error": err,
+				"error": err.Error(),
 			})
 			return
 		}
-
 		w.WriteHeader(http.StatusNoContent)
 	})
 

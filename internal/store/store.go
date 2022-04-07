@@ -6,6 +6,7 @@ package store
 
 import (
 	"path/filepath"
+	"sync"
 	"sync/atomic"
 
 	"github.com/gogs/git-module"
@@ -30,6 +31,7 @@ type Store struct {
 	rootDir         string
 	defaultLanguage string
 	tocs            atomic.Value
+	reloadLock      sync.Mutex
 }
 
 // RootDir returns the root directory of documentation hierarchies.
@@ -95,6 +97,11 @@ func (s *Store) Match(language, path string) (n *Node, fallback bool, err error)
 
 // Reload re-initializes the documentation store.
 func (s *Store) Reload() error {
+	s.reloadLock.Lock()
+	defer s.reloadLock.Unlock()
+
+	log.Trace("Reloading %s...", s.target)
+
 	root := filepath.Join(s.target, s.targetDir)
 	if s.typ == conf.DocTypeRemote {
 		localCache := filepath.Join("data", "docs")
