@@ -17,7 +17,7 @@ $ go version
 go version go1.18 darwin/arm64
 ```
 
-The minimum requirement version of Go is **1.17**.
+The minimum requirement version of Go is **1.18**.
 
 Then build the binary:
 
