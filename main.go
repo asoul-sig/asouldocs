@@ -20,10 +20,18 @@ func init() {
 }
 
 func main() {
+	version := conf.App.Version
+	if conf.BuildCommit != "" {
+		version += "-" + conf.BuildCommit
+	}
+	if conf.BuildTime != "" {
+		version += "@" + conf.BuildTime
+	}
+
 	app := cli.NewApp()
 	app.Name = "ASoulDocs"
 	app.Usage = "Ellien's documentation server"
-	app.Version = conf.App.Version
+	app.Version = version
 	app.Commands = []cli.Command{
 		cmd.Web,
 	}
