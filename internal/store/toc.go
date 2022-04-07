@@ -59,14 +59,14 @@ func (n *Node) Reload(baseURLPath string) error {
 	n.Title = fmt.Sprintf("%v", meta["title"])
 	n.Headings = headings
 
-	previous, ok := meta["previous"].(map[interface{}]interface{})
+	previous, ok := meta["previous"].(map[any]any)
 	if ok {
 		n.Previous = &PageLink{
 			Title: fmt.Sprintf("%v", previous["title"]),
 			Path:  string(convertRelativeLink(pathPrefix, []byte(fmt.Sprintf("%v", previous["path"])))),
 		}
 	}
-	next, ok := meta["next"].(map[interface{}]interface{})
+	next, ok := meta["next"].(map[any]any)
 	if ok {
 		n.Next = &PageLink{
 			Title: fmt.Sprintf("%v", next["title"]),
@@ -79,7 +79,7 @@ func (n *Node) Reload(baseURLPath string) error {
 const readme = "README"
 
 // initTocs initializes documentation hierarchy for given languages in the given
-// root directory.
+// root directory. The language is the key in the returned map.
 func initTocs(root string, languages []string, baseURLPath string) (map[string]*TOC, error) {
 	tocPath := filepath.Join(root, "toc.ini")
 	tocCfg, err := ini.Load(tocPath)

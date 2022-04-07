@@ -43,7 +43,7 @@ For example, you can replace the "GitHub" in navbar to be a happy face by overwr
 </ul>
 ```
 
-You can read more about how to [customize templates](../howto/customize-templates.md).
+You can read more about how to [customize templates](customize-templates.md).
 
 ## Document hierarchy
 

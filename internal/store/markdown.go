@@ -23,7 +23,7 @@ import (
 	"github.com/yuin/goldmark/text"
 )
 
-func convertFile(pathPrefix, file string) (content []byte, meta map[string]interface{}, headings goldmarktoc.Items, err error) {
+func convertFile(pathPrefix, file string) (content []byte, meta map[string]any, headings goldmarktoc.Items, err error) {
 	body, err := os.ReadFile(file)
 	if err != nil {
 		return nil, nil, nil, errors.Wrap(err, "read")

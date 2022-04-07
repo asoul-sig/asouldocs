@@ -5,6 +5,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	gotemplate "html/template"
 	"net/http"
@@ -177,6 +178,21 @@ func runWeb(ctx *cli.Context) {
 			t.HTML(http.StatusOK, "docs")
 		},
 	)
+	f.Any("/webhook", func(w http.ResponseWriter) {
+		log.Trace("Reloading...")
+		err := docstore.Reload()
+		if err != nil {
+			log.Error("Failed to reload store triggered by webhook: %v", err)
+
+			w.WriteHeader(http.StatusInternalServerError)
+			_ = json.NewEncoder(w).Encode(map[string]any{
+				"error": err,
+			})
+			return
+		}
+
+		w.WriteHeader(http.StatusNoContent)
+	})
 
 	f.NotFound(notFound)
 

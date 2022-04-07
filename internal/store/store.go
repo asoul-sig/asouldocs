@@ -6,6 +6,7 @@ package store
 
 import (
 	"path/filepath"
+	"sync/atomic"
 
 	"github.com/gogs/git-module"
 	"github.com/pkg/errors"
@@ -18,9 +19,17 @@ import (
 // Store is a store maintaining documentation hierarchies for multiple
 // languages.
 type Store struct {
+	// The list of config values
+	typ         conf.DocType
+	target      string
+	targetDir   string
+	languages   []string
+	baseURLPath string
+
+	// The list of inferred values
 	rootDir         string
 	defaultLanguage string
-	tocs            map[string]*TOC // Key is the language
+	tocs            atomic.Value
 }
 
 // RootDir returns the root directory of documentation hierarchies.
@@ -28,10 +37,18 @@ func (s *Store) RootDir() string {
 	return s.rootDir
 }
 
+func (s *Store) getTOCs() map[string]*TOC {
+	return s.tocs.Load().(map[string]*TOC)
+}
+
+func (s *Store) setTOCs(tocs map[string]*TOC) {
+	s.tocs.Store(tocs)
+}
+
 // FirstDocPath returns the URL path of the first doc that has content in the
 // default language.
 func (s *Store) FirstDocPath() string {
-	for _, dir := range s.tocs[s.defaultLanguage].Nodes {
+	for _, dir := range s.getTOCs()[s.defaultLanguage].Nodes {
 		if len(dir.Content) > 0 {
 			return dir.Path
 		}
@@ -46,9 +63,9 @@ func (s *Store) FirstDocPath() string {
 // TOC returns the TOC of the given language. It returns the TOC of the default
 // language if the given language is not found.
 func (s *Store) TOC(language string) *TOC {
-	toc, ok := s.tocs[language]
+	toc, ok := s.getTOCs()[language]
 	if !ok {
-		return s.tocs[s.defaultLanguage]
+		return s.getTOCs()[s.defaultLanguage]
 	}
 	return toc
 }
@@ -69,55 +86,71 @@ func (s *Store) Match(language, path string) (n *Node, fallback bool, err error)
 		return nil, false, ErrNoMatch
 	}
 
-	n, ok = s.tocs[s.defaultLanguage].nodes[path]
+	n, ok = s.getTOCs()[s.defaultLanguage].nodes[path]
 	if ok && len(n.Content) > 0 {
 		return n, true, nil
 	}
 	return nil, false, ErrNoMatch
 }
 
-// Init initializes the documentation store from given type and target.
-func Init(typ conf.DocType, target, dir string, languages []string, baseURLPath string) (*Store, error) {
-	if len(languages) < 1 {
-		return nil, errors.New("no languages")
-	}
-
-	root := filepath.Join(target, dir)
-	if typ == conf.DocTypeRemote {
+// Reload re-initializes the documentation store.
+func (s *Store) Reload() error {
+	root := filepath.Join(s.target, s.targetDir)
+	if s.typ == conf.DocTypeRemote {
 		localCache := filepath.Join("data", "docs")
 		if !osutil.IsExist(localCache) {
-			log.Trace("Cloning %s...", target)
-			err := git.Clone(target, localCache, git.CloneOptions{Depth: 1})
+			log.Trace("Cloning %s...", s.target)
+			err := git.Clone(s.target, localCache, git.CloneOptions{Depth: 1})
 			if err != nil {
-				return nil, errors.Wrapf(err, "clone %q", target)
+				return errors.Wrapf(err, "clone %q", s.target)
 			}
 		} else {
 			repo, err := git.Open(localCache)
 			if err != nil {
-				return nil, errors.Wrapf(err, "open %q", localCache)
+				return errors.Wrapf(err, "open %q", localCache)
 			}
 
-			log.Trace("Pulling %s...", target)
+			log.Trace("Pulling %s...", s.target)
 			err = repo.Pull()
 			if err != nil {
-				return nil, errors.Wrapf(err, "pull %q", target)
+				return errors.Wrapf(err, "pull %q", s.target)
 			}
 		}
 
-		root = filepath.Join(localCache, dir)
+		root = filepath.Join(localCache, s.targetDir)
 	}
 
 	if !osutil.IsDir(root) {
-		return nil, errors.Errorf("directory root %q does not exist", root)
+		return errors.Errorf("directory root %q does not exist", root)
 	}
 
-	tocs, err := initTocs(root, languages, baseURLPath)
+	tocs, err := initTocs(root, s.languages, s.baseURLPath)
 	if err != nil {
-		return nil, errors.Wrap(err, "init toc")
+		return errors.Wrap(err, "init toc")
 	}
-	return &Store{
-		rootDir:         root,
+
+	s.rootDir = root
+	s.setTOCs(tocs)
+	return nil
+}
+
+// Init initializes the documentation store from given type and target.
+func Init(typ conf.DocType, target, targetDir string, languages []string, baseURLPath string) (*Store, error) {
+	if len(languages) < 1 {
+		return nil, errors.New("no languages")
+	}
+
+	s := &Store{
+		typ:             typ,
+		target:          target,
+		targetDir:       targetDir,
+		languages:       languages,
+		baseURLPath:     baseURLPath,
 		defaultLanguage: languages[0],
-		tocs:            tocs,
-	}, nil
+	}
+	err := s.Reload()
+	if err != nil {
+		return nil, errors.Wrap(err, "reload")
+	}
+	return s, nil
 }
