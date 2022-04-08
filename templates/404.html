@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="[--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem]">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content="{{.Site.Description}}" />
-
-    <link rel="shortcut icon" href="/img/favicon.png" />
-    <link href="/css/main.css?v={{.BuildCommit}}" rel="stylesheet">
-
-    <title>{{.Title}}</title>
-  </head>
+  {{template "common/head" .}}
   <body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
     <div class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
       <div class="max-w-8xl mx-auto">
@@ -25,7 +15,7 @@
             </a>
             <div class="flex items-center ml-auto">
               <nav class="text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
-                {{template "navbar" .}}
+                {{template "common/navbar" .}}
               </nav>
             </div>
           </div>

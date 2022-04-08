@@ -156,6 +156,13 @@ func runWeb(ctx *cli.Context) {
 				return
 			}
 
+			if flamego.Env() == flamego.EnvTypeDev {
+				err = docstore.Reload()
+				if err != nil {
+					panic("reload store: " + err.Error())
+				}
+			}
+
 			data["Current"] = current
 			data["TOC"] = docstore.TOC(l.Lang())
 
@@ -163,13 +170,6 @@ func runWeb(ctx *cli.Context) {
 			if err != nil {
 				notFound(t, data, l)
 				return
-			}
-
-			if flamego.Env() == flamego.EnvTypeDev {
-				err = node.Reload(conf.Page.DocsBasePath)
-				if err != nil {
-					panic("reload node: " + err.Error())
-				}
 			}
 
 			data["Fallback"] = fallback
