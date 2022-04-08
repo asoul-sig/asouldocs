@@ -9,6 +9,7 @@ import (
 	"fmt"
 	gotemplate "html/template"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/flamego/flamego"
@@ -176,6 +177,11 @@ func runWeb(ctx *cli.Context) {
 			data["Category"] = node.Category
 			data["Title"] = node.Title + " - " + l.Translate("name")
 			data["Node"] = node
+
+			if conf.Docs.EditPageLinkFormat != "" {
+				blob := strings.TrimPrefix(node.LocalPath, docstore.RootDir()+"/")
+				data["EditLink"] = strings.Replace(conf.Docs.EditPageLinkFormat, "{blob}", blob, 1)
+			}
 			t.HTML(http.StatusOK, "docs")
 		},
 	)

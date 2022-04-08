@@ -139,51 +139,60 @@
                     © {{Year}} {{call .Tr "footer::copyright"}}
                   </p>
                 </div>
-                <!-- <a class="hover:text-slate-900 dark:hover:text-slate-400" href="https://github.com/tailwindlabs/tailwindcss.com/edit/master/src/pages/docs/editor-setup.mdx">
-                  Edit this page on GitHub
-                </a> -->
               </div>
             </footer>
 
             <div class="fixed z-20 top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[19.5rem] py-10 px-8 overflow-y-auto hidden xl:block">
               {{if .Node.Headings}}
-                <h5 class="text-slate-900 font-semibold mb-2 text-sm leading-3 dark:text-slate-100">
-                  {{call .Tr "docs::on_this_page"}}
-                </h5>
-                <ul class="text-slate-700 text-sm leading-6 mb-6">
-                  {{range .Node.Headings}}
-                    <li>
-                      <a href="#{{Safe .ID}}" class="block py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">
-                        {{Safe .Title}}
-                      </a>
-                    </li>
-                    {{range .Items}}
-                      <li class="ml-4">
-                        <a href="#{{Safe .ID}}" class="group flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">
-                          <svg width="3" height="24" viewBox="0 -9 3 24" class="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500">
-                            <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                          </svg>
+                <div class="block">
+                  <h5 class="text-slate-900 font-semibold mb-2 text-sm leading-3 dark:text-slate-100">
+                    {{call .Tr "docs::on_this_page"}}
+                  </h5>
+                  <ul class="text-slate-700 text-sm leading-6 mb-6">
+                    {{range .Node.Headings}}
+                      <li>
+                        <a href="#{{Safe .ID}}" class="block py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">
                           {{Safe .Title}}
                         </a>
                       </li>
+                      {{range .Items}}
+                        <li class="ml-4">
+                          <a href="#{{Safe .ID}}" class="group flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">
+                            <svg width="3" height="24" viewBox="0 -9 3 24" class="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500">
+                              <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                            </svg>
+                            {{Safe .Title}}
+                          </a>
+                        </li>
+                      {{end}}
                     {{end}}
-                  {{end}}
-                </ul>
+                  </ul>
+                </div>
               {{end}}
 
               {{if not (eq .Language 1)}}
-                <h5 class="text-slate-900 font-semibold mb-2 text-sm leading-3 dark:text-slate-100">
-                  {{call .Tr "footer::languages"}}
-                </h5>
-                <ul class="text-slate-700 text-sm leading-6">
-                  {{range .Languages}}
-                    <li>
-                      <a class="py-1 block hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300" href="{{$.URL}}?lang={{.Name}}">
-                        {{.Description}}
-                      </a>
-                    </li>
-                  {{end}}
-                </ul>
+                <div class="block">
+                  <h5 class="text-slate-900 font-semibold mb-2 text-sm leading-3 dark:text-slate-100">
+                    {{call .Tr "footer::languages"}}
+                  </h5>
+                  <ul class="text-slate-700 text-sm leading-6">
+                    {{range .Languages}}
+                      <li>
+                        <a class="py-1 block hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300" href="{{$.URL}}?lang={{.Name}}">
+                          {{.Description}}
+                        </a>
+                      </li>
+                    {{end}}
+                  </ul>
+                </div>
+              {{end}}
+
+              {{if .EditLink}}
+                <div class="block mt-4">
+                  <a class="hover:text-slate-900 dark:hover:text-slate-400 text-sm" target="_blank" href="{{.EditLink}}">
+                    {{call .Tr "docs::edit_this_page"}}
+                  </a>
+                </div>
               {{end}}
             </div>
           </div>

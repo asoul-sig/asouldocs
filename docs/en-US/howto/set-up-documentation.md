@@ -170,3 +170,13 @@ TYPE = remote
 TARGET = https://github.com/asoul-sig/asouldocs.git
 TARGET_DIR = docs
 ```
+
+## Link to edit page
+
+You probably want to welcome small contributions from the community if your documentation repository is open sourced. You can navigate users directly to edit the page on the code host:
+
+```ini
+[docs]
+; The format to construct a edit page link, leave it empty to disable
+EDIT_PAGE_LINK_FORMAT = https://github.com/asoul-sig/asouldocs/blob/main/docs/{blob}
+```

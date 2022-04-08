@@ -58,9 +58,10 @@ var (
 
 	// Documentation settings
 	Docs struct {
-		Type      DocType
-		Target    string
-		TargetDir string
+		Type               DocType
+		Target             string
+		TargetDir          string
+		EditPageLinkFormat string
 	}
 
 	// Extension settings
