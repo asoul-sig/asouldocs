@@ -79,6 +79,8 @@ func Init(customConf string) (err error) {
 		return errors.Wrap(err, "mapping [i18n] section")
 	} else if err = File.Section("docs").MapTo(&Docs); err != nil {
 		return errors.Wrap(err, "mapping [docs] section")
+	} else if err = File.Section("extension.plausible").MapTo(&Extension.Plausible); err != nil {
+		return errors.Wrap(err, "mapping [extension.plausible] section")
 	}
 
 	Page.DocsBasePath = strings.TrimRight(Page.DocsBasePath, "/")

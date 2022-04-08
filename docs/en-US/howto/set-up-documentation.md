@@ -25,7 +25,7 @@ Every server comes with a set of [builtin template files](https://github.com/aso
 
 Luckily, you can overwrite these template files by placing your template files with same file name under the `custom/templates` directory.
 
-For example, you can replace the "GitHub" in navbar to be a happy face by overwriting the `navbar.html`:
+For example, you can replace the "GitHub" in navbar to be a happy face by overwriting the `common/navbar.html`:
 
 ```go-html-template {hl_lines=["7-10"]}
 <ul class="flex items-center space-x-5">

@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="[--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem]">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content="{{.Site.Description}}" />
-
-    <link rel="shortcut icon" href="/img/favicon.png" />
-    <link href="/css/main.css?v={{.BuildCommit}}" rel="stylesheet">
-
-    <title>{{.Title}}</title>
-  </head>
+  {{template "common/head" .}}
   <body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
     <div class="space-y-10">
       <header class="relative">
@@ -33,7 +23,7 @@
               </button> -->
               <div class="flex items-center">
                 <nav>
-                  {{template "navbar" .}}
+                  {{template "common/navbar" .}}
                 </nav>
               </div>
             </div>

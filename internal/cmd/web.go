@@ -123,6 +123,7 @@ func runWeb(ctx *cli.Context) {
 		data["BuildCommit"] = conf.BuildCommit
 		data["Site"] = conf.Site
 		data["Page"] = conf.Page
+		data["Extension"] = conf.Extension
 
 		data["Tr"] = l.Translate
 		data["Lang"] = l.Lang()

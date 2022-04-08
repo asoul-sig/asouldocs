@@ -26,6 +26,8 @@ tasks:
       - main.go
       - internal/**/*.go
       - conf/**/*
+      - public/embed.go
+      - templates/embed.go
       - docs/toc.ini
     method: timestamp
 

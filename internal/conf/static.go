@@ -62,6 +62,14 @@ var (
 		Target    string
 		TargetDir string
 	}
+
+	// Extension settings
+	Extension struct {
+		Plausible struct {
+			Enabled bool
+			Domain  string
+		}
+	}
 )
 
 type DocType string
