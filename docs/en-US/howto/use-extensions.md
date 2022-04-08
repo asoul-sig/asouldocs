@@ -10,8 +10,7 @@ The Plausbile extension integrates with https://plausible.io/, it is disabled by
 
 ```ini
 [extension.plausible]
-; Whether to enable this extension
-ENABLED = false
+ENABLED = true
 ; The optional value to be specified for the "data-domain" attribute
 DOMAIN =
 ```
