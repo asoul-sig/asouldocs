@@ -66,6 +66,10 @@ var (
 			Enabled       bool
 			MeasurementID string `ini:"MEASUREMENT_ID"`
 		}
+		Disqus struct {
+			Enabled   bool
+			Shortname string
+		}
 	}
 )
 

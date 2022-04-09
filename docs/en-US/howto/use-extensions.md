@@ -21,7 +21,18 @@ The Google Analytics extension integrates with [Google Analytics 4](https://deve
 
 ```ini
 [extension.google_analytics]
-ENABLED = false
+ENABLED = true
 ; The measurement ID of your property
 MEASUREMENT_ID = G-VXXXYYYYZZ
+```
+
+## Disqus
+
+The Disqus extension integrates with [Disqus](https://disqus.com/), it is disabled by default. Use the following configuration to enable it:
+
+```ini
+[extension.disqus]
+ENABLED = true
+; The shortname of your site
+SHORTNAME = ellien
 ```
