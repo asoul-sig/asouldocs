@@ -1,10 +1,7 @@
-.git
-.git/**
-custom*
-LICENSE
-Makefile
+.github/
 .dockerignore
 *.yml
+!Taskfile.yml
 *.md
+.editorconfig
 .gitignore
-Dockerfile*
