@@ -1,0 +1,14 @@
+{{if .Extension.DocSearch.Enabled}}
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  <script>
+    docsearch({
+      container: '#docsearch',
+      appId: '{{.Extension.DocSearch.AppID}}',
+      apiKey: '{{.Extension.DocSearch.APIKey}}',
+      indexName: '{{.Extension.DocSearch.IndexName}}',
+      searchParameters: {
+        facetFilters: ['language:{{.Lang}}'],
+      },
+    });
+  </script>
+{{end}}

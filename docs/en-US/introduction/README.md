@@ -20,9 +20,9 @@ The following table illustrates the features (that we care) comparisons between 
 |Self-hosted                  | ✅ | ✅ | ✅ | ✅ | ❌ |
 |Multilingual<sup>1</sup>     | ✅ | ✅ | ✅ | ✅ | ❌ |
 |Builtin push-to-sync         | ✅ | ❌ | ❌ | ❌ | ✅ |
-|Algolia search               | 🎯 | ❌ | ✅ | ✅ | ❌ |
+|Algolia search               | ✅ | ❌ | ✅ | ✅ | ❌ |
 |Builtin search               | 🎯 | ✅ | ❌ | ✅ | ✅ |
-|Commenting system            | 🎯 | ❌ | ✅ | ❌ | ❌ |
+|Commenting system            | ✅ | ❌ | ✅ | ❌ | ❌ |
 |Versionable                  | 🎯 | ❌ | ❌ | ❌ | ❌ |
 |Protected resources          | 🎯 | ❌ | ❌ | ❌ | ❌ |
 |Dark mode                    | ✅ | ❌ | ✅ | ✅ | ❌ |

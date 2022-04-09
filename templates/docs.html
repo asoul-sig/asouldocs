@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="[--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem]">
+<html lang="{{.Lang}}" class="[--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem]">
   {{template "common/head" .}}
   <body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
     <div class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
@@ -28,15 +28,6 @@
           <nav id="nav" class="lg:text-sm lg:leading-6 relative">
             <div class="sticky top-0 -ml-0.5 pointer-events-none">
               <div class="h-3 bg-white dark:bg-slate-900"></div>
-              <!-- <div class="bg-white dark:bg-slate-900 relative pointer-events-auto">
-                <button type="button" class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
-                  <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-3 flex-none">
-                    <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
-                  </svg>
-                  Quick search...
-                  <span class="ml-auto pl-3 flex-none text-xs font-semibold">⌘K</span>
-                </button>
-              </div> -->
               <div class="h-8 bg-gradient-to-b from-white dark:from-slate-900"></div>
             </div>
             <ul>
@@ -227,5 +218,7 @@
         </div>
       </div>
     </div>
+
+    {{template "extension/docsearch" .}}
   </body>
 </html>

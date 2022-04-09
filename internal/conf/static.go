@@ -66,6 +66,7 @@ var (
 			Enabled       bool
 			MeasurementID string `ini:"MEASUREMENT_ID"`
 		}
+
 		Disqus struct {
 			Enabled   bool
 			Shortname string
@@ -76,6 +77,13 @@ var (
 			IssueTerm string
 			Label     string
 			Theme     string
+		}
+
+		DocSearch struct {
+			Enabled   bool
+			AppID     string `ini:"APP_ID"`
+			APIKey    string `ini:"API_KEY"`
+			IndexName string
 		}
 	}
 )

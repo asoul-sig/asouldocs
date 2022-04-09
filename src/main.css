@@ -35,3 +35,16 @@
   margin-top: -75px;
   visibility: hidden;
 }
+
+/* DocSearch */
+.DocSearch-Button {
+  height: 28px;
+}
+
+.DocSearch-Search-Icon {
+  height: 15px;
+}
+
+.DocSearch-Button-Placeholder {
+  font-size: 0.9rem !important;
+}

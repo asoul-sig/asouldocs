@@ -89,6 +89,8 @@ func Init(customConf string) (err error) {
 		return errors.Wrap(err, "mapping [extension.disqus] section")
 	} else if err = File.Section("extension.utterances").MapTo(&Extension.Utterances); err != nil {
 		return errors.Wrap(err, "mapping [extension.utterances] section")
+	} else if err = File.Section("extension.docsearch").MapTo(&Extension.DocSearch); err != nil {
+		return errors.Wrap(err, "mapping [extension.docsearch] section")
 	}
 
 	Page.DocsBasePath = strings.TrimRight(Page.DocsBasePath, "/")
