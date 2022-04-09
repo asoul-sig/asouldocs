@@ -36,3 +36,20 @@ ENABLED = true
 ; The shortname of your site
 SHORTNAME = ellien
 ```
+
+## utterances
+
+The utterances extension integrates with [utterances](https://utteranc.es/), it is disabled by default. Use the following configuration to enable it:
+
+```ini
+[extension.utterances]
+ENABLED = true
+; The GitHub repository
+REPO = owner/repo
+; The issue mapping pattern
+ISSUE_TERM = pathname
+; The issue label for comments
+LABEL = utterances
+; The theme of the component
+THEME = github-light
+```

@@ -150,6 +150,17 @@
                 </script>
               {{end}}
 
+              {{if .Extension.Utterances.Enabled}}
+                <script src="https://utteranc.es/client.js"
+                  repo="{{.Extension.Utterances.Repo}}"
+                  issue-term="{{.Extension.Utterances.IssueTerm}}"
+                  label="{{.Extension.Utterances.Label}}"
+                  theme="{{.Extension.Utterances.Theme}}"
+                  crossorigin="anonymous"
+                  async>
+                </script>
+              {{end}}
+
               <div class="pt-10 pb-28 border-t border-slate-200 sm:flex justify-between text-slate-500 dark:border-slate-200/5">
                 <div class="mb-6 sm:mb-0 sm:flex">
                   <p>

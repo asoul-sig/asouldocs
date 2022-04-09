@@ -70,6 +70,13 @@ var (
 			Enabled   bool
 			Shortname string
 		}
+		Utterances struct {
+			Enabled   bool
+			Repo      string
+			IssueTerm string
+			Label     string
+			Theme     string
+		}
 	}
 )
 

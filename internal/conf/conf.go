@@ -87,6 +87,8 @@ func Init(customConf string) (err error) {
 		return errors.Wrap(err, "mapping [extension.google_analytics] section")
 	} else if err = File.Section("extension.disqus").MapTo(&Extension.Disqus); err != nil {
 		return errors.Wrap(err, "mapping [extension.disqus] section")
+	} else if err = File.Section("extension.utterances").MapTo(&Extension.Utterances); err != nil {
+		return errors.Wrap(err, "mapping [extension.utterances] section")
 	}
 
 	Page.DocsBasePath = strings.TrimRight(Page.DocsBasePath, "/")
