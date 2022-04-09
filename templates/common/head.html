@@ -16,5 +16,16 @@
     </script>
   {{end}}
 
+  {{if .Extension.GoogleAnalytics.Enabled}}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{.Extension.GoogleAnalytics.MeasurementID}}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '{{.Extension.GoogleAnalytics.MeasurementID}}');
+    </script>
+  {{end}}
+
   <title>{{.Title}}</title>
 </head>

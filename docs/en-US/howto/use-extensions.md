@@ -14,3 +14,14 @@ ENABLED = true
 ; The optional value to be specified for the "data-domain" attribute
 DOMAIN =
 ```
+
+## Google Analytics
+
+The Google Analytics extension integrates with [Google Analytics 4](https://developers.google.com/analytics/devguides/collection/ga4), it is disabled by default. Use the following configuration to enable it:
+
+```ini
+[extension.google_analytics]
+ENABLED = false
+; The measurement ID of your property
+MEASUREMENT_ID = G-VXXXYYYYZZ
+```

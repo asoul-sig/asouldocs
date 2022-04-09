@@ -39,14 +39,6 @@ var (
 		HasLandingPage  bool
 		DocsBasePath    string
 		CustomDirectory string
-
-		// todo
-		// NavbarTplPath  string
-		// HomeTplPath    string
-		// DocsTplPath    string
-		// FooterTplPath  string
-		// DisqusTplPath  string
-		// DuoShuoTplPath string
 	}
 
 	// I18n settings
@@ -69,6 +61,10 @@ var (
 		Plausible struct {
 			Enabled bool
 			Domain  string
+		}
+		GoogleAnalytics struct {
+			Enabled       bool
+			MeasurementID string `ini:"MEASUREMENT_ID"`
 		}
 	}
 )
