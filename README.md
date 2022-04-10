@@ -4,7 +4,7 @@
 <div align="center">
   <a href="https://sourcegraph.com/github.com/asoul-sig/asouldocs"><img src="https://img.shields.io/badge/view%20on-Sourcegraph-brightgreen.svg?style=for-the-badge&logo=sourcegraph" alt="Sourcegraph"></a>
 
-  _**ASoulDocs**_ is a web server for multilingual, real-time synchronized and searchable documentation.
+  _**ASoulDocs**_ is a stupid web server for multilingual documentation.
 </div>
 
 ### 🚧 The `main` branch is undergoing heavy refactoring. Meanwhile, please use artifacts from [GitHub releases](https://github.com/asoul-sig/asouldocs/releases) directly.

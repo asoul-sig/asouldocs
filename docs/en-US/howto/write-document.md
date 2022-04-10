@@ -11,7 +11,7 @@ Here is an simple example:
 title: Introduction
 ---
 
-_**ASoulDocs**_ is a web server for multilingual, real-time synchronized and searchable documentation.
+_**ASoulDocs**_ is a stupid web server for multilingual documentation.
 ```
 
 ### Frontmatter

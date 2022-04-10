@@ -2,7 +2,7 @@
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
 
-// ASoulDocs is a web server for multilingual, real-time synchronized and searchable documentation.
+// ASoulDocs is a stupid web server for multilingual documentation.
 package main
 
 import (
