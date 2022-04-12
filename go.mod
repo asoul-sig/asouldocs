@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/abhinav/goldmark-toc v0.2.1
-	github.com/flamego/flamego v1.1.0
+	github.com/flamego/flamego v1.2.0
 	github.com/flamego/i18n v1.0.0
 	github.com/flamego/template v1.0.0
 	github.com/gogs/git-module v1.6.0

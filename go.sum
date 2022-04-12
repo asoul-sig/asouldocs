@@ -19,8 +19,8 @@ github.com/fatih/color v1.10.0/go.mod h1:ELkj/draVOlAH/xkhN6mQ50Qd0MPOk5AAr3maGE
 github.com/fatih/color v1.13.0 h1:8LOYc1KYPPmyKMuN8QV2DNRWNbLo6LZ0iLs8+mlH53w=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
 github.com/flamego/flamego v1.0.0/go.mod h1:apiAxIxeHujHFX4Yr0BHmQFJuZUM07XztdQSChbeuPw=
-github.com/flamego/flamego v1.1.0 h1:D45+NhUWnCeg4gQ+b28HwFds7rGCK7OyX+Nnqq/Y+Yc=
-github.com/flamego/flamego v1.1.0/go.mod h1:sMqWT2ONQkZsCHte/k8hYmfnbbLgnfv7lL+VJpfv+EU=
+github.com/flamego/flamego v1.2.0 h1:Hy0JOOLJcasqJQ1J1e8kmCxPJ2OqNYeRy8NgUDnntTY=
+github.com/flamego/flamego v1.2.0/go.mod h1:0LXdtkBqv4Gob5nQ/fhB25d5GH8/PW/bVpJRDDt+8VI=
 github.com/flamego/i18n v1.0.0 h1:+tQm725iVvPBnAsGV9d43CI58E1kPOcK7/NvKicQy2c=
 github.com/flamego/i18n v1.0.0/go.mod h1:OA0lpTJ6MldKWyRMcqqDlWMAgGwRmcWY48fVLZ6y/wc=
 github.com/flamego/template v1.0.0 h1:geUpBq+j0L2Wp+AuAQ7QxpZedRwG/EeYFZJ4llkPmA4=
