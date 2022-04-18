@@ -1,5 +1,12 @@
 version: '3'
 
+vars:
+  PKG_PATH: github.com/asoul-sig/asouldocs/internal/conf
+  BUILD_TIME:
+    sh: date -u '+%Y-%m-%d %I:%M:%S %Z'
+  BUILD_COMMIT:
+    sh: git rev-parse HEAD
+
 tasks:
   web:
     desc: Build the binary and start the web server
@@ -13,15 +20,8 @@ tasks:
       - go build -v
         -ldflags '
         -X "{{.PKG_PATH}}.BuildTime={{.BUILD_TIME}}"
-        -X "{{.PKG_PATH}}.BuildCommit={{.BUILD_COMMIT}}"
-        '
+        -X "{{.PKG_PATH}}.BuildCommit={{.BUILD_COMMIT}}"'
         -trimpath -o asouldocs
-    vars:
-      PKG_PATH: github.com/asoul-sig/asouldocs/internal/conf
-      BUILD_TIME:
-        sh: date -u '+%Y-%m-%d %I:%M:%S %Z'
-      BUILD_COMMIT:
-        sh: git rev-parse HEAD
     sources:
       - main.go
       - internal/**/*.go
@@ -35,14 +35,16 @@ tasks:
     desc: Cleans up system meta files
     cmds:
       - find . -name "*.DS_Store" -type f -delete
+      - rm asouldocs_* checksum_sha256.txt
 
   release:
     desc: Build the binaries and pack resources to ZIP archives
     cmds:
-      - env GOOS=darwin GOARCH=amd64 go build -o asouldocs; tar czf darwin_amd64.tar.gz asouldocs
-      - env GOOS=darwin GOARCH=arm64 go build -o asouldocs; tar czf darwin_arm64.tar.gz asouldocs
-      - env GOOS=linux GOARCH=amd64 go build -o asouldocs; tar czf linux_amd64.tar.gz asouldocs
-      - env GOOS=linux GOARCH=386 go build -o asouldocs; tar czf linux_386.tar.gz asouldocs
-      - env GOOS=linux GOARCH=arm go build -o asouldocs; tar czf linux_arm.tar.gz asouldocs
-      - env GOOS=windows GOARCH=amd64 go build -o asouldocs.exe; tar czf windows_amd64.tar.gz asouldocs
-      - env GOOS=windows GOARCH=386 go build -o asouldocs.exe; tar czf windows_386.tar.gz asouldocs
+      - env GOOS=darwin GOARCH=amd64 go build -ldflags '-X "{{.PKG_PATH}}.BuildTime={{.BUILD_TIME}}" -X "{{.PKG_PATH}}.BuildCommit={{.BUILD_COMMIT}}" -X "{{.PKG_PATH}}.BuildVersion={{.BUILD_VERSION}}"' -trimpath -o asouldocs; tar czf asouldocs_{{.BUILD_VERSION}}_darwin_amd64.tar.gz asouldocs
+      - env GOOS=darwin GOARCH=arm64 go build -ldflags '-X "{{.PKG_PATH}}.BuildTime={{.BUILD_TIME}}" -X "{{.PKG_PATH}}.BuildCommit={{.BUILD_COMMIT}}" -X "{{.PKG_PATH}}.BuildVersion={{.BUILD_VERSION}}"' -trimpath -o asouldocs; tar czf asouldocs_{{.BUILD_VERSION}}_darwin_arm64.tar.gz asouldocs
+      - env GOOS=linux GOARCH=amd64 go build -ldflags '-X "{{.PKG_PATH}}.BuildTime={{.BUILD_TIME}}" -X "{{.PKG_PATH}}.BuildCommit={{.BUILD_COMMIT}}" -X "{{.PKG_PATH}}.BuildVersion={{.BUILD_VERSION}}"' -trimpath -o asouldocs; tar czf asouldocs_{{.BUILD_VERSION}}_linux_amd64.tar.gz asouldocs
+      - env GOOS=linux GOARCH=386 go build -ldflags '-X "{{.PKG_PATH}}.BuildTime={{.BUILD_TIME}}" -X "{{.PKG_PATH}}.BuildCommit={{.BUILD_COMMIT}}" -X "{{.PKG_PATH}}.BuildVersion={{.BUILD_VERSION}}"' -trimpath -o asouldocs; tar czf asouldocs_{{.BUILD_VERSION}}_linux_386.tar.gz asouldocs
+      - env GOOS=linux GOARCH=arm go build -ldflags '-X "{{.PKG_PATH}}.BuildTime={{.BUILD_TIME}}" -X "{{.PKG_PATH}}.BuildCommit={{.BUILD_COMMIT}}" -X "{{.PKG_PATH}}.BuildVersion={{.BUILD_VERSION}}"' -trimpath -o asouldocs; tar czf asouldocs_{{.BUILD_VERSION}}_linux_arm.tar.gz asouldocs
+      - env GOOS=windows GOARCH=amd64 go build -ldflags '-X "{{.PKG_PATH}}.BuildTime={{.BUILD_TIME}}" -X "{{.PKG_PATH}}.BuildCommit={{.BUILD_COMMIT}}" -X "{{.PKG_PATH}}.BuildVersion={{.BUILD_VERSION}}"' -trimpath -o asouldocs.exe; tar czf asouldocs_{{.BUILD_VERSION}}_windows_amd64.tar.gz asouldocs
+      - env GOOS=windows GOARCH=386 go build -ldflags '-X "{{.PKG_PATH}}.BuildTime={{.BUILD_TIME}}" -X "{{.PKG_PATH}}.BuildCommit={{.BUILD_COMMIT}}" -X "{{.PKG_PATH}}.BuildVersion={{.BUILD_VERSION}}"' -trimpath -o asouldocs.exe; tar czf asouldocs_{{.BUILD_VERSION}}_windows_386.tar.gz asouldocs
+      - shasum -a 256 asouldocs_* >> checksum_sha256.txt

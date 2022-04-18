@@ -8,8 +8,9 @@ package conf
 //
 // ⚠️ WARNING: should only be set by "-ldflags".
 var (
-	BuildTime   string
-	BuildCommit string
+	BuildVersion string
+	BuildTime    string
+	BuildCommit  string
 )
 
 var (

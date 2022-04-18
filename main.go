@@ -21,6 +21,9 @@ func init() {
 
 func main() {
 	version := conf.App.Version
+	if conf.BuildVersion != "" {
+		version = conf.BuildVersion
+	}
 	if conf.BuildCommit != "" {
 		version += "-" + conf.BuildCommit
 	}
