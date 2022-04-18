@@ -7,11 +7,17 @@
   _**ASoulDocs**_ is a stupid web server for multilingual documentation.
 </div>
 
-### 🚧 The `main` branch is undergoing heavy refactoring. Meanwhile, please use artifacts from [GitHub releases](https://github.com/asoul-sig/asouldocs/releases) directly.
+## Features
 
-|Light|Dark|
-|:---:|:---:|
-|![](https://user-images.githubusercontent.com/2946214/160249262-4d8a04e0-575f-4421-9d06-d2f6c9153bba.png)|![](https://user-images.githubusercontent.com/2946214/160249274-22c16a3e-4a46-45f2-bd7d-ee219929f038.png)|
+- Multilingual documentation with [language fallback](https://asouldocs.dev/docs/howto/set-up-documentation#localization-configuration)
+- Builtin [push-to-sync through webhook](https://asouldocs.dev/docs/howto/sync-through-webhook)
+- Integrated [commenting systems and analytics platforms](https://asouldocs.dev/docs/howto/use-extensions)
+- Automatic dark mode
+- Fully [customizable look and feel](https://asouldocs.dev/docs/howto/customize-templates)
+
+## Getting help
+
+- Please [file an issue](https://github.com/asoul-sig/asouldocs/issues) or [start a discussion](https://github.com/asoul-sig/asouldocs/discussions) if you want to reach out.
 
 ## License
 
