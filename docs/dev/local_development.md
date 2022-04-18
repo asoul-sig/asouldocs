@@ -20,16 +20,13 @@ _**ASoulDocs**_ has the following dependencies:
 
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) (v2 or higher)
 - [Go](https://go.dev/doc/install) (v1.17 or higher)
-- [Tailwind CLI](https://tailwindcss.com/docs/installation) (v3)
 - [Task](https://taskfile.dev/) (v3)
 
 1. Install [Homebrew](https://brew.sh/).
 1. Install dependencies:
 
     ```bash
-    brew install go git npm go-task/tap/go-task
-    npm install -D tailwindcss
-    npx tailwindcss init
+    brew install go git go-task/tap/go-task
     ```
 
 ## Step 2: Get the code
@@ -52,12 +49,6 @@ The following command will start the web server and automatically recompile and 
 
 ```bash
 task web --watch
-```
-
-In a separate window, start Tailwind CLI:
-
-```bash
-npx tailwindcss -i ./src/main.css -o ./public/css/main.css --watch
 ```
 
 ## Other nice things
