@@ -155,7 +155,7 @@ func newIDs() parser.IDs {
 	}
 }
 
-func (s *ids) Generate(value []byte, kind ast.NodeKind) ( []byte) {
+func (s *ids) Generate(value []byte, kind ast.NodeKind) []byte {
 	value = util.TrimLeftSpace(value)
 	value = util.TrimRightSpace(value)
 	if len(value) == 0 {
