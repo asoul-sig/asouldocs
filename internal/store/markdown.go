@@ -6,6 +6,7 @@ package store
 
 import (
 	"bytes"
+	"fmt"
 	"net/url"
 	"os"
 	"path"
@@ -21,6 +22,7 @@ import (
 	"github.com/yuin/goldmark/parser"
 	goldmarkhtml "github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
+	"github.com/yuin/goldmark/util"
 )
 
 func convertFile(pathPrefix, file string) (content []byte, meta map[string]any, headings goldmarktoc.Items, err error) {
@@ -50,7 +52,11 @@ func convertFile(pathPrefix, file string) (content []byte, meta map[string]any, 
 		),
 	)
 
-	ctx := parser.NewContext()
+	ctx := parser.NewContext(
+		func(cfg *parser.ContextConfig) {
+			cfg.IDs = newIDs()
+		},
+	)
 	doc := md.Parser().Parse(text.NewReader(body), parser.WithContext(ctx))
 
 	// Headings
@@ -134,4 +140,44 @@ func inspectLinks(pathPrefix string, doc ast.Node) error {
 		link.Destination = convertRelativeLink(pathPrefix, link.Destination)
 		return ast.WalkSkipChildren, nil
 	})
+}
+
+// ids is a modified version to allow any non-whitespace characters instead of
+// just alphabets or numerics from
+// https://github.com/yuin/goldmark/blob/113ae87dd9e662b54012a596671cb38f311a8e9c/parser/parser.go#L65.
+type ids struct {
+	values map[string]bool
+}
+
+func newIDs() parser.IDs {
+	return &ids{
+		values: map[string]bool{},
+	}
+}
+
+func (s *ids) Generate(value []byte, kind ast.NodeKind) ( []byte) {
+	value = util.TrimLeftSpace(value)
+	value = util.TrimRightSpace(value)
+	if len(value) == 0 {
+		if kind == ast.KindHeading {
+			value = []byte("heading")
+		} else {
+			value = []byte("id")
+		}
+	}
+	if _, ok := s.values[util.BytesToReadOnlyString(value)]; !ok {
+		s.values[util.BytesToReadOnlyString(value)] = true
+		return value
+	}
+	for i := 1; ; i++ {
+		newResult := fmt.Sprintf("%s-%d", value, i)
+		if _, ok := s.values[newResult]; !ok {
+			s.values[newResult] = true
+			return []byte(newResult)
+		}
+	}
+}
+
+func (s *ids) Put(value []byte) {
+	s.values[util.BytesToReadOnlyString(value)] = true
 }
