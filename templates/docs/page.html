@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="[--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem]">
   {{template "common/head" .}}
-  <body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
+  <body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900" x-data="{ showNavbar: false }">
     <div class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
       <div class="max-w-8xl mx-auto">
         <div class="py-4 border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-slate-300/10 mx-4 lg:mx-0">
@@ -20,6 +20,23 @@
             </div>
           </div>
         </div>
+        <div class="flex items-center p-4 border-b border-slate-900/10 lg:hidden dark:border-slate-50/[0.06]">
+          <button type="button" class="text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300" @click="showNavbar = true">
+            <span class="sr-only">Navigation</span>
+            <svg width="24" height="24">
+              <path d="M5 6h14M5 12h14M5 18h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </button>
+          <ol class="ml-4 flex text-sm leading-6 whitespace-nowrap min-w-0">
+            {{if .Node.Category}}
+              <li class="flex items-center">
+                {{.Node.Category}}
+                <svg width="3" height="6" aria-hidden="true" class="mx-3 overflow-visible text-slate-400"><path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+              </li>
+            {{end}}
+            <li class="font-semibold text-slate-900 truncate dark:text-slate-200">{{.Node.Title}}</li>
+          </ol>
+        </div>
       </div>
     </div>
     <div class="overflow-hidden">
@@ -27,7 +44,6 @@
         <div class="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19.5rem] pb-10 px-8 overflow-y-auto">
           <nav id="nav" class="lg:text-sm lg:leading-6 relative">
             <div class="sticky top-0 -ml-0.5 pointer-events-none">
-              <div class="h-3 bg-white dark:bg-slate-900"></div>
               <!-- <div class="bg-white dark:bg-slate-900 relative pointer-events-auto">
                 <button type="button" class="hidden w-full lg:flex items-center text-sm leading-6 text-slate-400 rounded-md ring-1 ring-slate-900/10 shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-300 dark:bg-slate-800 dark:highlight-white/5 dark:hover:bg-slate-700">
                   <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-3 flex-none">
@@ -39,45 +55,16 @@
               </div> -->
               <div class="h-8 bg-gradient-to-b from-white dark:from-slate-900"></div>
             </div>
-            <ul>
-              {{range .TOC.Nodes}}
-                <li class="mt-8 lg:mt-4">
-                  <h5 class="mb-8 lg:mb-3 font-semibold">
-                    {{if .Content}}
-                      <a class="block text-sky-600 dark:text-sky-500" href="{{$.Page.DocsBasePath}}/{{.Path}}">{{.Title}}</a>
-                    {{else}}
-                      <span class="text-slate-900 dark:text-slate-200">{{.Title}}</span>
-                    {{end}}
-                  </h5>
-                  {{if .Nodes}}
-                    <ul class="space-y-6 lg:space-y-2 border-l border-slate-100 dark:border-slate-800">
-                      {{range .Nodes}}
-                        <li>
-                          {{if eq $.Current .Path}}
-                            <a class="block border-l pl-4 -ml-px text-sky-500 border-current font-semibold dark:text-sky-400" href="{{$.Page.DocsBasePath}}/{{.Path}}">
-                              {{.Title}}
-                            </a>
-                          {{else}}
-                            <a class="block border-l pl-4 -ml-px border-transparent hover:border-slate-400 dark:hover:border-slate-500 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300" href="{{$.Page.DocsBasePath}}/{{.Path}}">
-                              {{.Title}}
-                            </a>
-                          {{end}}
-                        </li>
-                      {{end}}
-                    </ul>
-                  {{end}}
-                </li>
-              {{end}}
-            </ul>
+            {{template "docs/navbar" .}}
           </nav>
         </div>
         <div class="lg:pl-[19.5rem]">
           <div class="max-w-3xl mx-auto pt-10 xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16">
             <header id="header" class="relative z-20">
               <div>
-                {{if not .Category}}
-                  <p class="mb-2 text-sm leading-6 font-semibold text-sky-500 dark:text-sky-400">
-                    {{.Category}}
+                {{if .Node.Category}}
+                  <p class="hidden lg:block mb-2 text-sm leading-6 font-semibold text-sky-500 dark:text-sky-400">
+                    {{.Node.Category}}
                   </p>
                 {{end}}
                 {{if .Fallback}}
@@ -225,6 +212,19 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="fixed z-50 inset-0 overflow-y-auto" style="display: none" x-show="showNavbar">
+      <div class="fixed inset-0 bg-black/20 backdrop-blur-sm dark:bg-slate-900/80" id="headlessui-dialog-overlay-15" aria-hidden="true"></div>
+      <div class="relative bg-white w-80 max-w-[calc(100%-3rem)] p-6 dark:bg-slate-800">
+        <button type="button" class="absolute z-10 top-5 right-5 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300" tabindex="0" @click="showNavbar = false">
+          <span class="sr-only">Close navigation</span>
+          <svg viewBox="0 0 10 10" class="w-2.5 h-2.5 overflow-visible">
+            <path d="M0 0L10 10M10 0L0 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </button>
+        {{template "docs/navbar" .}}
       </div>
     </div>
   </body>

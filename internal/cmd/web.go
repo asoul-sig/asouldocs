@@ -182,7 +182,7 @@ func runWeb(ctx *cli.Context) {
 				blob := strings.TrimPrefix(node.LocalPath, docstore.RootDir()+"/")
 				data["EditLink"] = strings.Replace(conf.Docs.EditPageLinkFormat, "{blob}", blob, 1)
 			}
-			t.HTML(http.StatusOK, "docs")
+			t.HTML(http.StatusOK, "docs/page")
 		},
 	)
 	f.Any("/webhook", func(w http.ResponseWriter) {
