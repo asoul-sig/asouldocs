@@ -227,5 +227,17 @@
         {{template "docs/navbar" .}}
       </div>
     </div>
+
+    <script>
+      // Wrap all <table> with a <div> to be able to have "overflow-y: auto"
+      document.querySelectorAll('table').forEach(
+        function(table) {
+          var div = document.createElement('div');
+          div.style.overflowY = 'auto';
+          table.parentNode.insertBefore(div, table);
+          div.appendChild(table);
+        }
+      );
+    </script>
   </body>
 </html>
