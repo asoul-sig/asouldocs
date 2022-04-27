@@ -21,7 +21,7 @@ The `--config` (or `-c`) CLI flag can be used to specify a configuration file th
 
 Template files are [Go HTML templates](https://pkg.go.dev/html/template) used to render different pages served by the server.
 
-Every server comes with a set of [builtin template files](https://github.com/asoul-sig/asouldocs/tree/main/templates) that works out-of-the-box. However, the content of builtin template files are probably not what you would want for your documentation in most cases, at least for `home.html` and `navbar.html`.
+Every server comes with a set of [builtin template files](https://github.com/asoul-sig/asouldocs/tree/main/templates) that works out-of-the-box. However, the content of builtin template files are probably not what you would want for your documentation in most cases, at least for `home.html` and `common/navbar.html`.
 
 Luckily, you can overwrite these template files by placing your template files with same file name under the `custom/templates` directory.
 

@@ -30,7 +30,6 @@ next:
   link: the relative path to the page
 ```
 
-
 - Only the `title` field is required, others all have reasonable default.
 - The `link` syntax of both `previous` and `next` sections is exactly same as described in [Links and images](#links-and-images).
 
