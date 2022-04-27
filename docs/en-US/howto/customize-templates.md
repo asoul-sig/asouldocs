@@ -2,9 +2,9 @@
 title: Customize templates
 ---
 
-Every [template file](set-up-documentation.md#template-files) can be customized through overloading, and custom template files should be placed under the `custom/templates` directory (the path of direcotry can be changed via `[page] CUSTOM_DIRECTORY`).
+Every [template file](set-up-documentation.md#template-files) can be customized through overwrite, and custom template files should be placed under the `custom/templates` directory (the path of direcotry can be changed via `[page] CUSTOM_DIRECTORY`).
 
-It is only recommended to customize the `home.html` and `navbar.html` files to maintain the maximum backward compatibility.
+It is only recommended to customize the `home.html` and `common/navbar.html` files to maintain the maximum backward compatibility.
 
 ## UI framework
 
