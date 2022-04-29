@@ -20,7 +20,7 @@ The following table illustrates the features (that we care) comparisons between 
 |Self-hosted                  | ✅ | ✅ | ✅ | ✅ | ❌ |
 |Multilingual<sup>1</sup>     | ✅ | ✅ | ✅ | ✅ | ❌ |
 |Builtin push-to-sync         | ✅ | ❌ | ❌ | ❌ | ✅ |
-|Algolia search               | 🎯 | ❌ | ✅ | ✅ | ❌ |
+|DocSearch                    | 🎯 | ❌ | ✅ | ✅ | ❌ |
 |Builtin search               | 🎯 | ✅ | ❌ | ✅ | ✅ |
 |Commenting system            | ✅ | ❌ | ✅ | ❌ | ❌ |
 |Versionable                  | 🎯 | ❌ | ❌ | ❌ | ❌ |
