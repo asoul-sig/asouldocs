@@ -3,8 +3,9 @@ github.com/abhinav/goldmark-toc v0.2.1 h1:QJsKKGbdVeCWYMB11hSkNuZLuIzls7Y4KBZfwT
 github.com/abhinav/goldmark-toc v0.2.1/go.mod h1:aq1IZ9qN85uFYpowec98iJrFkEHYT4oeFD1SC0qd8d0=
 github.com/alecthomas/chroma v0.10.0 h1:7XDcGkCQopCNKjZHfYrNLraA+M7e0fMiJ/Mfikbfjek=
 github.com/alecthomas/chroma v0.10.0/go.mod h1:jtJATyUxlIORhUOFNA9NZDWGAQ8wpxQQqNSB4rjA/1s=
-github.com/alecthomas/participle/v2 v2.0.0-alpha7 h1:cK4vjj0VSgb3lN1nuKA5F7dw+1s1pWBe5bx7nNCnN+c=
 github.com/alecthomas/participle/v2 v2.0.0-alpha7/go.mod h1:NumScqsC42o9x+dGj8/YqsIfhrIQjFEOFovxotbBirA=
+github.com/alecthomas/participle/v2 v2.0.0-alpha8 h1:X6nuChfgfQXNTE+ZdjTFSfnSNr8E07LSVLAqIIjtsGI=
+github.com/alecthomas/participle/v2 v2.0.0-alpha8/go.mod h1:NumScqsC42o9x+dGj8/YqsIfhrIQjFEOFovxotbBirA=
 github.com/alecthomas/repr v0.0.0-20181024024818-d37bc2a10ba1 h1:GDQdwm/gAcJcLAKQQZGOJ4knlw+7rfEQQcmwTbt4p5E=
 github.com/alecthomas/repr v0.0.0-20181024024818-d37bc2a10ba1/go.mod h1:xTS7Pm1pD1mvyM075QCDSRqH6qRLXylzS24ZTpRiSzQ=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d h1:U+s90UTSYgptZMwQh2aRr3LuazLJIa+Pg3Kc1ylSYVY=
@@ -19,8 +20,8 @@ github.com/fatih/color v1.10.0/go.mod h1:ELkj/draVOlAH/xkhN6mQ50Qd0MPOk5AAr3maGE
 github.com/fatih/color v1.13.0 h1:8LOYc1KYPPmyKMuN8QV2DNRWNbLo6LZ0iLs8+mlH53w=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
 github.com/flamego/flamego v1.0.0/go.mod h1:apiAxIxeHujHFX4Yr0BHmQFJuZUM07XztdQSChbeuPw=
-github.com/flamego/flamego v1.2.0 h1:Hy0JOOLJcasqJQ1J1e8kmCxPJ2OqNYeRy8NgUDnntTY=
-github.com/flamego/flamego v1.2.0/go.mod h1:0LXdtkBqv4Gob5nQ/fhB25d5GH8/PW/bVpJRDDt+8VI=
+github.com/flamego/flamego v1.2.1 h1:ciD/vbU5i4rqLNgiFi5k9DlRTkBoqxwoSfsVIW0DVJ0=
+github.com/flamego/flamego v1.2.1/go.mod h1:+IH7qKyf91jO58b9ighkNCA0RGV8kM0dR80cz+u9g58=
 github.com/flamego/i18n v1.0.0 h1:+tQm725iVvPBnAsGV9d43CI58E1kPOcK7/NvKicQy2c=
 github.com/flamego/i18n v1.0.0/go.mod h1:OA0lpTJ6MldKWyRMcqqDlWMAgGwRmcWY48fVLZ6y/wc=
 github.com/flamego/template v1.0.0 h1:geUpBq+j0L2Wp+AuAQ7QxpZedRwG/EeYFZJ4llkPmA4=
