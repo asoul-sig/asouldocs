@@ -9,7 +9,7 @@
 
 ## Features
 
-- Multilingual documentation with [language fallback](https://asouldocs.dev/docs/howto/set-up-documentation#localization-configuration)
+- Multilingual documentation with [language fallback](https://asouldocs.dev/docs/howto/set-up-documentation#Localization%20configuration)
 - Builtin [push-to-sync through webhook](https://asouldocs.dev/docs/howto/sync-through-webhook)
 - Integrated [commenting systems and analytics platforms](https://asouldocs.dev/docs/howto/use-extensions)
 - Automatic dark mode
