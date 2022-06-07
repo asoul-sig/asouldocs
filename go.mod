@@ -9,7 +9,7 @@ require (
 	github.com/flamego/template v1.0.0
 	github.com/gogs/git-module v1.6.0
 	github.com/pkg/errors v0.9.1
-	github.com/stretchr/testify v1.7.1
+	github.com/stretchr/testify v1.7.2
 	github.com/urfave/cli v1.22.9
 	github.com/yuin/goldmark v1.4.12
 	github.com/yuin/goldmark-emoji v1.0.1
@@ -35,6 +35,6 @@ require (
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	unknwon.dev/i18n v1.0.0 // indirect
 )
