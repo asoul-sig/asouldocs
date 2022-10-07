@@ -16,7 +16,7 @@ HTTP_ADDR = 0.0.0.0
 
 ## Start the container
 
-You need to volumn the `custom` directory into the Docker container for it being able to start (`/app/asouldocs/custom` is the path inside the container):
+You need to volume the `custom` directory into the Docker container for it being able to start (`/app/asouldocs/custom` is the path inside the container):
 
 ```bash
 $ docker run \
