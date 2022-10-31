@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/abhinav/goldmark-toc v0.2.1
 	github.com/flamego/flamego v1.7.0
-	github.com/flamego/i18n v1.0.0
+	github.com/flamego/i18n v1.1.0
 	github.com/flamego/template v1.0.0
 	github.com/gogs/git-module v1.7.0
 	github.com/pkg/errors v0.9.1
@@ -32,9 +32,9 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/russross/blackfriday/v2 v2.0.1 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
-	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
+	golang.org/x/text v0.4.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	unknwon.dev/i18n v1.0.0 // indirect
+	unknwon.dev/i18n v1.0.1 // indirect
 )
