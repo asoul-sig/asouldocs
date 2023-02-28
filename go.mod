@@ -9,7 +9,7 @@ require (
 	github.com/flamego/template v1.1.0
 	github.com/gogs/git-module v1.8.1
 	github.com/pkg/errors v0.9.1
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 	github.com/urfave/cli v1.22.12
 	github.com/yuin/goldmark v1.5.4
 	github.com/yuin/goldmark-emoji v1.0.1
