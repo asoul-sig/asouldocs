@@ -14,10 +14,9 @@ Use the following command to check:
 
 ```bash
 $ go version
-go version go1.18 darwin/arm64
 ```
 
-The minimum requirement version of Go is **1.18**.
+The minimum requirement version of Go is **1.19**.
 
 Then build the binary:
 
