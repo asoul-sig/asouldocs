@@ -12,10 +12,9 @@ title: 下载安装
 
 ```bash
 $ go version
-go version go1.18 darwin/arm64
 ```
 
-最低的 Go 语言版本要求为 **1.18**。
+最低的 Go 语言版本要求为 **1.19**。
 
 然后通过以下命令构建二进制：
 

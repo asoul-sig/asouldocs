@@ -25,8 +25,8 @@ github.com/flamego/flamego v1.8.0 h1:I0NS27oRPb/5Xj3PHFh0jgF/zlJINjSytqNJOHs2wp0
 github.com/flamego/flamego v1.8.0/go.mod h1:UHOkOV4JuNTh/gB4OvlbeHCEPx9OmDe28oTI6vv+Ojk=
 github.com/flamego/i18n v1.1.0 h1:C6Dns0oq9QJeLV2QwRi1GiEsPf+Gq6oiykk5kwPS5JQ=
 github.com/flamego/i18n v1.1.0/go.mod h1:qzMYCxfenGkfFyM3ubygk8lpI3Pmv0A4JLIcQl1GXtY=
-github.com/flamego/template v1.1.0 h1:iYtCzY3TeYpsoQiGApFXw2qycKdMzimz2gkO/SlcksM=
-github.com/flamego/template v1.1.0/go.mod h1:bgnmEXNumarhQIUzFgn18CDG6u8cM6X09c7UOTwZcxM=
+github.com/flamego/template v1.2.0 h1:JtL/3/zqPT8k5q2cZWgcj26cROZQkS+tRl4fJ/UaTDI=
+github.com/flamego/template v1.2.0/go.mod h1:Q/VlrDuwdnje4pKaGQ40trC5MswXcOkAs5C6WiHS9zk=
 github.com/go-logfmt/logfmt v0.6.0 h1:wGYYu3uicYdqXVgoYbvnkrPVXkuLM1p1ifugDMEdRi4=
 github.com/go-logfmt/logfmt v0.6.0/go.mod h1:WYhtIu8zTZfxdn5+rREduYbwxfcBr/Vr6KEVveWlfTs=
 github.com/gogs/git-module v1.8.1 h1:yC5BZ3unJOXC8N6/FgGQ8EtJXpOd217lgDcd2aPOxkc=
@@ -68,8 +68,9 @@ github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81P
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
-github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
+github.com/stretchr/testify v1.8.2 h1:+h33VjcLVPDHtOdpUCuF+7gSuG3yGIftsP1YvFihtJ8=
+github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/urfave/cli v1.22.12 h1:igJgVw1JdKH+trcLWLeLwZjU9fEfPesQ+9/e4MQ44S8=
 github.com/urfave/cli v1.22.12/go.mod h1:sSBEIC79qR6OvcmsD4U3KABeOTxDqQtdDnaFuUN30b8=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
