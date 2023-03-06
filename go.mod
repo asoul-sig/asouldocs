@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/abhinav/goldmark-toc v0.2.1
-	github.com/flamego/flamego v1.8.0
+	github.com/flamego/flamego v1.8.1
 	github.com/flamego/i18n v1.1.0
 	github.com/flamego/template v1.2.0
 	github.com/gogs/git-module v1.8.1
@@ -23,7 +23,7 @@ require (
 	github.com/alecthomas/chroma v0.10.0 // indirect
 	github.com/alecthomas/participle/v2 v2.0.0-beta.5 // indirect
 	github.com/charmbracelet/lipgloss v0.6.0 // indirect
-	github.com/charmbracelet/log v0.1.1 // indirect
+	github.com/charmbracelet/log v0.1.2 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
