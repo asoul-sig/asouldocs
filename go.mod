@@ -1,6 +1,6 @@
 module github.com/asoul-sig/asouldocs
 
-go 1.18
+go 1.19
 
 require (
 	github.com/abhinav/goldmark-toc v0.2.1
