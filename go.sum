@@ -9,8 +9,8 @@ github.com/alecthomas/participle/v2 v2.0.0-beta.5/go.mod h1:RC764t6n4L8D8ITAJv0q
 github.com/alecthomas/repr v0.1.0 h1:ENn2e1+J3k09gyj2shc0dHr/yjaWSHRlrJ4DPMevDqE=
 github.com/charmbracelet/lipgloss v0.6.0 h1:1StyZB9vBSOyuZxQUcUwGr17JmojPNm87inij9N3wJY=
 github.com/charmbracelet/lipgloss v0.6.0/go.mod h1:tHh2wr34xcHjC2HCXIlGSG1jaDF0S0atAUvBMP6Ppuk=
-github.com/charmbracelet/log v0.1.1 h1:XBqTzrgT+7BenzFkb4DP3rt6VKLtx/zpgNMfJMAdbCc=
-github.com/charmbracelet/log v0.1.1/go.mod h1:nbG+jJlMwbPM8v2wFyPG6qCr9flLQ1XTS+fhzUWd6JE=
+github.com/charmbracelet/log v0.1.2 h1:xmKMxo0T/lcftgggQOhUkS32exku2/ID55FGYbr4nKQ=
+github.com/charmbracelet/log v0.1.2/go.mod h1:86XdIdmrubqtL/6u0z+jGFol1bQejBGG/qPSTwGZuQQ=
 github.com/cpuguy83/go-md2man/v2 v2.0.2 h1:p1EgwI/C7NhT0JmVkwCD2ZBK8j4aeHQX2pMHHBfMQ6w=
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -21,8 +21,8 @@ github.com/dlclark/regexp2 v1.4.0/go.mod h1:2pZnwuY/m+8K6iRw6wQdMtk+rH5tNGR1i55k
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
 github.com/fatih/color v1.13.0 h1:8LOYc1KYPPmyKMuN8QV2DNRWNbLo6LZ0iLs8+mlH53w=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
-github.com/flamego/flamego v1.8.0 h1:I0NS27oRPb/5Xj3PHFh0jgF/zlJINjSytqNJOHs2wp0=
-github.com/flamego/flamego v1.8.0/go.mod h1:UHOkOV4JuNTh/gB4OvlbeHCEPx9OmDe28oTI6vv+Ojk=
+github.com/flamego/flamego v1.8.1 h1:BDGHUVb8Li1rT6ykKPdzata15VpM7WAbDVhyMYJS00I=
+github.com/flamego/flamego v1.8.1/go.mod h1:4sxvFbXJVZX+7g5RXSxgZ6nzrIT0IfN6h+TJ7K5rHYc=
 github.com/flamego/i18n v1.1.0 h1:C6Dns0oq9QJeLV2QwRi1GiEsPf+Gq6oiykk5kwPS5JQ=
 github.com/flamego/i18n v1.1.0/go.mod h1:qzMYCxfenGkfFyM3ubygk8lpI3Pmv0A4JLIcQl1GXtY=
 github.com/flamego/template v1.2.0 h1:JtL/3/zqPT8k5q2cZWgcj26cROZQkS+tRl4fJ/UaTDI=
