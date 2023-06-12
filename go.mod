@@ -10,7 +10,7 @@ require (
 	github.com/gogs/git-module v1.8.2
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.4
-	github.com/urfave/cli v1.22.13
+	github.com/urfave/cli v1.22.14
 	github.com/yuin/goldmark v1.5.4
 	github.com/yuin/goldmark-emoji v1.0.1
 	github.com/yuin/goldmark-highlighting v0.0.0-20220208100518-594be1970594
