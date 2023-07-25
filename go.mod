@@ -6,7 +6,7 @@ require (
 	github.com/abhinav/goldmark-toc v0.2.1
 	github.com/flamego/flamego v1.9.1
 	github.com/flamego/i18n v1.1.0
-	github.com/flamego/template v1.2.1
+	github.com/flamego/template v1.2.2
 	github.com/gogs/git-module v1.8.2
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.8.4
@@ -24,7 +24,7 @@ require (
 	github.com/alecthomas/participle/v2 v2.0.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/charmbracelet/lipgloss v0.7.1 // indirect
-	github.com/charmbracelet/log v0.2.1 // indirect
+	github.com/charmbracelet/log v0.2.2 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
