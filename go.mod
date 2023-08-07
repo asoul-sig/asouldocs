@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/abhinav/goldmark-toc v0.2.1
-	github.com/flamego/flamego v1.9.1
+	github.com/flamego/flamego v1.9.2
 	github.com/flamego/i18n v1.1.0
 	github.com/flamego/template v1.2.2
 	github.com/gogs/git-module v1.8.2
@@ -24,7 +24,7 @@ require (
 	github.com/alecthomas/participle/v2 v2.0.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/charmbracelet/lipgloss v0.7.1 // indirect
-	github.com/charmbracelet/log v0.2.2 // indirect
+	github.com/charmbracelet/log v0.2.3 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
@@ -36,11 +36,11 @@ require (
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mcuadros/go-version v0.0.0-20190308113854-92cdf37c5b75 // indirect
 	github.com/muesli/reflow v0.3.0 // indirect
-	github.com/muesli/termenv v0.15.1 // indirect
+	github.com/muesli/termenv v0.15.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/sys v0.7.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
