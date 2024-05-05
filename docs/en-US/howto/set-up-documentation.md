@@ -130,7 +130,7 @@ LANGUAGES = en-US,zh-CN
 NAMES = English,简体中文
 ```
 
-The first language in the `LANGUAGES` is considered as the default language, and the server shows its content if the prefered language (from browser's `Accept-Language` request header) does not exists, or the particular document is not available in the prefered language (but available in the default language).
+The first language in the `LANGUAGES` is considered as the default language, and the server shows its content if the preferred language (from browser's `Accept-Language` request header) does not exists, or the particular document is not available in the preferred language (but available in the default language).
 
 If you are just writing documentation in English, you would need to overwrite the configuration as follows:
 
