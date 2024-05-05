@@ -4,9 +4,9 @@ title: Use extensions
 
 Every _**ASoulDocs**_ server comes with some builtin extensions, it's just few edits away to use them!
 
-## Plausbile
+## Plausible
 
-The Plausbile extension integrates with https://plausible.io/, it is disabled by default. Use the following configuration to enable it:
+The Plausible extension integrates with https://plausible.io/, it is disabled by default. Use the following configuration to enable it:
 
 ```ini
 [extension.plausible]
