@@ -9,3 +9,11 @@ updates:
       - "asoul-sig/core"
     commit-message:
       prefix: "mod:"
+  # Enable version updates for GitHub action workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    # Check for updates to GitHub Actions every weekday
+    schedule:
+      interval: "daily"
+      time: "19:00"
+    open-pull-requests-limit: 10
