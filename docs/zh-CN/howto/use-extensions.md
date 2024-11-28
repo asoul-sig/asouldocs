@@ -4,9 +4,9 @@ title: 使用扩展
 
 每个 _**一魂文档**_ 服务器都提供了一些极其便捷的内置扩展。
 
-## Plausbile
+## Plausible
 
-Plausbile 扩展用于集成 https://plausible.io/，可以通过如下配置启用：
+Plausible 扩展用于集成 https://plausible.io/，可以通过如下配置启用：
 
 ```ini
 [extension.plausible]
