@@ -46,7 +46,7 @@ Links to other documents or images just works like you would do in any editor (e
 
 The [alecthomas/chroma](https://github.com/alecthomas/chroma) is used to syntax highlighting your code blocks.
 
-Use name from its [supported languages](https://github.com/alecthomas/chroma#supported-languages) to specify the language of the code block, be sure to replace whitespaces with hyphenes (`-`) in the language name, e.g. use `go-html-template` not `go html template` (names are case insensitive).
+Use name from its [supported languages](https://github.com/alecthomas/chroma#supported-languages) to specify the language of the code block, be sure to replace whitespaces with hyphens (`-`) in the language name, e.g. use `go-html-template` not `go html template` (names are case insensitive).
 
 To enable line numbers and highlighting lines:
 
@@ -56,7 +56,7 @@ To enable line numbers and highlighting lines:
 
 ### Render caching
 
-Each documents is reloaded and re-rendered for every request if the server is running with `dev` envrionment, as defined in the [configuration file](set-up-documentation.md#configuration-file):
+Each documents is reloaded and re-rendered for every request if the server is running with `dev` environment, as defined in the [configuration file](set-up-documentation.md#configuration-file):
 
 ```ini
 ENV = dev
