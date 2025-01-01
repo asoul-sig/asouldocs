@@ -63,7 +63,7 @@ jobs:
             unknwon/asouldocs:latest
             ghcr.io/asoul-sig/asouldocs:latest
       - name: Send email on failure
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v4
         if: ${{ failure() }}
         with:
           server_address: smtp.mailgun.org
@@ -162,7 +162,7 @@ jobs:
             unknwon/asouldocs:${{ env.IMAGE_TAG }}
             ghcr.io/asoul-sig/asouldocs:${{ env.IMAGE_TAG }}
       - name: Send email on failure
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v4
         if: ${{ failure() }}
         with:
           server_address: smtp.mailgun.org
