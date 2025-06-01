@@ -5,13 +5,9 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    reviewers:
-      - "asoul-sig/core"
     commit-message:
       prefix: "mod:"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
-    reviewers:
-      - "asoul-sig/core"
