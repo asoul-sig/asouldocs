@@ -2,8 +2,6 @@
 ![ASoulDocs](https://user-images.githubusercontent.com/2946214/159929046-6f1eb4c1-53b5-40d5-b5a2-e7d805566e73.png#gh-dark-mode-only)
 
 <div align="center">
-  <a href="https://sourcegraph.com/github.com/asoul-sig/asouldocs"><img src="https://img.shields.io/badge/view%20on-Sourcegraph-brightgreen.svg?style=for-the-badge&logo=sourcegraph" alt="Sourcegraph"></a>
-
   _**ASoulDocs**_ is a stupid web server for multilingual documentation.
 </div>
 
