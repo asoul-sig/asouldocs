@@ -1,4 +1,4 @@
-FROM golang:alpine3.15 AS binarybuilder
+FROM golang:alpine3.21 AS binarybuilder
 RUN apk --no-cache --no-progress add --virtual \
     build-deps \
     build-base \
@@ -14,7 +14,7 @@ WORKDIR /dist
 COPY . .
 RUN task build
 
-FROM alpine:3.15
+FROM alpine:3.21
 RUN echo https://dl-cdn.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories \
   && apk --no-cache --no-progress add \
   ca-certificates \
